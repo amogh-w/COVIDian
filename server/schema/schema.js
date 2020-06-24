@@ -26,10 +26,24 @@ const SentimentType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
+    sentiment: {
+      type: SentimentType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return Sentiment.findById(args.id);
+      },
+    },
     sentiments: {
       type: GraphQLList(SentimentType),
+      args: { state: { type: GraphQLString }, city: { type: GraphQLString } },
       resolve(parent, args) {
-        return Sentiment.find({});
+        if (Object.keys(args).length === 0 && args.constructor === Object) {
+          return Sentiment.find({});
+        } else if ("state" in args) {
+          return Sentiment.find({ state: args.state });
+        } else if ("city" in args) {
+          return Sentiment.find({ city: args.city });
+        }
       },
     },
   },
