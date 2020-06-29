@@ -5,7 +5,7 @@ import { Divider, Hidden } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import MainListItems from './ListItems.component';
+import MainListItems from './ListItems.component.component';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 

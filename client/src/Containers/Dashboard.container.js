@@ -1,19 +1,15 @@
 import React from 'react'
-import DashboardView from '../Views/Dashboard.view'
-import SpinnerScreen from '../Components/spinnerScreen.component'
+import Dashboard from '../Components/DashboardLayout.component'
+import Typography from "@material-ui/core/Typography";
 
-const Dashboard = () => {
-    const [open, setOpen] = React.useState(false);
-    const [isLoading, setLoading] = React.useState(false)
-
+const Test = () => {
     return (
-        <>
-            <SpinnerScreen loading={isLoading} />
-            <DashboardView open={open} setOpen={setOpen}>
-                <h1>Hello</h1>
-            </DashboardView>
-        </>
+        <Dashboard>
+            <Typography variant="body2" color="secondary" align="center">
+                Hello
+            </Typography>
+        </Dashboard>
     )
 }
 
-export default React.memo(Dashboard)
+export default Test

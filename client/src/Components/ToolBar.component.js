@@ -4,9 +4,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import { Typography, Hidden } from '@material-ui/core';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+// import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles } from '@material-ui/core/styles';
+import Switch from "@material-ui/core/Switch";
 
 const ToolbarComponent = props => {
 	const drawerWidth = 240;
@@ -39,19 +40,9 @@ const ToolbarComponent = props => {
 		title: {
 			flexGrow: 1,
 		},
-		appBarSpacer: theme.mixins.toolbar,
-		content: {
-			flexGrow: 1,
-			height: '100vh',
-			overflow: 'auto',
-		},
-
 	}));
 
-	const handleLogout = () => {
-		localStorage.clear()
-	}
-
+	
 	const handleDrawerOpen = () => {
 		props.setOpen(true);
 	};
@@ -74,10 +65,8 @@ const ToolbarComponent = props => {
 				</Hidden>
 				<Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
 					Tweety
-        </Typography>
-				<IconButton color="inherit" onClick={() => handleLogout()}>
-					<ExitToAppIcon />
-				</IconButton>
+        		</Typography>
+				Dark Mode <Switch checked={props.darkState} onChange={props.handleThemeChange} />
 			</Toolbar>
 		</AppBar>
 	);
