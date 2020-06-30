@@ -1,5 +1,6 @@
 const graphql = require("graphql");
 const Sentiment = require("../models/sentiment");
+const GraphQLDateTime = require("graphql-type-datetime");
 
 const {
   GraphQLObjectType,
@@ -13,13 +14,16 @@ const SentimentType = new GraphQLObjectType({
   name: "Sentiment",
   fields: () => ({
     id: { type: GraphQLID },
+    date_time: { type: GraphQLDateTime },
+    tweet: { type: GraphQLString },
+    link: { type: GraphQLString },
     state: { type: GraphQLString },
     city: { type: GraphQLString },
-    anger: { type: GraphQLFloat },
-    disgust: { type: GraphQLFloat },
-    fear: { type: GraphQLFloat },
-    joy: { type: GraphQLFloat },
     sadness: { type: GraphQLFloat },
+    joy: { type: GraphQLFloat },
+    fear: { type: GraphQLFloat },
+    disgust: { type: GraphQLFloat },
+    anger: { type: GraphQLFloat },
   }),
 });
 

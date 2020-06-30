@@ -9,6 +9,7 @@
     "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^15.1.0",
+    "graphql-type-datetime": "^0.2.4",
     "mongoose": "^5.9.19",
     "nodemon": "^2.0.4"
   }
