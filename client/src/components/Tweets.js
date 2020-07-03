@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   Button,
+  TableContainer,
   Table,
   TableBody,
   TableCell,
@@ -19,7 +20,8 @@ const Tweets = () => {
     });
 
     fetch({
-      query: "{ sentiments { tweet link sadness joy fear disgust anger }}",
+      query:
+        "{ sentiments { tweet link state city sadness joy fear disgust anger }}",
     }).then((res) => {
       console.log(res.data);
       setData(res.data.sentiments);
@@ -28,12 +30,13 @@ const Tweets = () => {
 
   return (
     <div>
-      <p>Tweets</p>
-      <Grid item xs={12}>
+      <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Tweet</TableCell>
+              <TableCell>State</TableCell>
+              <TableCell>City</TableCell>
               <TableCell>Sadness</TableCell>
               <TableCell>Joy</TableCell>
               <TableCell>Fear</TableCell>
@@ -46,20 +49,21 @@ const Tweets = () => {
               return (
                 <TableRow>
                   <TableCell>
-                    {sentiment.tweet}
-                    {sentiment.link}
+                    {sentiment.tweet} | <a href={sentiment.link}>Link</a>
                   </TableCell>
-                  <TableCell>{sentiment.sadness}</TableCell>
-                  <TableCell>{sentiment.joy}</TableCell>
-                  <TableCell>{sentiment.fear}</TableCell>
-                  <TableCell>{sentiment.disgust}</TableCell>
-                  <TableCell>{sentiment.anger}</TableCell>
+                  <TableCell>{sentiment.state}</TableCell>
+                  <TableCell>{sentiment.city}</TableCell>
+                  <TableCell>{sentiment.sadness.toFixed(2)}</TableCell>
+                  <TableCell>{sentiment.joy.toFixed(2)}</TableCell>
+                  <TableCell>{sentiment.fear.toFixed(2)}</TableCell>
+                  <TableCell>{sentiment.disgust.toFixed(2)}</TableCell>
+                  <TableCell>{sentiment.anger.toFixed(2)}</TableCell>
                 </TableRow>
               );
             })}
           </TableBody>
         </Table>
-      </Grid>
+      </TableContainer>
     </div>
   );
 };
