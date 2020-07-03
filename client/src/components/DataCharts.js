@@ -3,46 +3,74 @@ import { Doughnut } from "react-chartjs-2";
 import { Radar } from "react-chartjs-2";
 
 const data = {
-  labels: ["Red", "Green", "Yellow"],
+  labels: ["sadness", "joy", "fear", "digust", "anger"],
   datasets: [
     {
-      data: [300, 50, 100],
-      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-      hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+      data: [0.21, 0.28, 0.07, 0.18, 0.15],
+      backgroundColor: ["#173F5F", "#F6D55C", "#20639B", "#3CAEA3", "#ED553B"],
+      hoverBackgroundColor: [
+        "#173F5F",
+        "#F6D55C",
+        "#20639B",
+        "#3CAEA3",
+        "#ED553B",
+      ],
     },
   ],
 };
 
 const data2 = {
-  labels: [
-    "Eating",
-    "Drinking",
-    "Sleeping",
-    "Designing",
-    "Coding",
-    "Cycling",
-    "Running",
-  ],
+  labels: ["sadness", "joy", "fear", "digust", "anger"],
   datasets: [
     {
-      label: "My First dataset",
+      label: "Mumbai",
       backgroundColor: "rgba(179,181,198,0.2)",
       borderColor: "rgba(179,181,198,1)",
       pointBackgroundColor: "rgba(179,181,198,1)",
       pointBorderColor: "#fff",
       pointHoverBackgroundColor: "#fff",
       pointHoverBorderColor: "rgba(179,181,198,1)",
-      data: [65, 59, 90, 81, 56, 55, 40],
+      data: [23, 28, 7, 18, 16],
     },
     {
-      label: "My Second dataset",
+      label: "Delhi",
       backgroundColor: "rgba(255,99,132,0.2)",
       borderColor: "rgba(255,99,132,1)",
       pointBackgroundColor: "rgba(255,99,132,1)",
       pointBorderColor: "#fff",
       pointHoverBackgroundColor: "#fff",
       pointHoverBorderColor: "rgba(255,99,132,1)",
-      data: [28, 48, 40, 19, 96, 27, 100],
+      data: [26, 28, 9, 19, 15],
+    },
+    {
+      label: "Hyderabad",
+      backgroundColor: "rgba(50, 210, 61,0.2)",
+      borderColor: "rgba(50, 210, 61,1)",
+      pointBackgroundColor: "rgba(50, 210, 61,1)",
+      pointBorderColor: "#fff",
+      pointHoverBackgroundColor: "#fff",
+      pointHoverBorderColor: "rgba(50, 210, 61,1)",
+      data: [18, 25, 7, 26, 16],
+    },
+    {
+      label: "Chennai",
+      backgroundColor: "rgba(5, 143, 255,0.2)",
+      borderColor: "rgba(5, 143, 255,1)",
+      pointBackgroundColor: "rgba(5, 143, 255,1)",
+      pointBorderColor: "#fff",
+      pointHoverBackgroundColor: "#fff",
+      pointHoverBorderColor: "rgba(5, 143, 255,1)",
+      data: [29, 21, 10, 15, 16],
+    },
+    {
+      label: "Kolkata",
+      backgroundColor: "rgba(255, 5, 247,0.2)",
+      borderColor: "rgba(255, 5, 247,1)",
+      pointBackgroundColor: "rgba(255, 5, 247,1)",
+      pointBorderColor: "#fff",
+      pointHoverBackgroundColor: "#fff",
+      pointHoverBorderColor: "rgba(255, 5, 247,1)",
+      data: [22, 24, 10, 20, 16],
     },
   ],
 };
