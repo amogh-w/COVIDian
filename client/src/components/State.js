@@ -114,8 +114,8 @@ const State = ({ selectedState }) => {
     centerMap = [78.5, 24];
   } else if (selectedState === "Maharashtra") {
     geoURL = maharashtra;
-    scaleMap = 3000;
-    centerMap = [76.8, 17.3];
+    scaleMap = 2000;
+    centerMap = [76.8, 18.5];
   } else if (selectedState === "Manipur") {
     geoURL = manipur;
     scaleMap = 3400;
@@ -193,12 +193,11 @@ const State = ({ selectedState }) => {
   };
   return (
     <div>
-      <p>State</p>
       <ComposableMap
         projectionConfig={PROJECTION_CONFIG}
         projection="geoMercator"
         width={500}
-        height={500}
+        height={300}
         data-tip=""
       >
         <Geographies geography={geoURL}>

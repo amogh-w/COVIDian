@@ -11,8 +11,7 @@ const StateInfo = (props) => {
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Paper style={{ padding: "10px", height: "80vh" }}>
-            <Typography>State Map Here</Typography>
+          <Paper style={{ padding: "10px" }}>
             <State selectedState={props.match.params.name} />
           </Paper>
           <Paper style={{ marginTop: "10px", padding: "10px", height: "40vh" }}>
