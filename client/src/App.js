@@ -12,7 +12,7 @@ const App = () => {
       <Container>
         <Paper style={{ padding: "10px", marginTop: "80px" }}>
           <Route path="/" exact component={CountryInfo} />
-          <Route path="/state" component={StateInfo} />
+          <Route path="/state/:name" component={StateInfo} />
         </Paper>
       </Container>
     </Router>

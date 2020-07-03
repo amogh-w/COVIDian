@@ -4,7 +4,9 @@ import DataCharts from "./DataCharts";
 import Tweets from "./Tweets";
 import State from "./State";
 
-const StateInfo = () => {
+const StateInfo = (props) => {
+  console.log(props.match.params.name);
+
   return (
     <div>
       <Grid container spacing={3}>

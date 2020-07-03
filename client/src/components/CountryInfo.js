@@ -18,7 +18,7 @@ const CountryInfo = () => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Paper style={{ padding: "10px", height: "83.6vh" }}>
-            <Typography>India Map here</Typography>
+            <Map />
           </Paper>
         </Grid>
       </Grid>
