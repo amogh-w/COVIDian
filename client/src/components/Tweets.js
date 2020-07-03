@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { createApolloFetch } from "apollo-fetch";
 
-const Tweets = () => {
+const Tweets = ({ selectedState }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -19,13 +19,22 @@ const Tweets = () => {
       uri: "http://localhost:5000/graphql",
     });
 
-    fetch({
-      query:
-        "{ sentiments { tweet link state city sadness joy fear disgust anger }}",
-    }).then((res) => {
-      console.log(res.data);
-      setData(res.data.sentiments);
-    });
+    if (selectedState) {
+      fetch({
+        query: `{ sentiments(state: "${selectedState}") { tweet link state city sadness joy fear disgust anger }}`,
+      }).then((res) => {
+        console.log(res.data);
+        setData(res.data.sentiments);
+      });
+    } else {
+      fetch({
+        query:
+          "{ sentiments { tweet link state city sadness joy fear disgust anger }}",
+      }).then((res) => {
+        console.log(res.data);
+        setData(res.data.sentiments);
+      });
+    }
   }, []);
 
   return (

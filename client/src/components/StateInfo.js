@@ -14,12 +14,12 @@ const StateInfo = (props) => {
           <Paper style={{ padding: "10px" }}>
             <State selectedState={props.match.params.name} />
           </Paper>
-          <Paper style={{ marginTop: "10px", padding: "10px", height: "40vh" }}>
+          <Paper style={{ marginTop: "10px", padding: "10px" }}>
             <Typography>Charts Here</Typography>
             <DataCharts type="radar" />
           </Paper>
-          <Paper style={{ marginTop: "10px", padding: "10px", height: "40vh" }}>
-            <Typography>Tweets Here</Typography>
+          <Paper style={{ marginTop: "10px", padding: "10px" }}>
+            <Tweets selectedState={props.match.params.name} />
           </Paper>
         </Grid>
       </Grid>
