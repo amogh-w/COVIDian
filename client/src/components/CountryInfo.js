@@ -9,19 +9,22 @@ const CountryInfo = () => {
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <Paper style={{ padding: "10px", height: "40vh" }}>
+          <Paper style={{ padding: "10px", height: "85vh" }}>
             <Typography>Charts Here</Typography>
-          </Paper>
-          <Paper style={{ marginTop: "10px", padding: "10px", height: "40vh" }}>
-            <Typography>Tweets Here</Typography>
+            <DataCharts type="doughnut" />
+            <DataCharts type="radar" />
           </Paper>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Paper style={{ padding: "10px", height: "83.6vh" }}>
+          <Paper style={{ padding: "10px", height: "85vh" }}>
             <Map />
           </Paper>
         </Grid>
       </Grid>
+      <Paper style={{ marginTop: "10px", padding: "10px" }}>
+        <Typography>Tweets Here</Typography>
+        <Tweets />
+      </Paper>
     </div>
   );
 };

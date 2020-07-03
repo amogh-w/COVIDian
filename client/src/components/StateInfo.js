@@ -17,6 +17,7 @@ const StateInfo = (props) => {
           </Paper>
           <Paper style={{ marginTop: "10px", padding: "10px", height: "40vh" }}>
             <Typography>Charts Here</Typography>
+            <DataCharts type="radar" />
           </Paper>
           <Paper style={{ marginTop: "10px", padding: "10px", height: "40vh" }}>
             <Typography>Tweets Here</Typography>

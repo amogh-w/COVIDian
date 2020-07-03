@@ -114,8 +114,8 @@ const State = ({ selectedState }) => {
     centerMap = [78.5, 24];
   } else if (selectedState === "Maharashtra") {
     geoURL = maharashtra;
-    scaleMap = 1000;
-    centerMap = [76.8, 19.3];
+    scaleMap = 3000;
+    centerMap = [76.8, 17.3];
   } else if (selectedState === "Manipur") {
     geoURL = manipur;
     scaleMap = 3400;
