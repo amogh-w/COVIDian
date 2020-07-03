@@ -1,8 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useEffect,useCallback } from "react";
 import ReactTooltip from "react-tooltip";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { scaleQuantile } from "d3-scale";
 import { useHistory } from "react-router-dom";
+import { createApolloFetch } from "apollo-fetch";
+import Select from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
+import FormControl from '@material-ui/core/FormControl';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const geoUrl =
   "https://raw.githubusercontent.com/varunon9/india-choropleth-javascript/master/src/india.topo.json";
@@ -50,6 +56,7 @@ const geographyStyle = {
 
 // will generate random heatmap data on every call
 const getHeatMapData = () => {
+  
   return [
     { id: "AP", state: "Andhra Pradesh", value: getRandomInt() },
     { id: "AR", state: "Arunachal Pradesh", value: getRandomInt() },
@@ -92,59 +99,79 @@ const getHeatMapData = () => {
   ];
 };
 
-const LinearGradient = (props) => {
-  const { data } = props;
-  const boxStyle = {
-    width: 180,
-    margin: "auto",
-  };
-  const gradientStyle = {
-    backgroundImage: `linear-gradient(to right, ${data.fromColor} , ${data.toColor})`,
-    height: 20,
-  };
-  return (
-    <div>
-      <div style={boxStyle} className="display-flex">
-        <span>{data.min}</span>
-        <span className="fill"></span>
-        <span>{data.max}</span>
-      </div>
-      <div style={{ ...boxStyle, ...gradientStyle }} className="mt8"></div>
-    </div>
-  );
-};
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
+// const LinearGradient = (props) => {
+//   const { data } = props;
+//   const boxStyle = {
+//     width: 180,
+//     margin: "auto",
+//   };
+//   const gradientStyle = {
+//     backgroundImage: `linear-gradient(to right, ${data.fromColor} , ${data.toColor})`,
+//     height: 20,
+//   };
+//   return (
+//     <div>
+//       <div style={boxStyle} className="display-flex">
+//         <span>{data.min}</span>
+//         <span className="fill"></span>
+//         <span>{data.max}</span>
+//       </div>
+//       <div style={{ ...boxStyle, ...gradientStyle }} className="mt8"></div>
+//     </div>
+//   );
+// };
 
 const Map = () => {
   let history = useHistory();
 
   const [tooltipContent, setTooltipContent] = useState("");
   const [data, setData] = useState(getHeatMapData());
+  const [attribute,setAttribute] = useState('anger')
 
-  const gradientData = {
-    fromColor: COLOR_RANGE[0],
-    toColor: COLOR_RANGE[COLOR_RANGE.length - 1],
-    min: 0,
-    max: data.reduce((max, item) => (item.value > max ? item.value : max), 0),
+  useEffect(()=>{
+    const fetch = createApolloFetch({
+      uri: "http://localhost:5000/graphql",
+    });
+
+    fetch({
+      query:
+        "{  sentimentsState {    id    key    state    sadness    joy    fear    disgust    anger  }}",
+    }).then((res) => {
+      console.log(res.data.sentimentsState,attribute);
+      setData(res.data.sentimentsState);
+    });
+
+  },[])
+
+  const handleChange = (event) => {
+    setAttribute(event.target.value);
   };
 
   const colorScale = scaleQuantile()
-    .domain(data.map((d) => d.value))
+    .domain(data.map((d) => d[attribute]))
     .range(COLOR_RANGE);
 
-  const onMouseEnter = (geo, current = { value: "NA" }) => {
+  const onMouseEnter = useCallback((geo, current ) => {
     return () => {
-      setTooltipContent(`${geo.properties.name}: ${current.value}`);
+      setTooltipContent(`${geo.properties.name}: ${current?((current[attribute])*100).toFixed(2)+"%":"NA"}`);
     };
-  };
+  },[attribute])
 
-  const onMouseLeave = () => {
+  const onMouseLeave = useCallback(() => {
     setTooltipContent("");
-  };
+  },[])
 
-  const onChangeButtonClick = () => {
-    setData(getHeatMapData());
-  };
-
+  const classes = useStyles()
   return (
     <div>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
@@ -159,12 +186,13 @@ const Map = () => {
           {({ geographies }) =>
             geographies.map((geo) => {
               //console.log(geo.id);
-              const current = data.find((s) => s.id === geo.id);
+              const current = data.find((s) => s.key === geo.id);
+              // console.log(current,attribute)
               return (
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill={current ? colorScale(current.value) : DEFAULT_COLOR}
+                  fill={current ? colorScale(current[attribute]) : DEFAULT_COLOR}
                   style={geographyStyle}
                   onMouseEnter={onMouseEnter(geo, current)}
                   onMouseLeave={onMouseLeave}
@@ -180,12 +208,21 @@ const Map = () => {
           }
         </Geographies>
       </ComposableMap>
-      <LinearGradient data={gradientData} />
-      <div className="center">
-        <button className="mt16" onClick={onChangeButtonClick}>
-          Change
-        </button>
-      </div>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">Emotion</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={attribute}
+          onChange={handleChange}
+        >
+          <MenuItem value={'anger'}>Anger</MenuItem>
+          <MenuItem value={'sadness'}>Sadness</MenuItem>
+          <MenuItem value={'joy'}>Joy</MenuItem>
+          <MenuItem value={'fear'}>Fear</MenuItem>
+          <MenuItem value={'disgust'}>Disgust</MenuItem>
+        </Select>
+      </FormControl>
     </div>
   );
 };
