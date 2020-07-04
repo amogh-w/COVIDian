@@ -16,8 +16,8 @@ app.get("/data/:entity", (req, res) => {
   res.json(data);
 });
 
-app.listen(5000, () => {
-  console.log("Running at 5000");
+app.listen(process.env.port, () => {
+  console.log(`Running at ${process.env.port}`);
 });
 
 app.use(
