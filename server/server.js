@@ -16,7 +16,7 @@ app.get("/data/:entity", (req, res) => {
   res.json(data);
 });
 
-app.listen(process.env.port, () => {
+app.listen(process.env.port || 5000, () => {
   console.log(`Running at ${process.env.port}`);
 });
 
