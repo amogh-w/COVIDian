@@ -10,10 +10,10 @@ const App = () => {
     <Router>
       <Navbar />
       <Container>
-        <Paper style={{ padding: "10px", marginTop: "80px" }}>
+        <div style={{ padding: "10px", marginTop: "80px" }}>
           <Route path="/" exact component={CountryInfo} />
           <Route path="/state/:name" component={StateInfo} />
-        </Paper>
+        </div>
       </Container>
     </Router>
   );

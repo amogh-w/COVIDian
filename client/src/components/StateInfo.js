@@ -94,7 +94,6 @@ const StateInfo = (props) => {
             <State selectedState={props.match.params.name} />
           </Paper>
           <Paper style={{ marginTop: "10px", padding: "10px" }}>
-            <Typography>Charts Here</Typography>
             {true ? (
               <Radar data={dataToChart} redraw key={Math.random()} />
             ) : (
