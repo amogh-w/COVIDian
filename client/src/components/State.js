@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  ZoomableGroup,
-} from "react-simple-maps";
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 import andamannicobar from "../topojsons/states/andamannicobar.json";
 import andhrapradesh from "../topojsons/states/andhrapradesh.json";
@@ -41,7 +36,7 @@ import westbengal from "../topojsons/states/westbengal.json";
 
 const State = ({ selectedState }) => {
   let geoURL;
-  let zoomMap = 1;
+  // let zoomMap = 1;
   let centerMap = [80, 22];
   let scaleMap = 400;
   if (selectedState === "Andaman & Nicobar Island") {

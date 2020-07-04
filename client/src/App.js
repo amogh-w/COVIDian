@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, Paper } from "@material-ui/core";
+import { Container, Paper } from "@material-ui/core";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import CountryInfo from "./components/CountryInfo";

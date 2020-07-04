@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import {
-  Button,
   TableContainer,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  Grid,
   Toolbar,
   Typography,
   Tooltip,
@@ -299,7 +297,7 @@ const Tweets = ({ selectedState }) => {
         setData(res.data.sentiments);
       });
     }
-  }, []);
+  }, [selectedState]);
 
   return (
     <div>

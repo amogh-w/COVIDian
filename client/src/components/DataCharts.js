@@ -76,13 +76,13 @@ const data2 = {
 };
 
 const DataCharts = ({ type }) => {
-  if (type == "doughnut") {
+  if (type === "doughnut") {
     return (
       <div>
         <Doughnut data={data} />
       </div>
     );
-  } else if (type == "radar") {
+  } else if (type === "radar") {
     return (
       <div>
         <Radar data={data2} />

@@ -1,17 +1,14 @@
-import React, { useState,useEffect,useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactTooltip from "react-tooltip";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { scaleQuantile } from "d3-scale";
 import { useHistory } from "react-router-dom";
 import { createApolloFetch } from "apollo-fetch";
-import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-
-const geoUrl =
-  "https://raw.githubusercontent.com/varunon9/india-choropleth-javascript/master/src/india.topo.json";
+import Select from "@material-ui/core/Select";
+import { makeStyles } from "@material-ui/core/styles";
+import FormControl from "@material-ui/core/FormControl";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
 
 const INDIA_TOPO_JSON =
   "https://raw.githubusercontent.com/varunon9/india-choropleth-javascript/master/src/india.topo.json";
@@ -56,7 +53,6 @@ const geographyStyle = {
 
 // will generate random heatmap data on every call
 const getHeatMapData = () => {
-  
   return [
     { id: "AP", state: "Andhra Pradesh", value: getRandomInt() },
     { id: "AR", state: "Arunachal Pradesh", value: getRandomInt() },
@@ -99,7 +95,6 @@ const getHeatMapData = () => {
   ];
 };
 
-
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
@@ -136,9 +131,9 @@ const Map = () => {
 
   const [tooltipContent, setTooltipContent] = useState("");
   const [data, setData] = useState(getHeatMapData());
-  const [attribute,setAttribute] = useState('anger')
+  const [attribute, setAttribute] = useState("anger");
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetch = createApolloFetch({
       uri: "http://localhost:5000/graphql",
     });
@@ -147,11 +142,10 @@ const Map = () => {
       query:
         "{  sentimentsState {    id    key    state    sadness    joy    fear    disgust    anger  }}",
     }).then((res) => {
-      console.log(res.data.sentimentsState,attribute);
+      console.log(res.data.sentimentsState, attribute);
       setData(res.data.sentimentsState);
     });
-
-  },[])
+  }, [attribute]);
 
   const handleChange = (event) => {
     setAttribute(event.target.value);
@@ -161,17 +155,24 @@ const Map = () => {
     .domain(data.map((d) => d[attribute]))
     .range(COLOR_RANGE);
 
-  const onMouseEnter = useCallback((geo, current ) => {
-    return () => {
-      setTooltipContent(`${geo.properties.name}: ${current?((current[attribute])*100).toFixed(2)+"%":"NA"}`);
-    };
-  },[attribute])
+  const onMouseEnter = useCallback(
+    (geo, current) => {
+      return () => {
+        setTooltipContent(
+          `${geo.properties.name}: ${
+            current ? (current[attribute] * 100).toFixed(2) + "%" : "NA"
+          }`
+        );
+      };
+    },
+    [attribute]
+  );
 
   const onMouseLeave = useCallback(() => {
     setTooltipContent("");
-  },[])
+  }, []);
 
-  const classes = useStyles()
+  const classes = useStyles();
   return (
     <div>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
@@ -192,7 +193,9 @@ const Map = () => {
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill={current ? colorScale(current[attribute]) : DEFAULT_COLOR}
+                  fill={
+                    current ? colorScale(current[attribute]) : DEFAULT_COLOR
+                  }
                   style={geographyStyle}
                   onMouseEnter={onMouseEnter(geo, current)}
                   onMouseLeave={onMouseLeave}
@@ -216,11 +219,11 @@ const Map = () => {
           value={attribute}
           onChange={handleChange}
         >
-          <MenuItem value={'anger'}>Anger</MenuItem>
-          <MenuItem value={'sadness'}>Sadness</MenuItem>
-          <MenuItem value={'joy'}>Joy</MenuItem>
-          <MenuItem value={'fear'}>Fear</MenuItem>
-          <MenuItem value={'disgust'}>Disgust</MenuItem>
+          <MenuItem value={"anger"}>Anger</MenuItem>
+          <MenuItem value={"sadness"}>Sadness</MenuItem>
+          <MenuItem value={"joy"}>Joy</MenuItem>
+          <MenuItem value={"fear"}>Fear</MenuItem>
+          <MenuItem value={"disgust"}>Disgust</MenuItem>
         </Select>
       </FormControl>
     </div>

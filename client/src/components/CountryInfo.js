@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, Paper, Typography, Divider } from "@material-ui/core";
+import { Grid, Paper, Divider } from "@material-ui/core";
 import DataCharts from "./DataCharts";
 import Tweets from "./Tweets";
 import Map from "./Map";

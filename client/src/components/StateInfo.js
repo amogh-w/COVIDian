@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { Container, Grid, Paper, Typography } from "@material-ui/core";
-import DataCharts from "./DataCharts";
+import { Grid, Paper, Typography } from "@material-ui/core";
 import Tweets from "./Tweets";
 import State from "./State";
 import { Radar } from "react-chartjs-2";
 import { createApolloFetch } from "apollo-fetch";
 
 const StateInfo = (props) => {
-  const [sadnessList, setSadnessList] = useState([]);
-  const [joyList, setJoyList] = useState([]);
-  const [fearList, setFearList] = useState([]);
-  const [disgustList, setDisgustList] = useState([]);
-  const [angerList, setAngerList] = useState([]);
-  const [dataListDefault, setDataListDefault] = useState([30, 30, 30, 30, 30]);
+  let sadnessList = [];
+  let joyList = [];
+  let fearList = [];
+  let disgustList = [];
+  let angerList = [];
+
+  // const [sadnessList, setSadnessList] = useState([]);
+  // const [joyList, setJoyList] = useState([]);
+  // const [fearList, setFearList] = useState([]);
+  // const [disgustList, setDisgustList] = useState([]);
+  // const [angerList, setAngerList] = useState([]);
   const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
@@ -30,6 +34,7 @@ const StateInfo = (props) => {
           fearList.push(sentiment.fear);
           disgustList.push(sentiment.disgust);
           angerList.push(sentiment.anger);
+          return null;
         });
       })
       .then(() => {
