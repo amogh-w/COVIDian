@@ -1,18 +1,18 @@
-import React,{useEffect,useState} from "react";
-import { Grid, Paper, Typography, Box, Button } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Grid, Paper, Typography, Box, Button, Hidden } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { useTheme } from '@material-ui/core/styles';
 
 const About = () => {
   const theme = useTheme()
-  const [themeState,setTheme] = useState(theme.palette.type)
-  useEffect(()=>{
+  const [themeState, setTheme] = useState(theme.palette.type)
+  useEffect(() => {
     setTheme(theme.palette.type)
-  },[theme.palette.type])
+  }, [theme.palette.type])
   return (
     <div>
       <Grid container spacing={3}>
-        <Grid item sm={12}>
+        <Grid item xs={12}>
           <Paper style={{ padding: "20px" }}>
             <Typography variant="h3" gutterBottom>
               General Description
@@ -84,63 +84,133 @@ const About = () => {
           </Paper>
         </Grid>
         <Grid item sm={12}>
-          <Paper>
-            <Grid container>
-              <Grid item sm={12} style={{ padding: "20px" }}>
-                <Typography variant="h6">Creators:</Typography>
-              </Grid>
-              <Grid item sm={3} align="center">
-                <Button
-                  onClick={() =>
-                    window.open("https://github.com/amogh-w", "_blank")
-                  }
-                >
-                  <a style={{ textDecoration: "none", color: themeState==="dark"?"#fff": "#000000" }}>
-                    <GitHubIcon />
-                    <Typography variant="subtitle2">
-                      Amogh Warkhandkar
+          <Hidden mdUp>
+            <Paper>
+              <Grid container>
+                <Grid item xs={12} style={{ padding: "20px" }}>
+                  <Typography variant="h6">Creators:</Typography>
+                </Grid>
+                <Grid item xs={6} align="center">
+                  <Button
+                    onClick={() =>
+                      window.open("https://github.com/amogh-w", "_blank")
+                    }
+                  >
+                    <a style={{ textDecoration: "none", color: themeState === "dark" ? "#fff" : "#000000" }}>
+                      <GitHubIcon />
+                      <Typography variant="subtitle2">
+                        Amogh Warkhandkar
                     </Typography>
-                  </a>
-                </Button>
+                    </a>
+                  </Button>
+                </Grid>
+                {/* <Hidden>
+                  <Grid item xs={3} />
+                </Hidden> */}
+                <Grid item xs={6} align="center">
+                  <Button
+                    onClick={() =>
+                      window.open("https://github.com/rlamge", "_blank")
+                    }
+                  >
+                    <a style={{ textDecoration: "none", color: themeState === "dark" ? "#fff" : "#000000" }}>
+                      <GitHubIcon />
+                      <Typography variant="subtitle2">Rahul Lamge</Typography>
+                    </a>
+                  </Button>
+                </Grid>
+                <Grid item xs={6} align="center">
+                  <Button
+                    onClick={() =>
+                      window.open("https://github.com/blablabluomie", "_blank")
+                    }
+                  >
+                    <a style={{ textDecoration: "none", color: themeState === "dark" ? "#fff" : "#000000" }}>
+                      <GitHubIcon />
+                      <Typography variant="subtitle2">Omkar Bhambure</Typography>
+                    </a>
+                  </Button>
+                </Grid>
+                {/* <Hidden>
+                  <Grid item xs={3} />
+                </Hidden> */}
+                <Grid item xs={6} align="center">
+                  <Button
+                    onClick={() =>
+                      window.open("https://github.com/rampa2510", "_blank")
+                    }
+                  >
+                    <a style={{ textDecoration: "none", color: themeState === "dark" ? "#fff" : "#000000" }}>
+                      <GitHubIcon />
+                      <Typography variant="subtitle2">Ram Pandey</Typography>
+                    </a>
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item sm={3} align="center">
-                <Button
-                  onClick={() =>
-                    window.open("https://github.com/rlamge", "_blank")
-                  }
-                >
-                  <a style={{ textDecoration: "none", color: themeState==="dark"?"#fff": "#000000" }}>
-                    <GitHubIcon />
-                    <Typography variant="subtitle2">Rahul Lamge</Typography>
-                  </a>
-                </Button>
+            </Paper>
+
+          </Hidden>
+
+          <Hidden mdDown>
+            <Paper>
+              <Grid container>
+                <Grid item xs={12} style={{ padding: "20px" }}>
+                  <Typography variant="h6">Creators:</Typography>
+                </Grid>
+                <Grid item xs={3} align="center">
+                  <Button
+                    onClick={() =>
+                      window.open("https://github.com/amogh-w", "_blank")
+                    }
+                  >
+                    <a style={{ textDecoration: "none", color: themeState === "dark" ? "#fff" : "#000000" }}>
+                      <GitHubIcon />
+                      <Typography variant="subtitle2">
+                        Amogh Warkhandkar
+                    </Typography>
+                    </a>
+                  </Button>
+                </Grid>
+                <Grid item xs={3} align="center">
+                  <Button
+                    onClick={() =>
+                      window.open("https://github.com/rlamge", "_blank")
+                    }
+                  >
+                    <a style={{ textDecoration: "none", color: themeState === "dark" ? "#fff" : "#000000" }}>
+                      <GitHubIcon />
+                      <Typography variant="subtitle2">Rahul Lamge</Typography>
+                    </a>
+                  </Button>
+                </Grid>
+                <Grid item xs={3} align="center">
+                  <Button
+                    onClick={() =>
+                      window.open("https://github.com/blablabluomie", "_blank")
+                    }
+                  >
+                    <a style={{ textDecoration: "none", color: themeState === "dark" ? "#fff" : "#000000" }}>
+                      <GitHubIcon />
+                      <Typography variant="subtitle2">Omkar Bhambure</Typography>
+                    </a>
+                  </Button>
+                </Grid>
+                <Grid item xs={3} align="center">
+                  <Button
+                    onClick={() =>
+                      window.open("https://github.com/rampa2510", "_blank")
+                    }
+                  >
+                    <a style={{ textDecoration: "none", color: themeState === "dark" ? "#fff" : "#000000" }}>
+                      <GitHubIcon />
+                      <Typography variant="subtitle2">Ram Pandey</Typography>
+                    </a>
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item sm={3} align="center">
-                <Button
-                  onClick={() =>
-                    window.open("https://github.com/blablabluomie", "_blank")
-                  }
-                >
-                  <a style={{ textDecoration: "none", color: themeState==="dark"?"#fff": "#000000" }}>
-                    <GitHubIcon />
-                    <Typography variant="subtitle2">Omkar Bhambure</Typography>
-                  </a>
-                </Button>
-              </Grid>
-              <Grid item sm={3} align="center">
-                <Button
-                  onClick={() =>
-                    window.open("https://github.com/rampa2510", "_blank")
-                  }
-                >
-                  <a style={{ textDecoration: "none", color: themeState==="dark"?"#fff": "#000000" }}>
-                    <GitHubIcon />
-                    <Typography variant="subtitle2">Ram Pandey</Typography>
-                  </a>
-                </Button>
-              </Grid>
-            </Grid>
-          </Paper>
+            </Paper>
+
+          </Hidden>
         </Grid>
       </Grid>
     </div>
