@@ -7,6 +7,7 @@ import { Line, Bar } from "react-chartjs-2";
 import styles2 from "./ResourcesCharts.css";
 import CountUp from "react-countup";
 import cx from "classnames";
+import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 const url = "https://covid19.mathdro.id/api";
 
@@ -267,6 +268,42 @@ const Resources = () => {
       <Cards data={data} country={country} />
       <CountryPicker handleCountryChange={handleCountryChange} />
       <Chart data={data} country={country} />
+
+      <Grid container style={{ margin: "20px 0px" }} spacing={3}>
+        <Grid item xs={4}>
+          <Card>
+            <CardContent>
+              <TwitterTimelineEmbed
+                sourceType="profile"
+                screenName="mohfw_india"
+                options={{ height: 400 }}
+              />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={4}>
+          <Card>
+            <CardContent>
+              <TwitterTimelineEmbed
+                sourceType="profile"
+                screenName="mohfw_india"
+                options={{ height: 400 }}
+              />
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={4}>
+          <Card>
+            <CardContent>
+              <TwitterTimelineEmbed
+                sourceType="profile"
+                screenName="mohfw_india"
+                options={{ height: 400 }}
+              />
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </div>
   );
 };
