@@ -1,7 +1,7 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Radar } from "react-chartjs-2";
-
+import { useTheme } from '@material-ui/core/styles';
 const data = {
   labels: ["sadness", "joy", "fear", "digust", "anger"],
   datasets: [
@@ -74,18 +74,24 @@ const data2 = {
     },
   ],
 };
+// const options=
 
 const DataCharts = ({ type }) => {
+  const theme = useTheme()
+  const [themeType,setTheme] = React.useState(theme.palette.type)
+  React.useEffect(()=>{
+    setTheme(theme.palette.type)
+  },[theme.palette.type])
   if (type === "doughnut") {
     return (
       <div>
-        <Doughnut data={data} />
+        <Doughnut data={data} options={{legend:{labels:{fontColor:themeType==='dark'?"rgb(255,255,255)":"rgb(0,0,0)"}}}} />
       </div>
     );
   } else if (type === "radar") {
     return (
       <div>
-        <Radar data={data2} />
+        <Radar  data={data2} options={{legend:{labels:{fontColor:themeType==='dark'?"rgb(255,255,255)":"rgb(0,0,0)"}}}} />
       </div>
     );
   }
