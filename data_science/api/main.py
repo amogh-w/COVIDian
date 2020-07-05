@@ -2,10 +2,14 @@ import pickle
 from pydantic import BaseModel
 from fastapi import FastAPI
 import os
+from starlette.middleware.cors import CORSMiddleware
 
 # import uvicorn
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware, allow_origins=["*"], allow_headers=["*"], allow_methods=["*"],
+)
 
 print(os.getcwd())
 print(os.listdir("/app"))
