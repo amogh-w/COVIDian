@@ -13,6 +13,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import SearchIcon from "@material-ui/icons/Search";
+import DescriptionIcon from "@material-ui/icons/Description";
+import InfoIcon from "@material-ui/icons/Info";
 import List from "@material-ui/core/List";
 
 const drawerWidth = 240;
@@ -110,7 +113,7 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Covid Tweet Sentiment Analyzer
+            COVIDian #IndiaFightsCorona
           </Typography>
         </Toolbar>
       </AppBar>
@@ -138,15 +141,27 @@ const Navbar = () => {
         </div>
         <Divider />
         <List>
-          <ListItem button component={Link} to="/state/Maharashtra">
+          <ListItem button component={Link} to="/">
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText>Dashboard</ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem button component={Link} to="/analyzer">
             <ListItemIcon>
-              <DashboardIcon />
+              <SearchIcon />
+            </ListItemIcon>
+            <ListItemText>Tweet Analyzer</ListItemText>
+          </ListItem>
+          <ListItem button component={Link} to="/resources">
+            <ListItemIcon>
+              <DescriptionIcon />
+            </ListItemIcon>
+            <ListItemText>Resources</ListItemText>
+          </ListItem>
+          <ListItem button component={Link} to="/about">
+            <ListItemIcon>
+              <InfoIcon />
             </ListItemIcon>
             <ListItemText>About</ListItemText>
           </ListItem>
