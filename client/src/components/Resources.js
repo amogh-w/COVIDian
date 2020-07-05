@@ -286,7 +286,7 @@ const Resources = () => {
             <CardContent>
               <TwitterTimelineEmbed
                 sourceType="profile"
-                screenName="mohfw_india"
+                screenName="WHO"
                 options={{ height: 400 }}
               />
             </CardContent>
@@ -297,7 +297,7 @@ const Resources = () => {
             <CardContent>
               <TwitterTimelineEmbed
                 sourceType="profile"
-                screenName="mohfw_india"
+                screenName="MantralayaRoom"
                 options={{ height: 400 }}
               />
             </CardContent>
