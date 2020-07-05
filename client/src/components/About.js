@@ -1,9 +1,14 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import { Grid, Paper, Typography, Box, Button } from "@material-ui/core";
 import GitHubIcon from "@material-ui/icons/GitHub";
-import { Link } from "react-router-dom";
+import { useTheme } from '@material-ui/core/styles';
 
 const About = () => {
+  const theme = useTheme()
+  const [themeState,setTheme] = useState(theme.palette.type)
+  useEffect(()=>{
+    setTheme(theme.palette.type)
+  },[theme.palette.type])
   return (
     <div>
       <Grid container spacing={3}>
@@ -90,7 +95,7 @@ const About = () => {
                     window.open("https://github.com/amogh-w", "_blank")
                   }
                 >
-                  <a style={{ textDecoration: "none", color: "#000000" }}>
+                  <a style={{ textDecoration: "none", color: themeState==="dark"?"#fff": "#000000" }}>
                     <GitHubIcon />
                     <Typography variant="subtitle2">
                       Amogh Warkhandkar
@@ -104,7 +109,7 @@ const About = () => {
                     window.open("https://github.com/rlamge", "_blank")
                   }
                 >
-                  <a style={{ textDecoration: "none", color: "#000000" }}>
+                  <a style={{ textDecoration: "none", color: themeState==="dark"?"#fff": "#000000" }}>
                     <GitHubIcon />
                     <Typography variant="subtitle2">Rahul Lamge</Typography>
                   </a>
@@ -116,7 +121,7 @@ const About = () => {
                     window.open("https://github.com/blablabluomie", "_blank")
                   }
                 >
-                  <a style={{ textDecoration: "none", color: "#000000" }}>
+                  <a style={{ textDecoration: "none", color: themeState==="dark"?"#fff": "#000000" }}>
                     <GitHubIcon />
                     <Typography variant="subtitle2">Omkar Bhambure</Typography>
                   </a>
@@ -128,7 +133,7 @@ const About = () => {
                     window.open("https://github.com/rampa2510", "_blank")
                   }
                 >
-                  <a style={{ textDecoration: "none", color: "#000000" }}>
+                  <a style={{ textDecoration: "none", color: themeState==="dark"?"#fff": "#000000" }}>
                     <GitHubIcon />
                     <Typography variant="subtitle2">Ram Pandey</Typography>
                   </a>
