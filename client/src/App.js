@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Paper } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import CountryInfo from "./components/CountryInfo";
@@ -7,10 +7,13 @@ import StateInfo from "./components/StateInfo";
 import LiveTweet from "./components/LiveTweet";
 import Resources from "./components/Resources";
 import About from "./components/About";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const App = () => {
   return (
     <Router>
+      <CssBaseline />
+
       <Navbar />
       <Container>
         <div style={{ padding: "10px", marginTop: "80px" }}>

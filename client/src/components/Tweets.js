@@ -11,12 +11,10 @@ import {
   Typography,
   Tooltip,
   IconButton,
-  Checkbox,
   TableSortLabel,
   Paper,
   TablePagination,
   FormControlLabel,
-  Switch,
 } from "@material-ui/core";
 import { makeStyles, lighten } from "@material-ui/core/styles";
 import { createApolloFetch } from "apollo-fetch";
@@ -90,14 +88,14 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {/* <TableCell padding="checkbox">
-          <Checkbox
+        <TableCell>
+          {/* <Checkbox 
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{ "aria-label": "select all desserts" }}
-          />
-        </TableCell> */}
+          />*/}
+        </TableCell> 
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -302,7 +300,6 @@ const Tweets = ({ selectedState }) => {
   return (
     <div>
       <div className={classes.root}>
-        <Paper className={classes.paper}>
           <EnhancedTableToolbar />
           <TableContainer>
             <Table
@@ -337,12 +334,12 @@ const Tweets = ({ selectedState }) => {
                         key={row.name}
                         // selected={isItemSelected}
                       >
-                        {/* <TableCell padding="checkbox">
-                          <Checkbox
+                        <TableCell padding="checkbox">
+                        {/*   <Checkbox
                             checked={isItemSelected}
                             inputProps={{ "aria-labelledby": labelId }}
-                          />
-                        </TableCell> */}
+                          />*/}
+                        </TableCell> 
                         <TableCell
                           component="th"
                           id={labelId}
@@ -388,11 +385,6 @@ const Tweets = ({ selectedState }) => {
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
-        </Paper>
-        <FormControlLabel
-          control={<Switch checked={dense} onChange={handleChangeDense} />}
-          label="Dense padding"
-        />
       </div>
     </div>
   );
