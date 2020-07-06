@@ -1,4 +1,21 @@
-# Covid Tweet Sentiment Analyser
+<div  align="center">
+    <img src="/client/src/media/logo.png?raw=true" width="50px">
+</div>
+<h3 align="center"> COVIDian - An COVID Tweet Sentiment Visualizer and Analyser Application </h3>
+  <p align="center">
+    A React Application
+    <br />
+    <a href="#"><strong> Explore the docs » </strong></a>
+    <br />
+    <br />
+    ·
+    <a href="#">Report Bug</a>
+    ·
+    <a href="#">Request Feature</a>
+    ·
+  </p>
+
+![](/client/src/media/banner.png?raw=true "Merged")
 
 ## Dashboard
 
