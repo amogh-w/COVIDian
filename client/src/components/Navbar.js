@@ -20,32 +20,11 @@ import List from "@material-ui/core/List";
 import Switch from "@material-ui/core/Switch";
 import logo from "../media/logo.png";
 
-// import {
-//   orange,
-//   lightBlue,
-//   deepPurple,
-//   deepOrange,
-// } from "@material-ui/core/colors";
-
 const Navbar = ({ darkState, handleThemeChange }) => {
   const [open, setOpen] = React.useState(false);
   // const [darkState, setDarkState] = useState(false);
   const [width, setWidth] = useState(1280);
   const [drawerWidth, setDrawerWidth] = useState(240);
-  // const palletType = darkState ? "dark" : "light";
-  // const mainPrimaryColor = darkState ? orange[500] : lightBlue[500];
-  // const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
-  // const darkTheme = createMuiTheme({
-  //   palette: {
-  //     type: palletType,
-  //     primary: {
-  //       main: mainPrimaryColor
-  //     },
-  //     secondary: {
-  //       main: mainSecondaryColor
-  //     }
-  //   }
-  // });
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
@@ -113,10 +92,13 @@ const Navbar = ({ darkState, handleThemeChange }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    window.addEventListener("resize", setWidth(window.innerWidth));
-    // console.log("ll")
-    setDrawerWidth(200);
-  }, []);
+    window.addEventListener("resize", ()=>setWidth(window.innerWidth));
+  }, [window.innerWidth]);
+
+  useEffect(()=>{
+    if(drawerWidth<640) return setDrawerWidth(200)
+    setDrawerWidth(240)
+  },[width])
 
   // const handleThemeChange = () => {
   //   setDarkState(!darkState);
@@ -130,7 +112,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
     setOpen(false);
   };
 
-  if(width>=960 || width<=1280){
+  if(width>=960 && width<=1280){
     console.log(width)
     return (
       <>
