@@ -284,7 +284,7 @@ const Tweets = ({ selectedState }) => {
         query:
           "{ sentiments { tweet link state city sadness joy fear disgust anger }}",
       }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setData(res.data.sentiments);
       });
     }
@@ -324,7 +324,7 @@ const Tweets = ({ selectedState }) => {
                       role="checkbox"
                       // aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={labelId}
                       // selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">

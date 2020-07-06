@@ -25,7 +25,7 @@ import Brightness2Icon from "@material-ui/icons/Brightness2";
 const Navbar = ({ darkState, handleThemeChange }) => {
   const [open, setOpen] = React.useState(false);
   // const [darkState, setDarkState] = useState(false);
-  const [width, setWidth] = useState(1280);
+  const [width, setWidth] = useState(window.innerWidth);
   const [drawerWidth, setDrawerWidth] = useState(240);
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -95,16 +95,14 @@ const Navbar = ({ darkState, handleThemeChange }) => {
 
   useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
-  }, [window.innerWidth]);
+  }, []);
 
   useEffect(() => {
     if (drawerWidth < 640) return setDrawerWidth(200);
     setDrawerWidth(240);
-  }, [width]);
+  }, [drawerWidth]);
 
-  useEffect(() => {
-    setWidth(window.innerWidth);
-  }, []);
+
 
   // const handleThemeChange = () => {
   //   setDarkState(!darkState);
@@ -137,7 +135,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               className={clsx(classes.menuButton, {
                 [classes.hide]: open,
               })}
-              handleThemeChange={handleThemeChange}
+              // handleThemeChange={handleThemeChange}
             >
               <MenuIcon />
             </IconButton>
@@ -155,7 +153,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               COVIDian #IndiaFightsCorona
             </Typography>
-            <Button color="primary" variant="body1" onClick={handleThemeChange}>
+            <Button color="primary" variant="contained" onClick={handleThemeChange}>
               {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
             </Button>
             <Switch checked={darkState} onChange={handleThemeChange} />
@@ -239,7 +237,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               className={clsx(classes.menuButton, {
                 [classes.hide]: open,
               })}
-              handleThemeChange={handleThemeChange}
+              // handleThemeChange={handleThemeChange}
             >
               <MenuIcon />
             </IconButton>
@@ -257,7 +255,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               COVIDian #IndiaFightsCorona
             </Typography>
-            <Button color="primary" variant="body1" onClick={handleThemeChange}>
+            <Button color="primary" variant="contained" onClick={handleThemeChange}>
               {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
             </Button>
           </Toolbar>
@@ -329,7 +327,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               onClick={handleDrawerOpen}
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
-              handleThemeChange={handleThemeChange}
+              // handleThemeChange={handleThemeChange}
             >
               <MenuIcon />
             </IconButton>
@@ -346,7 +344,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
                 alt="logo"
               />
             </Typography>{" "}
-            <Button color="primary" variant="body1" onClick={handleThemeChange}>
+            <Button color="primary" variant="contained" onClick={handleThemeChange}>
               {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
             </Button>
           </Toolbar>

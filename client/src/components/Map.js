@@ -193,7 +193,7 @@ const Map = () => {
       query:
         "{  sentimentsState {    id    key    state    sadness    joy    fear    disgust    anger  }}",
     }).then((res) => {
-      console.log(res.data.sentimentsState, attribute);
+      // console.log(res.data.sentimentsState, attribute);
       setData(res.data.sentimentsState);
     });
   }, [attribute]);
