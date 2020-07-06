@@ -100,6 +100,10 @@ const Navbar = ({ darkState, handleThemeChange }) => {
     setDrawerWidth(240)
   },[width])
 
+  useEffect(()=>{
+    setWidth(window.innerWidth)
+  },[])
+
   // const handleThemeChange = () => {
   //   setDarkState(!darkState);
   // };
@@ -113,7 +117,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
   };
 
   if(width>=960 && width<=1280){
-    console.log(width)
+    // console.log(width)
     return (
       <>
         <AppBar
