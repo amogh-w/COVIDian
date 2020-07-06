@@ -237,7 +237,8 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography
+            <img src={logo} style={{ width: "50px", marginRight: "20px" }} />
+            {/* <Typography
               component="h1"
               variant="h6"
               color="inherit"
@@ -245,7 +246,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               className={classes.title}
             >
               COVIDian
-            </Typography>
+            </Typography> */}
             Dark Mode{" "}
             <Switch checked={darkState} onChange={handleThemeChange} />
           </Toolbar>
