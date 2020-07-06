@@ -42,119 +42,119 @@ const State = ({ selectedState }) => {
   let scaleMap = 400;
   if (selectedState === "Andaman & Nicobar Island") {
     geoURL = andamannicobar;
-    scaleMap = 1000;
+    scaleMap = 2000;
     centerMap = [93, 10];
   } else if (selectedState === "Andhra Pradesh") {
     geoURL = andhrapradesh;
-    scaleMap = 800;
-    centerMap = [80, 17];
+    scaleMap = 2000;
+    centerMap = [80, 16.5];
   } else if (selectedState === "Arunachal Pradesh") {
     geoURL = arunachalpradesh;
     scaleMap = 1200;
     centerMap = [94.5, 28];
   } else if (selectedState === "Assam") {
     geoURL = assam;
-    scaleMap = 1350;
-    centerMap = [92.9, 26];
+    scaleMap = 2500;
+    centerMap = [92.9, 25.8];
   } else if (selectedState === "Bihar") {
     geoURL = bihar;
-    scaleMap = 1300;
-    centerMap = [85.5, 26];
+    scaleMap = 2500;
+    centerMap = [85.5, 25.5];
   } else if (selectedState === "Chhattisgarh") {
     geoURL = chhattisgarh;
-    scaleMap = 1100;
+    scaleMap = 2000;
     centerMap = [82, 21];
   } else if (selectedState === "NCT of Delhi") {
     geoURL = delhi;
-    scaleMap = 11000;
-    centerMap = [77.05, 28.6];
+    scaleMap = 20000;
+    centerMap = [77.1, 28.6];
   } else if (selectedState === "Goa") {
     geoURL = goa;
-    scaleMap = 6000;
-    centerMap = [74, 15.25];
+    scaleMap = 15000;
+    centerMap = [74, 15.3];
   } else if (selectedState === "Gujarat") {
     geoURL = gujarat;
-    scaleMap = 1000;
-    centerMap = [71.5, 22];
+    scaleMap = 2500;
+    centerMap = [71.5, 22.3];
   } else if (selectedState === "Haryana") {
     geoURL = haryana;
-    scaleMap = 1700;
-    centerMap = [76, 29];
+    scaleMap = 4000;
+    centerMap = [76.2, 29.2];
   } else if (selectedState === "Himachal Pradesh") {
     geoURL = himachalpradesh;
-    scaleMap = 2000;
+    scaleMap = 4000;
     centerMap = [77.4, 31.8];
   } else if (selectedState === "Jammu & Kashmir") {
     geoURL = jammukashmir;
-    scaleMap = 1000;
-    centerMap = [76.3, 35];
+    scaleMap = 2000;
+    centerMap = [76.3, 34.5];
   } else if (selectedState === "Jharkhand") {
     geoURL = jharkhand;
     scaleMap = 1700;
     centerMap = [85.7, 23.6];
   } else if (selectedState === "Karnataka") {
     geoURL = karnataka;
-    scaleMap = 1100;
+    scaleMap = 2000;
     centerMap = [76.5, 15];
   } else if (selectedState === "Kerala") {
     geoURL = kerala;
-    scaleMap = 1800;
+    scaleMap = 3000;
     centerMap = [76, 10.5];
   } else if (selectedState === "Lakshadweep") {
     geoURL = lakshadweep;
-    scaleMap = 2300;
-    centerMap = [73, 11];
+    scaleMap = 2500;
+    centerMap = [73, 10.5];
   } else if (selectedState === "Madhya Pradesh") {
     geoURL = madhyapradesh;
-    scaleMap = 900;
-    centerMap = [78.5, 24];
+    scaleMap = 2000;
+    centerMap = [78.5, 23.5];
   } else if (selectedState === "Maharashtra") {
     geoURL = maharashtra;
     scaleMap = 2000;
     centerMap = [76.8, 18.5];
   } else if (selectedState === "Manipur") {
     geoURL = manipur;
-    scaleMap = 3400;
+    scaleMap = 5000;
     centerMap = [93.8, 24.7];
   } else if (selectedState === "Meghalaya") {
     geoURL = meghalaya;
-    scaleMap = 2500;
+    scaleMap = 5000;
     centerMap = [91.3, 25.4];
   } else if (selectedState === "Mizoram") {
     geoURL = mizoram;
-    scaleMap = 2900;
+    scaleMap = 4000;
     centerMap = [92.8, 23.25];
   } else if (selectedState === "Nagaland") {
     geoURL = nagaland;
-    scaleMap = 4000;
+    scaleMap = 5000;
     centerMap = [94.3, 26.1];
   } else if (selectedState === "Odisha") {
     geoURL = odisha;
-    scaleMap = 1300;
+    scaleMap = 2700;
     centerMap = [84.4, 20.25];
   } else if (selectedState === "Punjab") {
     geoURL = punjab;
-    scaleMap = 2300;
-    centerMap = [75.35, 31.1];
+    scaleMap = 3500;
+    centerMap = [75.35, 31];
   } else if (selectedState === "Rajasthan") {
     geoURL = rajasthan;
-    scaleMap = 900;
+    scaleMap = 1800;
     centerMap = [74, 26.3];
   } else if (selectedState === "Sikkim") {
     geoURL = sikkim;
-    scaleMap = 6000;
+    scaleMap = 8000;
     centerMap = [88.45, 27.6];
   } else if (selectedState === "Tamil Nadu") {
     geoURL = tamilnadu;
-    scaleMap = 1300;
+    scaleMap = 2000;
     centerMap = [78.25, 10.8];
   } else if (selectedState === "Telangana") {
     geoURL = telangana;
-    scaleMap = 4000;
+    scaleMap = 3000;
     centerMap = [79.5, 17.9];
   } else if (selectedState === "Tripura") {
     geoURL = tripura;
-    scaleMap = 4500;
+    scaleMap = 6500;
     centerMap = [91.75, 23.75];
   } else if (selectedState === "Uttarakhand") {
     geoURL = uttarakhand;
@@ -162,11 +162,11 @@ const State = ({ selectedState }) => {
     centerMap = [79.3, 30];
   } else if (selectedState === "Uttar Pradesh") {
     geoURL = uttarpradesh;
-    scaleMap = 1000;
+    scaleMap = 2000;
     centerMap = [80.8, 27];
   } else if (selectedState === "West Bengal") {
     geoURL = westbengal;
-    scaleMap = 1200;
+    scaleMap = 2000;
     centerMap = [87.7, 24.2];
   }
 
