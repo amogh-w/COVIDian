@@ -330,20 +330,19 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               <MenuIcon />
             </IconButton>
-            <img
-              src={logo}
-              style={{ width: "50px", marginRight: "20px" }}
-              alt="logo"
-            />
-            {/* <Typography
+            <Typography
               component="h1"
               variant="h6"
               color="inherit"
               noWrap
               className={classes.title}
             >
-              COVIDian
-            </Typography> */}
+            <img
+              src={logo}
+              style={{ width: "50px", marginRight: "20px" }}
+              alt="logo"
+            />
+            </Typography>
             {!darkState ? <Brightness5Icon /> : <Brightness2Icon />}
             <Switch checked={darkState} onChange={handleThemeChange} />
           </Toolbar>
