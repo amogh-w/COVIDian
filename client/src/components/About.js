@@ -22,7 +22,7 @@ const About = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper style={{ padding: "20px" }}>
-            <img src={banner} style={{ width: "100%" }} />
+            <img src={banner} style={{ width: "100%" }} alt="banner" />
             <Typography variant="h3" gutterBottom>
               General Description
             </Typography>
@@ -110,6 +110,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
+                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">
@@ -132,6 +133,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
+                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">Rahul Lamge</Typography>
@@ -149,6 +151,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
+                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">
@@ -171,6 +174,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
+                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">Ram Pandey</Typography>
@@ -198,6 +202,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
+                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">
@@ -217,6 +222,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
+                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">Rahul Lamge</Typography>
@@ -234,6 +240,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
+                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">
@@ -253,6 +260,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
+                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">Ram Pandey</Typography>

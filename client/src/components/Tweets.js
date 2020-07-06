@@ -12,9 +12,7 @@ import {
   Tooltip,
   IconButton,
   TableSortLabel,
-  Paper,
   TablePagination,
-  FormControlLabel,
 } from "@material-ui/core";
 import { makeStyles, lighten } from "@material-ui/core/styles";
 import { createApolloFetch } from "apollo-fetch";
@@ -218,7 +216,6 @@ const Tweets = ({ selectedState }) => {
   const [orderBy, setOrderBy] = React.useState("calories");
   // const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event, property) => {
@@ -265,10 +262,6 @@ const Tweets = ({ selectedState }) => {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
   // const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -305,7 +298,7 @@ const Tweets = ({ selectedState }) => {
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
+            size="medium"
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -365,7 +358,7 @@ const Tweets = ({ selectedState }) => {
                   );
                 })}
               {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                <TableRow style={{ height: 53 * emptyRows }}>
                   <TableCell colSpan={6} />
                 </TableRow>
               )}

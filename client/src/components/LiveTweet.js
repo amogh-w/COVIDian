@@ -4,7 +4,6 @@ import {
   Button,
   Typography,
   Card,
-  CardHeader,
   CardContent,
   Divider,
 } from "@material-ui/core";
@@ -30,7 +29,6 @@ const LiveTweet = () => {
   };
 
   const fetchUser = () => {
-    const requestOptions = {};
     setUserToSearch(values.username);
   };
 
