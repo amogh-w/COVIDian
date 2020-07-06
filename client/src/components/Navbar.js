@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { AppBar, Toolbar, Typography, Hidden } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
@@ -17,16 +17,15 @@ import SearchIcon from "@material-ui/icons/Search";
 import DescriptionIcon from "@material-ui/icons/Description";
 import InfoIcon from "@material-ui/icons/Info";
 import List from "@material-ui/core/List";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 import logo from "../media/logo.png";
 
-import {
-  orange,
-  lightBlue,
-  deepPurple,
-  deepOrange,
-} from "@material-ui/core/colors";
+// import {
+//   orange,
+//   lightBlue,
+//   deepPurple,
+//   deepOrange,
+// } from "@material-ui/core/colors";
 
 const Navbar = ({ darkState, handleThemeChange }) => {
   const [open, setOpen] = React.useState(false);
@@ -114,7 +113,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    window.addEventListener("resize", setWidth(window.innerHeight));
+    window.addEventListener("resize", setWidth(window.innerWidth));
     // console.log("ll")
     setDrawerWidth(200);
   }, []);
@@ -130,8 +129,106 @@ const Navbar = ({ darkState, handleThemeChange }) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  if(width>=960 || width<=1280){
+    console.log(width)
+    return (
+      <>
+      <AppBar
+          position="fixed"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+              handleThemeChange={handleThemeChange}
+            >
+              <MenuIcon />
+            </IconButton>
+            <img src={logo} style={{ width: "50px", marginRight: "20px" }} />
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              className={classes.title}
+            >
+              COVIDian #IndiaFightsCorona
+            </Typography>
+            Dark Mode{" "}
+            <Switch checked={darkState} onChange={handleThemeChange} />
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem button component={Link} to="/">
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText>Dashboard</ListItemText>
+            </ListItem>
+            <ListItem button component={Link} to="/analyzer">
+              <ListItemIcon>
+                <SearchIcon />
+              </ListItemIcon>
+              <ListItemText>Tweet Analyzer</ListItemText>
+            </ListItem>
+            <ListItem button component={Link} to="/resources">
+              <ListItemIcon>
+                <DescriptionIcon />
+              </ListItemIcon>
+              <ListItemText>Resources</ListItemText>
+            </ListItem>
+            <ListItem button component={Link} to="/about">
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
+              <ListItemText>About</ListItemText>
+            </ListItem>
+          </List>
+          <Divider />
+        </Drawer>
+        </>
+    )
+  }
+
   return (
     <>
+    {/* {
+      width>=960 && width<=1280
+      ?
+      :
+    } */}
       <Hidden mdDown>
         <AppBar
           position="fixed"
