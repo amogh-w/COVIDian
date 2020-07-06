@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
+import ReactTooltip from "react-tooltip";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 import andamannicobar from "../topojsons/states/andamannicobar.json";
@@ -169,6 +170,18 @@ const State = ({ selectedState }) => {
     centerMap = [87.7, 24.2];
   }
 
+  const [tooltipContent, setTooltipContent] = useState("");
+
+  const onMouseEnter = useCallback((geo) => {
+    return () => {
+      setTooltipContent(`${geo.properties.district}`);
+    };
+  }, []);
+
+  const onMouseLeave = useCallback(() => {
+    setTooltipContent("");
+  }, []);
+
   const PROJECTION_CONFIG = {
     scale: scaleMap,
     center: centerMap, // always in [East Latitude, North Longitude]
@@ -188,6 +201,7 @@ const State = ({ selectedState }) => {
   };
   return (
     <div>
+      <ReactTooltip>{tooltipContent}</ReactTooltip>
       <ComposableMap
         projectionConfig={PROJECTION_CONFIG}
         projection="geoMercator"
@@ -198,7 +212,7 @@ const State = ({ selectedState }) => {
         <Geographies geography={geoURL}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              //console.log(geo.id);
+              // console.log(geo.properties.district);
               // const current = data.find((s) => s.id === geo.id);
               return (
                 <Geography
@@ -206,8 +220,8 @@ const State = ({ selectedState }) => {
                   geography={geo}
                   // fill={current ? colorScale(current.value) : DEFAULT_COLOR}
                   style={geographyStyle}
-                  // onMouseEnter={onMouseEnter(geo, current)}
-                  // onMouseLeave={onMouseLeave}
+                  onMouseEnter={onMouseEnter(geo)}
+                  onMouseLeave={onMouseLeave}
                 />
               );
             })
