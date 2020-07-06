@@ -19,6 +19,8 @@ import InfoIcon from "@material-ui/icons/Info";
 import List from "@material-ui/core/List";
 import Switch from "@material-ui/core/Switch";
 import logo from "../media/logo.png";
+import Brightness5Icon from "@material-ui/icons/Brightness5";
+import Brightness2Icon from "@material-ui/icons/Brightness2";
 
 const Navbar = ({ darkState, handleThemeChange }) => {
   const [open, setOpen] = React.useState(false);
@@ -92,17 +94,17 @@ const Navbar = ({ darkState, handleThemeChange }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    window.addEventListener("resize", ()=>setWidth(window.innerWidth));
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
   }, [window.innerWidth]);
 
-  useEffect(()=>{
-    if(drawerWidth<640) return setDrawerWidth(200)
-    setDrawerWidth(240)
-  },[width])
+  useEffect(() => {
+    if (drawerWidth < 640) return setDrawerWidth(200);
+    setDrawerWidth(240);
+  }, [width]);
 
-  useEffect(()=>{
-    setWidth(window.innerWidth)
-  },[])
+  useEffect(() => {
+    setWidth(window.innerWidth);
+  }, []);
 
   // const handleThemeChange = () => {
   //   setDarkState(!darkState);
@@ -116,7 +118,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
     setOpen(false);
   };
 
-  if(width>=960 && width<=1280){
+  if (width >= 960 && width <= 1280) {
     // console.log(width)
     return (
       <>
@@ -153,7 +155,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               COVIDian #IndiaFightsCorona
             </Typography>
-            Dark Mode{" "}
+            {!darkState ? <Brightness5Icon /> : <Brightness2Icon />}
             <Switch checked={darkState} onChange={handleThemeChange} />
           </Toolbar>
         </AppBar>
@@ -253,7 +255,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               COVIDian #IndiaFightsCorona
             </Typography>
-            Dark Mode{" "}
+            {!darkState ? <Brightness5Icon /> : <Brightness2Icon />}
             <Switch checked={darkState} onChange={handleThemeChange} />
           </Toolbar>
         </AppBar>
@@ -342,7 +344,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               COVIDian
             </Typography> */}
-            Dark Mode{" "}
+            {!darkState ? <Brightness5Icon /> : <Brightness2Icon />}
             <Switch checked={darkState} onChange={handleThemeChange} />
           </Toolbar>
         </AppBar>
