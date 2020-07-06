@@ -19,6 +19,7 @@ import InfoIcon from "@material-ui/icons/Info";
 import List from "@material-ui/core/List";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
+import logo from "../media/logo.png";
 
 import {
   orange,
@@ -151,6 +152,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               <MenuIcon />
             </IconButton>
+            <img src={logo} style={{ width: "50px", marginRight: "20px" }} />
             <Typography
               component="h1"
               variant="h6"
