@@ -218,7 +218,7 @@ const State = ({ selectedState }) => {
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  // fill={current ? colorScale(current.value) : DEFAULT_COLOR}
+                  fill={'#ccc'}
                   style={geographyStyle}
                   onMouseEnter={onMouseEnter(geo)}
                   onMouseLeave={onMouseLeave}

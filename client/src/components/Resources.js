@@ -8,6 +8,7 @@ import styles2 from "./ResourcesCharts.css";
 import CountUp from "react-countup";
 import cx from "classnames";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
+import { useTheme } from "@material-ui/core/styles";
 
 const url = "https://covid19.mathdro.id/api";
 
@@ -90,6 +91,7 @@ const Cards = ({
       bottomText: "Number of active cases of COVID-19",
     },
   ];
+
   return (
     <div className={styles.container}>
       <Grid
@@ -145,6 +147,13 @@ const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
     };
     fetchAPI();
   }, []);
+
+  const theme = useTheme();
+  const [themeType, setTheme] = React.useState(theme.palette.type);
+  React.useEffect(() => {
+    setTheme(theme.palette.type);
+  }, [theme.palette.type]);
+
   const lineChart = dailyData.length ? (
     <Line
       data={{
@@ -164,6 +173,13 @@ const Chart = ({ data: { confirmed, recovered, deaths }, country }) => {
             fill: true,
           },
         ],
+      }}
+      options={{
+        legend: {
+          labels: {
+            fontColor: themeType === "dark" ? "rgb(255,255,255)" : "rgb(0,0,0)",
+          },
+        },
       }}
     />
   ) : null;
@@ -270,7 +286,7 @@ const Resources = () => {
       <Chart data={data} country={country} />
 
       <Grid container style={{ margin: "20px 0px" }} spacing={3}>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <Card>
             <CardContent>
               <TwitterTimelineEmbed
@@ -281,7 +297,7 @@ const Resources = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <Card>
             <CardContent>
               <TwitterTimelineEmbed
@@ -292,7 +308,7 @@ const Resources = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <Card>
             <CardContent>
               <TwitterTimelineEmbed
