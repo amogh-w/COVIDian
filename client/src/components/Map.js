@@ -19,19 +19,69 @@ const PROJECTION_CONFIG = {
 };
 
 // Red Variants
-const COLOR_RANGE = [
-  "#ffedea",
-  "#ffcec5",
-  "#ffad9f",
-  "#ff8a75",
-  "#ff5533",
+// const COLOR_RANGE = [
+//   "#ffedea",
+//   "#ffcec5",
+//   "#ffad9f",
+//   "#ff8a75",
+//   "#ff5533",
+//   "#e2492d",
+//   "#be3d26",
+//   "#9a311f",
+//   "#782618",
+// ];
+
+const COLOR_RANGE_ANGER = [
+  "#f39281",
+  "#f17e6a",
+  "#ef6952",
+  "#ed553b",
+  "#eb4124",
   "#e2492d",
   "#be3d26",
-  "#9a311f",
-  "#782618",
 ];
 
-const DEFAULT_COLOR = "#EEE";
+const COLOR_RANGE_SADNESS = [
+  "#26689d",
+  "#215a88",
+  "#1c4d74",
+  "#173f5f",
+  "#12314a",
+  "#0d2436",
+  "#081621",
+];
+
+const COLOR_RANGE_JOY = [
+  "#fae8a4",
+  "#f9e18c",
+  "#f7db74",
+  "#f6d55c",
+  "#f5cf44",
+  "#f3c92c",
+  "#f2c214",
+];
+
+const COLOR_RANGE_FEAR = [
+  "#338bd5",
+  "#297ec5",
+  "#2471b0",
+  "#20639b",
+  "#1c5686",
+  "#174871",
+  "#133b5c",
+];
+
+const COLOR_RANGE_DISGUST = [
+  "#6bccc2",
+  "#58c5bb",
+  "#45bfb3",
+  "#3caea3",
+  "#359b91",
+  "#2f887f",
+  "#28756e",
+];
+
+const DEFAULT_COLOR = "#CDCDCD";
 
 const getRandomInt = () => {
   return parseInt(Math.random() * 100);
@@ -132,6 +182,7 @@ const Map = () => {
   const [tooltipContent, setTooltipContent] = useState("");
   const [data, setData] = useState(getHeatMapData());
   const [attribute, setAttribute] = useState("anger");
+  const [colorRange, setColorRange] = useState(COLOR_RANGE_ANGER);
 
   useEffect(() => {
     const fetch = createApolloFetch({
@@ -149,11 +200,23 @@ const Map = () => {
 
   const handleChange = (event) => {
     setAttribute(event.target.value);
+    console.log("HEY", event.target.value);
+    if (event.target.value === "anger") {
+      setColorRange(COLOR_RANGE_ANGER);
+    } else if (event.target.value === "sadness") {
+      setColorRange(COLOR_RANGE_SADNESS);
+    } else if (event.target.value === "joy") {
+      setColorRange(COLOR_RANGE_JOY);
+    } else if (event.target.value === "fear") {
+      setColorRange(COLOR_RANGE_FEAR);
+    } else if (event.target.value === "disgust") {
+      setColorRange(COLOR_RANGE_DISGUST);
+    }
   };
 
   const colorScale = scaleQuantile()
     .domain(data.map((d) => d[attribute]))
-    .range(COLOR_RANGE);
+    .range(colorRange);
 
   const onMouseEnter = useCallback(
     (geo, current) => {
