@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, Typography, Hidden } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
@@ -116,7 +116,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
     console.log(width)
     return (
       <>
-      <AppBar
+        <AppBar
           position="fixed"
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open,
@@ -135,7 +135,11 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               <MenuIcon />
             </IconButton>
-            <img src={logo} style={{ width: "50px", marginRight: "20px" }} />
+            <img
+              src={logo}
+              style={{ width: "50px", marginRight: "20px" }}
+              alt="logo"
+            />
             <Typography
               component="h1"
               variant="h6"
@@ -200,13 +204,13 @@ const Navbar = ({ darkState, handleThemeChange }) => {
           </List>
           <Divider />
         </Drawer>
-        </>
-    )
+      </>
+    );
   }
 
   return (
     <>
-    {/* {
+      {/* {
       width>=960 && width<=1280
       ?
       :
@@ -231,7 +235,11 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               <MenuIcon />
             </IconButton>
-            <img src={logo} style={{ width: "50px", marginRight: "20px" }} />
+            <img
+              src={logo}
+              style={{ width: "50px", marginRight: "20px" }}
+              alt="logo"
+            />
             <Typography
               component="h1"
               variant="h6"
@@ -316,7 +324,11 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               <MenuIcon />
             </IconButton>
-            <img src={logo} style={{ width: "50px", marginRight: "20px" }} />
+            <img
+              src={logo}
+              style={{ width: "50px", marginRight: "20px" }}
+              alt="logo"
+            />
             {/* <Typography
               component="h1"
               variant="h6"

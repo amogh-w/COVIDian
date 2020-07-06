@@ -12,9 +12,7 @@ import {
   Tooltip,
   IconButton,
   TableSortLabel,
-  Paper,
   TablePagination,
-  FormControlLabel,
 } from "@material-ui/core";
 import { makeStyles, lighten } from "@material-ui/core/styles";
 import { createApolloFetch } from "apollo-fetch";
@@ -95,7 +93,7 @@ function EnhancedTableHead(props) {
             onChange={onSelectAllClick}
             inputProps={{ "aria-label": "select all desserts" }}
           />*/}
-        </TableCell> 
+        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -218,7 +216,6 @@ const Tweets = ({ selectedState }) => {
   const [orderBy, setOrderBy] = React.useState("calories");
   // const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
   const handleRequestSort = (event, property) => {
@@ -265,10 +262,6 @@ const Tweets = ({ selectedState }) => {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
   // const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -300,91 +293,87 @@ const Tweets = ({ selectedState }) => {
   return (
     <div>
       <div className={classes.root}>
-          <EnhancedTableToolbar />
-          <TableContainer>
-            <Table
-              className={classes.table}
-              aria-labelledby="tableTitle"
-              size={dense ? "small" : "medium"}
-              aria-label="enhanced table"
-            >
-              <EnhancedTableHead
-                classes={classes}
-                // numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                // onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                // rowCount={data.length}
-              />
-              <TableBody>
-                {stableSort(data, getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    // const isItemSelected = isSelected(row.name);
-                    const labelId = `enhanced-table-checkbox-${index}`;
+        <EnhancedTableToolbar />
+        <TableContainer>
+          <Table
+            className={classes.table}
+            aria-labelledby="tableTitle"
+            size="medium"
+            aria-label="enhanced table"
+          >
+            <EnhancedTableHead
+              classes={classes}
+              // numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              // onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              // rowCount={data.length}
+            />
+            <TableBody>
+              {stableSort(data, getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  // const isItemSelected = isSelected(row.name);
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-                    return (
-                      <TableRow
-                        hover
-                        // onClick={(event) => handleClick(event, row.name)}
-                        role="checkbox"
-                        // aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={row.name}
-                        // selected={isItemSelected}
-                      >
-                        <TableCell padding="checkbox">
+                  return (
+                    <TableRow
+                      hover
+                      // onClick={(event) => handleClick(event, row.name)}
+                      role="checkbox"
+                      // aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={row.name}
+                      // selected={isItemSelected}
+                    >
+                      <TableCell padding="checkbox">
                         {/*   <Checkbox
                             checked={isItemSelected}
                             inputProps={{ "aria-labelledby": labelId }}
                           />*/}
-                        </TableCell> 
-                        <TableCell
-                          component="th"
-                          id={labelId}
-                          scope="row"
-                          padding="none"
-                        >
-                          {row.tweet}
-                        </TableCell>
-                        <TableCell align="right">{row.state}</TableCell>
-                        <TableCell align="right">{row.city}</TableCell>
-                        <TableCell align="right">
-                          {row.sadness.toFixed(2)}
-                        </TableCell>
-                        <TableCell align="right">
-                          {row.joy.toFixed(2)}
-                        </TableCell>
-                        <TableCell align="right">
-                          {row.fear.toFixed(2)}
-                        </TableCell>
-                        <TableCell align="right">
-                          {row.disgust.toFixed(2)}
-                        </TableCell>
-                        <TableCell align="right">
-                          {row.anger.toFixed(2)}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={data.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.tweet}
+                      </TableCell>
+                      <TableCell align="right">{row.state}</TableCell>
+                      <TableCell align="right">{row.city}</TableCell>
+                      <TableCell align="right">
+                        {row.sadness.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="right">{row.joy.toFixed(2)}</TableCell>
+                      <TableCell align="right">{row.fear.toFixed(2)}</TableCell>
+                      <TableCell align="right">
+                        {row.disgust.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row.anger.toFixed(2)}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={data.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
       </div>
     </div>
   );

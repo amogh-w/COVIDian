@@ -4,13 +4,15 @@ import {
   Button,
   Typography,
   Card,
-  CardHeader,
   CardContent,
+  Divider,
 } from "@material-ui/core";
+import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 const LiveTweet = () => {
-  const [values, setValues] = useState({ tweet: "" });
+  const [values, setValues] = useState({ tweet: "", username: "WHO" });
   const [prediction, setPrediction] = useState("");
+  const [userToSearch, setUserToSearch] = useState("");
 
   const fetchPrediction = () => {
     const requestOptions = {
@@ -24,6 +26,10 @@ const LiveTweet = () => {
       .catch((err) => {
         setPrediction("invalid");
       });
+  };
+
+  const fetchUser = () => {
+    setUserToSearch(values.username);
   };
 
   const handleInputChange = (e) => {
@@ -59,6 +65,34 @@ const LiveTweet = () => {
           )}
         </CardContent>
       </Card>
+      <Divider style={{ margin: "20px 0px", width: "50vw" }} />
+      <Typography variant="h5">Search User</Typography>
+      <TextField
+        name="username"
+        value={values.name}
+        onChange={handleInputChange}
+        label="Twitter Username"
+        margin="normal"
+        // multiline
+        // rowsMax={4}
+        style={{ width: "50vw" }}
+      />
+      <br />
+      <Button variant="contained" color="primary" onClick={fetchUser}>
+        Search
+      </Button>
+      {userToSearch ? (
+        <div style={{ width: "50vw", marginTop: "20px" }}>
+          <TwitterTimelineEmbed
+            key={Math.random()}
+            sourceType="profile"
+            screenName={userToSearch}
+            options={{ height: 400 }}
+          />
+        </div>
+      ) : (
+        <br />
+      )}
     </div>
   );
 };
