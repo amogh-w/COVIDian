@@ -286,7 +286,7 @@ const Resources = () => {
       <Chart data={data} country={country} />
 
       <Grid container style={{ margin: "20px 0px" }} spacing={3}>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <Card>
             <CardContent>
               <TwitterTimelineEmbed
@@ -297,7 +297,7 @@ const Resources = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <Card>
             <CardContent>
               <TwitterTimelineEmbed
@@ -308,7 +308,7 @@ const Resources = () => {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <Card>
             <CardContent>
               <TwitterTimelineEmbed
