@@ -156,7 +156,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               COVIDian #IndiaFightsCorona
             </Typography>
             <Button color="primary" variant="body1" onClick={handleThemeChange}>
-              {!darkState ? <Brightness5Icon /> : <Brightness2Icon />}
+              {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
             </Button>
             <Switch checked={darkState} onChange={handleThemeChange} />
           </Toolbar>
@@ -258,7 +258,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               COVIDian #IndiaFightsCorona
             </Typography>
             <Button color="primary" variant="body1" onClick={handleThemeChange}>
-              {!darkState ? <Brightness5Icon /> : <Brightness2Icon />}
+              {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
             </Button>
           </Toolbar>
         </AppBar>
@@ -347,7 +347,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               />
             </Typography>{" "}
             <Button color="primary" variant="body1" onClick={handleThemeChange}>
-              {!darkState ? <Brightness5Icon /> : <Brightness2Icon />}
+              {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
             </Button>
           </Toolbar>
         </AppBar>
