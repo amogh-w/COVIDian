@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AppBar, Toolbar, Typography, Hidden } from "@material-ui/core";
+import { AppBar, Toolbar, Typography, Hidden, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -155,7 +155,9 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               COVIDian #IndiaFightsCorona
             </Typography>
-            {!darkState ? <Brightness5Icon /> : <Brightness2Icon />}
+            <Button color="primary" variant="body1" onClick={handleThemeChange}>
+              {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
+            </Button>
             <Switch checked={darkState} onChange={handleThemeChange} />
           </Toolbar>
         </AppBar>
@@ -255,8 +257,9 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               COVIDian #IndiaFightsCorona
             </Typography>
-            {!darkState ? <Brightness5Icon /> : <Brightness2Icon />}
-            <Switch checked={darkState} onChange={handleThemeChange} />
+            <Button color="primary" variant="body1" onClick={handleThemeChange}>
+              {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -337,14 +340,15 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               noWrap
               className={classes.title}
             >
-            <img
-              src={logo}
-              style={{ width: "50px", marginRight: "20px" }}
-              alt="logo"
-            />
-            </Typography>
-            {!darkState ? <Brightness5Icon /> : <Brightness2Icon />}
-            <Switch checked={darkState} onChange={handleThemeChange} />
+              <img
+                src={logo}
+                style={{ width: "50px", marginRight: "20px" }}
+                alt="logo"
+              />
+            </Typography>{" "}
+            <Button color="primary" variant="body1" onClick={handleThemeChange}>
+              {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
+            </Button>
           </Toolbar>
         </AppBar>
         <Drawer
