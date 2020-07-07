@@ -15,12 +15,16 @@ const LiveTweet = () => {
   const [userToSearch, setUserToSearch] = useState("");
 
   const fetchPrediction = () => {
+    console.log(process.env);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ tweet: `${values.tweet}` }),
     };
-    fetch("http://localhost:8080/predict", requestOptions)
+    fetch(
+      `http://localhost:5002/predict`,
+      requestOptions
+    )
       .then((response) => response.json())
       .then((data) => setPrediction(data.prediction))
       .catch((err) => {

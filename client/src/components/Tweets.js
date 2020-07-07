@@ -269,7 +269,7 @@ const Tweets = ({ selectedState }) => {
 
   useEffect(() => {
     const fetch = createApolloFetch({
-      uri: "http://localhost:5000/graphql",
+      uri: `http://localhost:5001/graphql`,
     });
 
     if (selectedState) {

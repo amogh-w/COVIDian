@@ -1,0 +1,32 @@
+version: "3"
+services:
+  covidian_client:
+    tty: true
+    build: ./client
+    volumes:
+      - ./client:/app
+      - "/app/node_modules"
+    ports:
+      - ${covidian_client_external_port}:${covidian_client_internal_port}
+    environment:
+      env_file: .env
+      NODE_ENV: development
+      COVIDIAN_SERVER_EXTERNAL_PORT: ${covidian_server_external_port}
+      COVIDIAN_PREDICT_EXTERNAL_PORT: ${covidian_predict_external_port}
+
+  covidian_server:
+    build: ./server
+    volumes:
+      - ./server:/usr/src/app
+    ports:
+      - ${covidian_server_external_port}:${covidian_server_internal_port}
+    environment:
+      covidian_server_internal_port: ${covidian_server_internal_port}
+      covidian_server_internal_mongo_url: ${covidian_server_internal_mongo_url}
+
+  covidian_predict:
+    build: ./data_science/predict
+    volumes:
+      - ./data_science/predict:/app
+    ports:
+      - ${covidian_predict_external_port}:${covidian_predict_internal_port}

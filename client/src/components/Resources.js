@@ -273,11 +273,11 @@ const Resources = () => {
       {/* <img className={styles.image} src={coronaImage} alt="COVID-19" /> */}
       <br />
       {/* <text> */}
-        <Typography>Global and Country Wise Cases of Corona Virus</Typography>
+      <Typography>Global and Country Wise Cases of Corona Virus</Typography>
       {/* </text> */}
       <br />
       <Typography>
-        <i>(For a particular select a Country from below)</i>
+        <i>(Select a Country from below)</i>
       </Typography>
       <br />
       <br />
