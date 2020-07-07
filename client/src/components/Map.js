@@ -92,7 +92,7 @@ const geographyStyle = {
     outline: "none",
   },
   hover: {
-    fill: "#ccc",
+    fill: "#9771d9",
     transition: "all 250ms",
     outline: "none",
   },
@@ -196,7 +196,7 @@ const Map = () => {
       // console.log(res.data.sentimentsState, attribute);
       setData(res.data.sentimentsState);
     });
-  }, [attribute]);
+  }, []);
 
   const handleChange = (event) => {
     setAttribute(event.target.value);
