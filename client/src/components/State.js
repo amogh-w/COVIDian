@@ -40,6 +40,7 @@ import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
+import Typography from "@material-ui/core/Typography";
 
 const COLOR_RANGE_ANGER = [
   "#f39281",
@@ -325,6 +326,9 @@ const State = ({ selectedState }) => {
 
   return (
     <div>
+      <Typography align="center" variant="h4">
+        {selectedState}
+      </Typography>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
       <ComposableMap
         projectionConfig={PROJECTION_CONFIG}

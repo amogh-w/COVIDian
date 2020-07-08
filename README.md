@@ -40,21 +40,30 @@ COVIDian offers different ways of visualizing as well as analyzing tweets.
 - **Tweet Analyzer** is where the real magic is at, all you have to do is put a tweet and our model will predict its emotions! To make our lives easy we have embedded twitter as well, just type the twitter handle and we fetch the tweet for you.
 - To keep in touch with reality and severity of COVID-19, **Resources** tab offers you _COVID-19 tracker_. Daily updates on infected, recovered and deaths related to coronavirus can be seen here.
 
-## Dashboard
-
-![0](/media/1.PNG?raw=true "Dash1")
+## Dashboard Page
 
 Presenting an all-in-one dashboard to visualize emotions to **coronavirus pandemic** and **government decisions** related to it,based on Twitter data.
 
+![0](/media/1.gif?raw=true "Dash1")
+
+Hovering on any state gives general information about that state.
+
 ![1](/media/2.PNG?raw=true "Dash2")
 
-Clicking on any state gives state-specific information.
-
+Clicking on any state gives state-specific information. Tweets specific to the state are also seen,with their _scores on emotions_.
 ![2](/media/3.PNG?raw=true "Dash3")
 
-Tweets specific to the state are also seen,with their _scores on emotions_.
+## Live Tweet Analyzer Page
 
-![3](/media/4.PNG?raw=true "Dash4")
+Enter a twitter username to get a list of the users tweets. You can perform live analysis of the tweet with our trained models.
+
+![3](/media/4.PNG?raw=true "Live Tweet")
+
+## Resources Page
+
+Latest updates on tweets and COVID statistics can be found here.
+
+![4](/media/5.png?raw=true "Resources")
 
 ### Resources:
 
@@ -78,24 +87,18 @@ Tweets specific to the state are also seen,with their _scores on emotions_.
 
 - [IBM API](https://www.ibm.com/in-en/cloud/api-connect) - Model will be hosted on IBM API
 
+- [Docker](https://www.docker.com/) - Docker is a set of platform as a service products that uses OS-level virtualization to deliver software in packages called containers.
+
+- [FastAPI](https://fastapi.tiangolo.com/) - FastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints.
+
+- [Uvicorn](https://www.uvicorn.org/) - Uvicorn is a lightning-fast ASGI server, built on uvloop and httptools.
+
 ## Getting Started:
 
-> Amogh do this.
-
 1. Clone the repo
-2. Install all the packages in the package.json file
-3. Make a twilio,s3,location iQ account and add the api key wherever it is required
-4. Run the command To start the app in development server
-
-```
-npm start
-```
-
-5. For building the production
-
-```
-npm run build
-```
+2. Populate the sample.env and save to .env file in the same folder as _docker-compose.yml_
+3. Run `docker-compose up`
+4. View [http://localhost:5000](http://localhost:5000)
 
 ## Contributing:
 
