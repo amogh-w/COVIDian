@@ -63,7 +63,7 @@ Enter a twitter username to get a list of the users tweets. You can perform live
 
 Latest updates on tweets and COVID statistics can be found here.
 
-![4](/media/5.PNG?raw=true "Resources")
+![4](/media/5.png?raw=true "Resources")
 
 ### Resources:
 
