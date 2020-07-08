@@ -18,10 +18,20 @@ import {
 } from "@material-ui/core/colors";
 
 const App = () => {
-  const [darkState, setDarkState] = useState(false);
+  const [darkState, setDarkState] = useState(window.localStorage.getItem('darkMode')==='true'?true:false);
+  console.log(typeof window.localStorage.getItem('darkMode'),window.localStorage.getItem('darkMode'))
   const palletType = darkState ? "dark" : "light";
   const mainPrimaryColor = darkState ? orange[500] : lightBlue[500];
   const mainSecondaryColor = darkState ? deepOrange[900] : deepPurple[500];
+
+  // useEffect(()=>{
+  //   const isDarkModeEnabled = window.localStorage.getItem('darkMode');
+  //   console.log(isDarkModeEnabled)
+  //   // console.log(isDarkModeEnabled)
+  //   // setDarkState(isDarkModeEnabled?true:false)
+  // },[])
+
+
   const darkTheme = createMuiTheme({
     palette: {
       type: palletType,
@@ -34,8 +44,13 @@ const App = () => {
     },
   });
 
+
   const handleThemeChange = () => {
+    const preference = darkState;
+    // console.log(darkState,preference)
     setDarkState(!darkState);
+    // console.log(preference,darkState)
+    window.localStorage.setItem('darkMode',!preference)
   };
 
   return (
