@@ -1,6 +1,7 @@
 const graphql = require("graphql");
 const Sentiment = require("../models/sentiment");
 const SentimentState = require("../models/sentimentState");
+const SentimentCity = require("../models/sentimentCity");
 const GraphQLDateTime = require("graphql-type-datetime");
 
 const {
@@ -42,6 +43,20 @@ const SentimentStateType = new GraphQLObjectType({
   }),
 });
 
+const SentimentCityType = new GraphQLObjectType({
+  name: "SentimentCity",
+  fields: () => ({
+    id: { type: GraphQLID },
+    state: { type: GraphQLString },
+    city: { type: GraphQLString },
+    sadness: { type: GraphQLFloat },
+    joy: { type: GraphQLFloat },
+    fear: { type: GraphQLFloat },
+    disgust: { type: GraphQLFloat },
+    anger: { type: GraphQLFloat },
+  }),
+});
+
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
@@ -75,6 +90,19 @@ const RootQuery = new GraphQLObjectType({
           return SentimentState.find({ state: args.state });
         } else if ("city" in args) {
           return SentimentState.find({ city: args.city });
+        }
+      },
+    },
+    sentimentsCity: {
+      type: GraphQLList(SentimentCityType),
+      args: { state: { type: GraphQLString }, city: { type: GraphQLString } },
+      resolve(parent, args) {
+        if (Object.keys(args).length === 0 && args.constructor === Object) {
+          return SentimentCity.find({});
+        } else if ("state" in args) {
+          return SentimentCity.find({ state: args.state });
+        } else if ("city" in args) {
+          return SentimentCity.find({ city: args.city });
         }
       },
     },

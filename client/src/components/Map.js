@@ -92,7 +92,7 @@ const geographyStyle = {
     outline: "none",
   },
   hover: {
-    fill: "#ccc",
+    fill: "#9771d9",
     transition: "all 250ms",
     outline: "none",
   },

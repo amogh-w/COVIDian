@@ -1,7 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactTooltip from "react-tooltip";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-
+import { createApolloFetch } from "apollo-fetch";
+import { scaleQuantile } from "d3-scale";
+import { makeStyles } from "@material-ui/core/styles";
 import andamannicobar from "../topojsons/states/andamannicobar.json";
 import andhrapradesh from "../topojsons/states/andhrapradesh.json";
 import arunachalpradesh from "../topojsons/states/arunachalpradesh.json";
@@ -34,6 +36,91 @@ import tripura from "../topojsons/states/tripura.json";
 import uttarakhand from "../topojsons/states/uttarakhand.json";
 import uttarpradesh from "../topojsons/states/uttarpradesh.json";
 import westbengal from "../topojsons/states/westbengal.json";
+import FormControl from "@material-ui/core/FormControl";
+import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+
+const COLOR_RANGE_ANGER = [
+  "#f39281",
+  "#f17e6a",
+  "#ef6952",
+  "#ed553b",
+  "#eb4124",
+  "#e2492d",
+  "#be3d26",
+];
+
+const COLOR_RANGE_SADNESS = [
+  "#26689d",
+  "#215a88",
+  "#1c4d74",
+  "#173f5f",
+  "#12314a",
+  "#0d2436",
+  "#081621",
+];
+
+const COLOR_RANGE_JOY = [
+  "#fae8a4",
+  "#f9e18c",
+  "#f7db74",
+  "#f6d55c",
+  "#f5cf44",
+  "#f3c92c",
+  "#f2c214",
+];
+
+const COLOR_RANGE_FEAR = [
+  "#338bd5",
+  "#297ec5",
+  "#2471b0",
+  "#20639b",
+  "#1c5686",
+  "#174871",
+  "#133b5c",
+];
+
+const COLOR_RANGE_DISGUST = [
+  "#6bccc2",
+  "#58c5bb",
+  "#45bfb3",
+  "#3caea3",
+  "#359b91",
+  "#2f887f",
+  "#28756e",
+];
+
+const DEFAULT_COLOR = "#CDCDCD";
+
+const geographyStyle = {
+  default: {
+    outline: "none",
+  },
+  hover: {
+    fill: "#9771d9",
+    transition: "all 250ms",
+    outline: "none",
+  },
+  pressed: {
+    outline: "none",
+  },
+};
+
+// will generate random heatmap data on every call
+const getHeatMapData = () => {
+  return [];
+};
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const State = ({ selectedState }) => {
   let geoURL;
@@ -170,35 +257,72 @@ const State = ({ selectedState }) => {
     centerMap = [87.7, 24.2];
   }
 
-  const [tooltipContent, setTooltipContent] = useState("");
+  const PROJECTION_CONFIG = {
+    scale: scaleMap,
+    center: centerMap, // always in [East Latitude, North Longitude]
+  };
 
-  const onMouseEnter = useCallback((geo) => {
-    return () => {
-      setTooltipContent(`${geo.properties.district}`);
-    };
+  const [tooltipContent, setTooltipContent] = useState("");
+  const [data, setData] = useState(getHeatMapData());
+  const [attribute, setAttribute] = useState("anger");
+  const [colorRange, setColorRange] = useState(COLOR_RANGE_ANGER);
+
+  useEffect(() => {
+    const fetch = createApolloFetch({
+      uri: `http://localhost:5001/graphql`,
+    });
+
+    fetch({
+      query:
+        "{  sentimentsCity {    city    sadness    joy    fear    disgust    anger  }}",
+    }).then((res) => {
+      // console.log(res.data.sentimentsState, attribute);
+      setData(res.data.sentimentsCity);
+    });
   }, []);
+
+  const handleChange = (event) => {
+    setAttribute(event.target.value);
+    console.log("HEY", event.target.value);
+    if (event.target.value === "anger") {
+      setColorRange(COLOR_RANGE_ANGER);
+    } else if (event.target.value === "sadness") {
+      setColorRange(COLOR_RANGE_SADNESS);
+    } else if (event.target.value === "joy") {
+      setColorRange(COLOR_RANGE_JOY);
+    } else if (event.target.value === "fear") {
+      setColorRange(COLOR_RANGE_FEAR);
+    } else if (event.target.value === "disgust") {
+      setColorRange(COLOR_RANGE_DISGUST);
+    }
+  };
+
+  const colorScale = scaleQuantile()
+    .domain(data.map((d) => d[attribute]))
+    .range(colorRange);
+
+  const onMouseEnter = useCallback(
+    (geo, current) => {
+      if (geo.properties.district && current) {
+        console.log(geo.properties.district, current.city);
+      }
+      return () => {
+        setTooltipContent(
+          `${geo.properties.district}: ${
+            current ? (current[attribute] * 100).toFixed(2) + "%" : "NA"
+          }`
+        );
+      };
+    },
+    [attribute]
+  );
 
   const onMouseLeave = useCallback(() => {
     setTooltipContent("");
   }, []);
 
-  const PROJECTION_CONFIG = {
-    scale: scaleMap,
-    center: centerMap, // always in [East Latitude, North Longitude]
-  };
-  const geographyStyle = {
-    default: {
-      outline: "none",
-    },
-    hover: {
-      fill: "#ccc",
-      transition: "all 250ms",
-      outline: "none",
-    },
-    pressed: {
-      outline: "none",
-    },
-  };
+  const classes = useStyles();
+
   return (
     <div>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
@@ -212,22 +336,52 @@ const State = ({ selectedState }) => {
         <Geographies geography={geoURL}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              // console.log(geo.properties.district);
-              // const current = data.find((s) => s.id === geo.id);
+              //console.log(geo.id);
+              console.log(geo);
+
+              const current = data.find(
+                (s) =>
+                  s.city.toLowerCase() === geo.properties.district.toLowerCase()
+              );
+
+              console.log(current, attribute);
               return (
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill={'#ccc'}
+                  fill={
+                    current ? colorScale(current[attribute]) : DEFAULT_COLOR
+                  }
                   style={geographyStyle}
-                  onMouseEnter={onMouseEnter(geo)}
+                  onMouseEnter={onMouseEnter(geo, current)}
                   onMouseLeave={onMouseLeave}
+                  // onClick={() => {
+                  //   console.log(geo.properties.name);
+                  //   history.push({
+                  //     pathname: `/state/${geo.properties.name}`,
+                  //   });
+                  // }}
                 />
               );
             })
           }
         </Geographies>
       </ComposableMap>
+      <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">Emotion</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={attribute}
+          onChange={handleChange}
+        >
+          <MenuItem value={"anger"}>Anger</MenuItem>
+          <MenuItem value={"sadness"}>Sadness</MenuItem>
+          <MenuItem value={"joy"}>Joy</MenuItem>
+          <MenuItem value={"fear"}>Fear</MenuItem>
+          <MenuItem value={"disgust"}>Disgust</MenuItem>
+        </Select>
+      </FormControl>
     </div>
   );
 };
