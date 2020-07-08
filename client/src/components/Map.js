@@ -176,7 +176,7 @@ const useStyles = makeStyles((theme) => ({
 //   );
 // };
 
-const Map = () => {
+const Map = ({changeLoadingStatus}) => {
   let history = useHistory();
 
   const [tooltipContent, setTooltipContent] = useState("");
@@ -195,8 +195,10 @@ const Map = () => {
     }).then((res) => {
       // console.log(res.data.sentimentsState, attribute);
       setData(res.data.sentimentsState);
+      changeLoadingStatus(true)  
+
     });
-  }, [attribute]);
+  }, [changeLoadingStatus]);
 
   const handleChange = (event) => {
     setAttribute(event.target.value);

@@ -4,7 +4,7 @@ import Tweets from "./Tweets";
 import State from "./State";
 import { Radar } from "react-chartjs-2";
 import { createApolloFetch } from "apollo-fetch";
-
+import Loader from './spinnerScreen'
 const StateInfo = (props) => {
   const sadnessList = useRef([]);
   const joyList = useRef([]);
@@ -83,6 +83,7 @@ const StateInfo = (props) => {
 
   return (
     <div>
+      <Loader loading={!dataList.length} />
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Paper style={{ padding: "10px" }}>

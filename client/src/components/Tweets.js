@@ -209,7 +209,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Tweets = ({ selectedState }) => {
+const Tweets = ({ selectedState,changeLoadingStatus }) => {
   const classes = useStyles();
   const [data, setData] = useState([]);
   const [order, setOrder] = React.useState("asc");
@@ -276,7 +276,7 @@ const Tweets = ({ selectedState }) => {
       fetch({
         query: `{ sentiments(state: "${selectedState}") { tweet link state city sadness joy fear disgust anger }}`,
       }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setData(res.data.sentiments);
       });
     } else {
@@ -285,10 +285,12 @@ const Tweets = ({ selectedState }) => {
           "{ sentiments { tweet link state city sadness joy fear disgust anger }}",
       }).then((res) => {
         // console.log(res.data);
+        
         setData(res.data.sentiments);
+        changeLoadingStatus(true)  
       });
     }
-  }, [selectedState]);
+  }, [selectedState,changeLoadingStatus]);
 
   return (
     <div>

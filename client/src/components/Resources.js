@@ -9,7 +9,7 @@ import CountUp from "react-countup";
 import cx from "classnames";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { useTheme } from "@material-ui/core/styles";
-
+import Loader from './spinnerScreen'
 const url = "https://covid19.mathdro.id/api";
 
 const fetchData = async (country) => {
@@ -270,6 +270,7 @@ const Resources = () => {
 
   return (
     <div className={styles.container}>
+      <Loader loading={!Object.keys(data).length && !country.length} />
       {/* <img className={styles.image} src={coronaImage} alt="COVID-19" /> */}
       <br />
       {/* <text> */}
