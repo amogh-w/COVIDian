@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Paper,
-  Typography,
-  Box,
-  Button,
-  Hidden,
-} from "@material-ui/core";
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import Hidden from "@material-ui/core/Hidden";
+
 import GitHubIcon from "@material-ui/icons/GitHub";
-import { useTheme } from "@material-ui/core/styles";
+import useTheme from "@material-ui/core/styles/useTheme";
 import banner from "../media/banner.png";
 
 const About = () => {
   const theme = useTheme();
-  const [themeState, setTheme] = useState(theme.palette.type);
-  useEffect(() => {
+  const [themeState, setTheme] = React.useState(theme.palette.type);
+  React.useEffect(() => {
     setTheme(theme.palette.type);
   }, [theme.palette.type]);
   return (
@@ -276,4 +275,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default React.memo(About);

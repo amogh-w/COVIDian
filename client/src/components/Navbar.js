@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { AppBar, Toolbar, Typography, Hidden, Button } from "@material-ui/core";
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar"
+import Typography from "@material-ui/core/Typography"
+import Hidden from "@material-ui/core/Hidden"
+import Button from "@material-ui/core/Button" 
 import { Link } from "react-router-dom";
 import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import useTheme from "@material-ui/core/styles/useTheme";
 import Drawer from "@material-ui/core/Drawer";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
@@ -25,8 +30,8 @@ import Brightness2Icon from "@material-ui/icons/Brightness2";
 const Navbar = ({ darkState, handleThemeChange }) => {
   const [open, setOpen] = React.useState(false);
   // const [darkState, setDarkState] = useState(false);
-  const [width, setWidth] = useState(window.innerWidth);
-  const [drawerWidth, setDrawerWidth] = useState(240);
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const [drawerWidth, setDrawerWidth] = React.useState(240);
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
@@ -93,11 +98,11 @@ const Navbar = ({ darkState, handleThemeChange }) => {
   }));
   const classes = useStyles();
 
-  useEffect(() => {
+  React.useEffect(() => {
     window.addEventListener("resize", () => setWidth(window.innerWidth));
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (drawerWidth < 640) return setDrawerWidth(200);
     setDrawerWidth(240);
   }, [drawerWidth]);

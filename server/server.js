@@ -16,8 +16,8 @@ app.get("/data/:entity", (req, res) => {
   res.json(data);
 });
 
-app.listen(process.env.covidian_server_internal_port, () => {
-  console.log(`Running at ${process.env.covidian_server_internal_port}`);
+app.listen(process.env.covidian_server_internal_port || 4000, () => {
+  console.log(`Running at ${process.env.covidian_server_internal_port || 4000}`);
 });
 
 app.use(
