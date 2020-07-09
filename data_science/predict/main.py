@@ -3,6 +3,12 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 import os
 from starlette.middleware.cors import CORSMiddleware
+from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
+from keras.models import load_model
+
+
+
 
 # import uvicorn
 
@@ -14,8 +20,8 @@ app.add_middleware(
 print(os.getcwd())
 print(os.listdir("/app"))
 
-clf = pickle.load(open("/app/models/linearsvc1/clf.pickle", "rb"))
-count_vect = pickle.load(open("/app/models/linearsvc1/count_vect.pickle", "rb"))
+model = load_model("/app/models/lstm/model.h5")
+vector = pickle.load(open("/app/models/linearsvc1/clf.pickle", "rb"))
 
 
 class Data(BaseModel):
@@ -25,5 +31,13 @@ class Data(BaseModel):
 @app.post("/predict")
 def predict(data: Data):
     data_dict = data.dict()
-    answer = clf.predict(count_vect.transform([data_dict["tweet"]]))
-    return {"prediction": str(answer[0])}
+    input_string = []
+    input_string.append(data_dict["tweet"])
+    tokenizer = Tokenizer()
+    tokenizer.fit_on_texts(vector)
+    sequences = tokenizer.texts_to_sequences(input_string)
+    X_processed = pad_sequences(sequences, padding='post', maxlen=48)
+    score = model.predict(X_processed)
+    
+    return {"prediction": str(score)}
+    
