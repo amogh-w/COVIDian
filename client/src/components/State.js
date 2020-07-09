@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
 import ReactTooltip from "react-tooltip";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { createApolloFetch } from "apollo-fetch";
 import { scaleQuantile } from "d3-scale";
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+
 import andamannicobar from "../topojsons/states/andamannicobar.json";
 import andhrapradesh from "../topojsons/states/andhrapradesh.json";
 import arunachalpradesh from "../topojsons/states/arunachalpradesh.json";
@@ -263,14 +264,14 @@ const State = ({ selectedState }) => {
     center: centerMap, // always in [East Latitude, North Longitude]
   };
 
-  const [tooltipContent, setTooltipContent] = useState("");
-  const [data, setData] = useState(getHeatMapData());
-  const [attribute, setAttribute] = useState("anger");
-  const [colorRange, setColorRange] = useState(COLOR_RANGE_ANGER);
+  const [tooltipContent, setTooltipContent] = React.useState("");
+  const [data, setData] = React.useState(getHeatMapData());
+  const [attribute, setAttribute] = React.useState("anger");
+  const [colorRange, setColorRange] = React.useState(COLOR_RANGE_ANGER);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const fetch = createApolloFetch({
-      uri: `http://localhost:5001/graphql`,
+      uri: `/graphql`,
     });
 
     fetch({
@@ -302,7 +303,7 @@ const State = ({ selectedState }) => {
     .domain(data.map((d) => d[attribute]))
     .range(colorRange);
 
-  const onMouseEnter = useCallback(
+  const onMouseEnter = React.useCallback(
     (geo, current) => {
       if (geo.properties.district && current) {
         console.log(geo.properties.district, current.city);
@@ -318,7 +319,7 @@ const State = ({ selectedState }) => {
     [attribute]
   );
 
-  const onMouseLeave = useCallback(() => {
+  const onMouseLeave = React.useCallback(() => {
     setTooltipContent("");
   }, []);
 

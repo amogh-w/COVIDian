@@ -1,18 +1,17 @@
-import React, { useState } from "react";
-import {
-  TextField,
-  Button,
-  Typography,
-  Card,
-  CardContent,
-  Divider,
-} from "@material-ui/core";
+import React from "react";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Divider from "@material-ui/core/Divider";
+
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 
 const LiveTweet = () => {
-  const [values, setValues] = useState({ tweet: "", username: "WHO" });
-  const [prediction, setPrediction] = useState("");
-  const [userToSearch, setUserToSearch] = useState("");
+  const [values, setValues] = React.useState({ tweet: "", username: "WHO" });
+  const [prediction, setPrediction] = React.useState("");
+  const [userToSearch, setUserToSearch] = React.useState("");
 
   const fetchPrediction = () => {
     console.log(process.env);
@@ -22,7 +21,7 @@ const LiveTweet = () => {
       body: JSON.stringify({ tweet: `${values.tweet}` }),
     };
     fetch(
-      `http://localhost:5002/predict`,
+      `/predict`,
       requestOptions
     )
       .then((response) => response.json())
@@ -101,4 +100,4 @@ const LiveTweet = () => {
   );
 };
 
-export default LiveTweet;
+export default React.memo(LiveTweet);

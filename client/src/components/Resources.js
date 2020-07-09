@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Card, CardContent, Typography, Grid } from "@material-ui/core";
-import { NativeSelect, FormControl } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import NativeSelect from "@material-ui/core/NativeSelect";
+import FormControl from "@material-ui/core/FormControl";
 import styles from "./ResourcesCards.css";
 import { Line, Bar } from "react-chartjs-2";
 import styles2 from "./ResourcesCharts.css";
 import CountUp from "react-countup";
 import cx from "classnames";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
-import { useTheme } from "@material-ui/core/styles";
+import useTheme from "@material-ui/core/styles/useTheme";
 import Loader from './spinnerScreen'
+
 const url = "https://covid19.mathdro.id/api";
 
 const fetchData = async (country) => {

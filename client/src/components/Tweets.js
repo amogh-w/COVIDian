@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import clsx from "clsx";
-import {
-  TableContainer,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Toolbar,
-  Typography,
-  Tooltip,
-  IconButton,
-  TableSortLabel,
-  TablePagination,
-} from "@material-ui/core";
-import { makeStyles, lighten } from "@material-ui/core/styles";
+import TableContainer from "@material-ui/core/TableContainer";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
+import TablePagination from "@material-ui/core/TablePagination";
+import {makeStyles,lighten} from "@material-ui/core/styles";
 import { createApolloFetch } from "apollo-fetch";
 
 function descendingComparator(a, b, orderBy) {
@@ -211,7 +209,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Tweets = ({ selectedState,changeLoadingStatus }) => {
   const classes = useStyles();
-  const [data, setData] = useState([]);
+  const [data, setData] = React.useState([]);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   // const [selected, setSelected] = React.useState([]);
@@ -267,9 +265,9 @@ const Tweets = ({ selectedState,changeLoadingStatus }) => {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const fetch = createApolloFetch({
-      uri: `http://localhost:5001/graphql`,
+      uri: `/graphql`,
     });
 
     if (selectedState) {

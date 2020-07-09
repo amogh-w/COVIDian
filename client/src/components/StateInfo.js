@@ -1,22 +1,23 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Grid, Paper } from "@material-ui/core";
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 import Tweets from "./Tweets";
 import State from "./State";
 import { Radar } from "react-chartjs-2";
 import { createApolloFetch } from "apollo-fetch";
 import Loader from './spinnerScreen'
 const StateInfo = (props) => {
-  const sadnessList = useRef([]);
-  const joyList = useRef([]);
-  const fearList = useRef([]);
-  const disgustList = useRef([]);
-  const angerList = useRef([]);
+  const sadnessList = React.useRef([]);
+  const joyList = React.useRef([]);
+  const fearList = React.useRef([]);
+  const disgustList = React.useRef([]);
+  const angerList = React.useRef([]);
 
-  const [dataList, setDataList] = useState([]);
+  const [dataList, setDataList] = React.useState([]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const fetch = createApolloFetch({
-      uri: `http://localhost:5001/graphql`,
+      uri: `/graphql`,
     });
 
     fetch({

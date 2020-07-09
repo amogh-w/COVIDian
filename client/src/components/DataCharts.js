@@ -1,7 +1,7 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Radar } from "react-chartjs-2";
-import { useTheme } from '@material-ui/core/styles';
+import useTheme from '@material-ui/core/styles/useTheme';
 const data = {
   labels: ["sadness", "joy", "fear", "digust", "anger"],
   datasets: [
@@ -97,4 +97,4 @@ const DataCharts = ({ type }) => {
   }
 };
 
-export default DataCharts;
+export default React.memo(DataCharts);
