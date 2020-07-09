@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import Hidden from "@material-ui/core/Hidden"
-import Button from "@material-ui/core/Button" 
+import Button from "@material-ui/core/Button"
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -121,8 +121,8 @@ const Navbar = ({ darkState, handleThemeChange }) => {
     setOpen(false);
   };
 
-  if (width >= 960 && width <= 1280) {
-    // console.log(width)
+  if (width >= 960 && width <= 1400) {
+    console.log(width)
     return (
       <>
         <AppBar
@@ -137,18 +137,11 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
-              className={clsx(classes.menuButton, {
-                [classes.hide]: open,
-              })}
-              // handleThemeChange={handleThemeChange}
+              className={clsx(classes.menuButton, open && classes.hide)}
+            // handleThemeChange={handleThemeChange}
             >
               <MenuIcon />
             </IconButton>
-            <img
-              src={logo}
-              style={{ width: "50px", marginRight: "20px" }}
-              alt="logo"
-            />
             <Typography
               component="h1"
               variant="h6"
@@ -156,25 +149,24 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               noWrap
               className={classes.title}
             >
-              COVIDian #IndiaFightsCorona
-            </Typography>
+              <img
+                src={logo}
+                style={{ width: "50px", marginRight: "20px" }}
+                alt="logo"
+              />
+            </Typography>{" "}
             <Button color="primary" variant="contained" onClick={handleThemeChange}>
               {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
             </Button>
-            <Switch checked={darkState} onChange={handleThemeChange} />
           </Toolbar>
         </AppBar>
         <Drawer
-          variant="permanent"
-          className={clsx(classes.drawer, {
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          })}
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
           classes={{
-            paper: clsx({
-              [classes.drawerOpen]: open,
-              [classes.drawerClose]: !open,
-            }),
+            paper: classes.drawerPaper,
           }}
         >
           <div className={classes.toolbar}>
@@ -182,8 +174,8 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
-                <ChevronLeftIcon />
-              )}
+                  <ChevronLeftIcon />
+                )}
             </IconButton>
           </div>
           <Divider />
@@ -242,7 +234,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               className={clsx(classes.menuButton, {
                 [classes.hide]: open,
               })}
-              // handleThemeChange={handleThemeChange}
+            // handleThemeChange={handleThemeChange}
             >
               <MenuIcon />
             </IconButton>
@@ -283,8 +275,8 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
-                <ChevronLeftIcon />
-              )}
+                  <ChevronLeftIcon />
+                )}
             </IconButton>
           </div>
           <Divider />
@@ -332,7 +324,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               onClick={handleDrawerOpen}
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
-              // handleThemeChange={handleThemeChange}
+            // handleThemeChange={handleThemeChange}
             >
               <MenuIcon />
             </IconButton>
@@ -368,8 +360,8 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
-                <ChevronLeftIcon />
-              )}
+                  <ChevronLeftIcon />
+                )}
             </IconButton>
           </div>
           <Divider />
