@@ -5,16 +5,23 @@ import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
-
 import { TwitterTimelineEmbed } from "react-twitter-embed";
+import Loader from './spinnerScreen'
 
 const LiveTweet = () => {
   const [values, setValues] = React.useState({ tweet: "", username: "WHO" });
   const [prediction, setPrediction] = React.useState("");
   const [userToSearch, setUserToSearch] = React.useState("");
+  const [isLoad, setLoad] = React.useState(false)
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const randNum = React.useRef(0);
+  React.useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, []);
+
 
   const fetchPrediction = () => {
-    console.log(process.env);
+    // console.log(process.env);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -32,8 +39,15 @@ const LiveTweet = () => {
   };
 
   const fetchUser = () => {
+    setLoad(true)
     setUserToSearch(values.username);
+    randNum.current = randNum.current + 1;
+    window.setTimeout(() => setLoad(false),2000)
   };
+
+  // React.useEffect(()=>{
+  //   console.log(isLoad,userToSearch)
+  // },[isLoad,userToSearch])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,8 +78,8 @@ const LiveTweet = () => {
           {prediction ? (
             <Typography>Result: {prediction}.</Typography>
           ) : (
-            <Typography>Click the Predict button.</Typography>
-          )}
+              <Typography>Click the Predict button.</Typography>
+            )}
         </CardContent>
       </Card>
       <Divider style={{ margin: "20px 0px", width: "50vw" }} />
@@ -84,18 +98,21 @@ const LiveTweet = () => {
       <Button variant="contained" color="primary" onClick={fetchUser}>
         Search
       </Button>
-      {userToSearch ? (
-        <div style={{ width: "50vw", marginTop: "20px" }}>
-          <TwitterTimelineEmbed
-            key={Math.random()}
-            sourceType="profile"
-            screenName={userToSearch}
-            options={{ height: 400 }}
-          />
-        </div>
-      ) : (
-        <br />
-      )}
+      <Loader loading={isLoad} />
+      {userToSearch
+          ?
+          (
+            <div style={{ width: width>=1280?"50vw":"80vw", marginTop: "20px" }}>
+              <TwitterTimelineEmbed
+                key={randNum.current}
+                sourceType="profile"
+                screenName={userToSearch}
+                options={{ height: 400 }}
+              />
+            </div>
+          ) :
+        null
+      }
     </div>
   );
 };
