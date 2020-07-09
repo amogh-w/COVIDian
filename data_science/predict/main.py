@@ -3,12 +3,8 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 import os
 from starlette.middleware.cors import CORSMiddleware
-from keras.preprocessing.text import Tokenizer
-from keras.preprocessing.sequence import pad_sequences
-from keras.models import load_model
-
-
-
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 # import uvicorn
 
@@ -17,11 +13,22 @@ app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_headers=["*"], allow_methods=["*"],
 )
 
-print(os.getcwd())
-print(os.listdir("/app"))
+# print(os.getcwd())
+# print(os.listdir("/app"))
 
+# model = pickle.load(open("/app/models/lstm/model_amogh.pickle", "rb",))
+# model = load_model(
+#     "/Users/amogh/Documents/Study/twitter/data_science/predict/models/lstm/model.h5"
+# )
 model = load_model("/app/models/lstm/model.h5")
-vector = pickle.load(open("/app/models/linearsvc1/clf.pickle", "rb"))
+# tokenizer = pickle.load(open("/app/models/lstm/tokenizer.pickle", "rb"))
+# tokenizer = pickle.load(
+#     open(
+#         "/Users/amogh/Documents/Study/twitter/data_science/predict/models/lstm/tokenizer.pickle",
+#         "rb",
+#     )
+# )
+tokenizer = pickle.load(open("/app/models/lstm/tokenizer.pickle", "rb",))
 
 
 class Data(BaseModel):
@@ -33,11 +40,8 @@ def predict(data: Data):
     data_dict = data.dict()
     input_string = []
     input_string.append(data_dict["tweet"])
-    tokenizer = Tokenizer()
-    tokenizer.fit_on_texts(vector)
     sequences = tokenizer.texts_to_sequences(input_string)
-    X_processed = pad_sequences(sequences, padding='post', maxlen=48)
+    X_processed = pad_sequences(sequences, padding="post", maxlen=48)
     score = model.predict(X_processed)
-    
+
     return {"prediction": str(score)}
-    
