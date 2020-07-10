@@ -2,7 +2,7 @@ version: "3"
 
 services:
   nginx:
-    build: ./nginx
+    image: amoghw2025/covidian-nginx
     restart: always
     depends_on:
       - covidian_client
@@ -12,16 +12,17 @@ services:
 
   covidian_client:
     tty: true
-    build: ./client
+    image: amoghw2025/covidian-client
     restart: always
     depends_on:
       - covidian_server
       - covidian_predict
 
   covidian_server:
-    build: ./server
+    image: amoghw2025/covidian-server
     environment:
       - covidian_server_internal_mongo_url=${covidian_server_internal_mongo_url}
 
   covidian_predict:
+    image: amoghw2025/covidian-predict
     build: ./data_science/predict

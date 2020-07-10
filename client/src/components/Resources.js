@@ -13,7 +13,7 @@ import CountUp from "react-countup";
 import cx from "classnames";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 import useTheme from "@material-ui/core/styles/useTheme";
-import Loader from './spinnerScreen'
+import Loader from "./spinnerScreen";
 
 const url = "https://covid19.mathdro.id/api";
 
@@ -67,7 +67,7 @@ const Cards = ({
   country,
 }) => {
   if (!confirmed) {
-    return "Loading...";
+    return "";
   }
   const active = confirmed["value"] - recovered["value"] - deaths["value"];
   let cardDetails = [
