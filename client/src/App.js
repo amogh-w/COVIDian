@@ -17,6 +17,7 @@ const LiveTweet = React.lazy(() => import(/* webpackChunkName: "LiveTweet" */ '.
 const Resources = React.lazy(() => import(/* webpackChunkName: "Resources" */ './components/Resources'))
 const About = React.lazy(() => import(/* webpackChunkName: "About" */ './components/About'))
 
+
 const App = () => {
   const [darkState, setDarkState] = React.useState(window.localStorage.getItem('darkMode') === 'true' ? true : false);
 
