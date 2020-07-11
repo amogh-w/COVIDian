@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const sentimentCitySchema = new Schema(
+const sentimentCountrySchema = new Schema(
   {
-    state: String,
+    country: String,
     city: String,
     anger: Number,
     happiness: Number,
@@ -12,7 +12,7 @@ const sentimentCitySchema = new Schema(
     sadness: Number,
     worry: Number,
   },
-  { collection: "sentiments_city" }
+  { collection: "sentiments_country" }
 );
 
-module.exports = mongoose.model("SentimentCity", sentimentCitySchema);
+module.exports = mongoose.model("sentimentCountry", sentimentCountrySchema);

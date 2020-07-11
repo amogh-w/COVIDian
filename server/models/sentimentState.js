@@ -4,13 +4,12 @@ const Schema = mongoose.Schema;
 
 const sentimentStateSchema = new Schema(
   {
-    key: String,
     state: String,
-    sadness: Number,
-    joy: Number,
-    fear: Number,
-    disgust: Number,
     anger: Number,
+    happiness: Number,
+    neutral: Number,
+    sadness: Number,
+    worry: Number,
   },
   { collection: "sentiments_state" }
 );

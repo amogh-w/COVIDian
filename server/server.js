@@ -17,7 +17,9 @@ app.get("/data/:entity", (req, res) => {
 });
 
 app.listen(process.env.covidian_server_internal_port || 4000, () => {
-  console.log(`Running at ${process.env.covidian_server_internal_port || 4000}`);
+  console.log(
+    `Running at ${process.env.covidian_server_internal_port || 4000}`
+  );
 });
 
 app.use(
@@ -28,7 +30,7 @@ app.use(
   })
 );
 
-mongoose.connect(process.env.covidian_server_internal_mongo_url, {
+mongoose.connect(`${process.env.covidian_server_internal_mongo_url}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

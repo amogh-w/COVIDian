@@ -2,6 +2,7 @@ const graphql = require("graphql");
 const Sentiment = require("../models/sentiment");
 const SentimentState = require("../models/sentimentState");
 const SentimentCity = require("../models/sentimentCity");
+const SentimentCountry = require("../models/sentimentCountry");
 const GraphQLDateTime = require("graphql-type-datetime");
 
 const {
@@ -21,11 +22,11 @@ const SentimentType = new GraphQLObjectType({
     link: { type: GraphQLString },
     state: { type: GraphQLString },
     city: { type: GraphQLString },
-    sadness: { type: GraphQLFloat },
-    joy: { type: GraphQLFloat },
-    fear: { type: GraphQLFloat },
-    disgust: { type: GraphQLFloat },
     anger: { type: GraphQLFloat },
+    happiness: { type: GraphQLFloat },
+    neutral: { type: GraphQLFloat },
+    sadness: { type: GraphQLFloat },
+    worry: { type: GraphQLFloat },
   }),
 });
 
@@ -33,13 +34,12 @@ const SentimentStateType = new GraphQLObjectType({
   name: "SentimentState",
   fields: () => ({
     id: { type: GraphQLID },
-    key: { type: GraphQLString },
     state: { type: GraphQLString },
-    sadness: { type: GraphQLFloat },
-    joy: { type: GraphQLFloat },
-    fear: { type: GraphQLFloat },
-    disgust: { type: GraphQLFloat },
     anger: { type: GraphQLFloat },
+    happiness: { type: GraphQLFloat },
+    neutral: { type: GraphQLFloat },
+    sadness: { type: GraphQLFloat },
+    worry: { type: GraphQLFloat },
   }),
 });
 
@@ -49,11 +49,24 @@ const SentimentCityType = new GraphQLObjectType({
     id: { type: GraphQLID },
     state: { type: GraphQLString },
     city: { type: GraphQLString },
-    sadness: { type: GraphQLFloat },
-    joy: { type: GraphQLFloat },
-    fear: { type: GraphQLFloat },
-    disgust: { type: GraphQLFloat },
     anger: { type: GraphQLFloat },
+    happiness: { type: GraphQLFloat },
+    neutral: { type: GraphQLFloat },
+    sadness: { type: GraphQLFloat },
+    worry: { type: GraphQLFloat },
+  }),
+});
+
+const SentimentCountryType = new GraphQLObjectType({
+  name: "SentimentCountry",
+  fields: () => ({
+    id: { type: GraphQLID },
+    country: { type: GraphQLString },
+    anger: { type: GraphQLFloat },
+    happiness: { type: GraphQLFloat },
+    neutral: { type: GraphQLFloat },
+    sadness: { type: GraphQLFloat },
+    worry: { type: GraphQLFloat },
   }),
 });
 
@@ -82,14 +95,12 @@ const RootQuery = new GraphQLObjectType({
     },
     sentimentsState: {
       type: GraphQLList(SentimentStateType),
-      args: { state: { type: GraphQLString }, city: { type: GraphQLString } },
+      args: { state: { type: GraphQLString } },
       resolve(parent, args) {
         if (Object.keys(args).length === 0 && args.constructor === Object) {
           return SentimentState.find({});
         } else if ("state" in args) {
           return SentimentState.find({ state: args.state });
-        } else if ("city" in args) {
-          return SentimentState.find({ city: args.city });
         }
       },
     },
@@ -103,6 +114,17 @@ const RootQuery = new GraphQLObjectType({
           return SentimentCity.find({ state: args.state });
         } else if ("city" in args) {
           return SentimentCity.find({ city: args.city });
+        }
+      },
+    },
+    sentimentsCountry: {
+      type: GraphQLList(SentimentCountryType),
+      args: { country: { type: GraphQLString } },
+      resolve(parent, args) {
+        if (Object.keys(args).length === 0 && args.constructor === Object) {
+          return SentimentCountry.find({});
+        } else if ("country" in args) {
+          return SentimentCountry.find({ country: args.country });
         }
       },
     },
