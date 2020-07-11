@@ -116,7 +116,6 @@ output[
     ]
 ].to_csv("{}-backup.csv".format(datetime.date.today()))
 
-mongo_url = os.environ.get("mongo_url")
 myclient = pymongo.MongoClient(os.getenv("covidian_server_internal_mongo_url"))
 mydb = myclient["covidian"]
 
