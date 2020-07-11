@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
-
 import GitHubIcon from "@material-ui/icons/GitHub";
 import useTheme from "@material-ui/core/styles/useTheme";
 import banner from "../media/banner.png";

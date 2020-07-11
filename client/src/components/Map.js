@@ -15,21 +15,8 @@ const INDIA_TOPO_JSON =
 
 const PROJECTION_CONFIG = {
   scale: 1600,
-  center: [82.0, 22.5937], // always in [East Latitude, North Longitude]
+  center: [82.0, 22.5937],
 };
-
-// Red Variants
-// const COLOR_RANGE = [
-//   "#ffedea",
-//   "#ffcec5",
-//   "#ffad9f",
-//   "#ff8a75",
-//   "#ff5533",
-//   "#e2492d",
-//   "#be3d26",
-//   "#9a311f",
-//   "#782618",
-// ];
 
 const COLOR_RANGE_ANGER = [
   "#f39281",
@@ -39,6 +26,26 @@ const COLOR_RANGE_ANGER = [
   "#eb4124",
   "#e2492d",
   "#be3d26",
+];
+
+const COLOR_RANGE_HAPPINESS = [
+  "#fae8a4",
+  "#f9e18c",
+  "#f7db74",
+  "#f6d55c",
+  "#f5cf44",
+  "#f3c92c",
+  "#f2c214",
+];
+
+const COLOR_RANGE_NEUTRAL = [
+  "#6bccc2",
+  "#58c5bb",
+  "#45bfb3",
+  "#3caea3",
+  "#359b91",
+  "#2f887f",
+  "#28756e",
 ];
 
 const COLOR_RANGE_SADNESS = [
@@ -51,17 +58,7 @@ const COLOR_RANGE_SADNESS = [
   "#081621",
 ];
 
-const COLOR_RANGE_JOY = [
-  "#fae8a4",
-  "#f9e18c",
-  "#f7db74",
-  "#f6d55c",
-  "#f5cf44",
-  "#f3c92c",
-  "#f2c214",
-];
-
-const COLOR_RANGE_FEAR = [
+const COLOR_RANGE_WORRY = [
   "#338bd5",
   "#297ec5",
   "#2471b0",
@@ -69,16 +66,6 @@ const COLOR_RANGE_FEAR = [
   "#1c5686",
   "#174871",
   "#133b5c",
-];
-
-const COLOR_RANGE_DISGUST = [
-  "#6bccc2",
-  "#58c5bb",
-  "#45bfb3",
-  "#3caea3",
-  "#359b91",
-  "#2f887f",
-  "#28756e",
 ];
 
 const DEFAULT_COLOR = "#CDCDCD";
@@ -101,7 +88,6 @@ const geographyStyle = {
   },
 };
 
-// will generate random heatmap data on every call
 const getHeatMapData = () => {
   return [
     { id: "AP", state: "Andhra Pradesh", value: getRandomInt() },
@@ -154,29 +140,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
 }));
-// const LinearGradient = (props) => {
-//   const { data } = props;
-//   const boxStyle = {
-//     width: 180,
-//     margin: "auto",
-//   };
-//   const gradientStyle = {
-//     backgroundImage: `linear-gradient(to right, ${data.fromColor} , ${data.toColor})`,
-//     height: 20,
-//   };
-//   return (
-//     <div>
-//       <div style={boxStyle} className="display-flex">
-//         <span>{data.min}</span>
-//         <span className="fill"></span>
-//         <span>{data.max}</span>
-//       </div>
-//       <div style={{ ...boxStyle, ...gradientStyle }} className="mt8"></div>
-//     </div>
-//   );
-// };
 
-const Map = ({changeLoadingStatus}) => {
+const Map = ({ changeLoadingStatus }) => {
   let history = useHistory();
 
   const [tooltipContent, setTooltipContent] = React.useState("");
@@ -190,29 +155,35 @@ const Map = ({changeLoadingStatus}) => {
     });
 
     fetch({
-      query:
-        "{  sentimentsState {    id    key    state    sadness    joy    fear    disgust    anger  }}",
+      query: `{
+        sentimentsState {
+        id
+        state
+        anger
+        happiness
+        neutral
+        sadness
+        worry
+        }
+       }`,
     }).then((res) => {
-      // console.log(res.data.sentimentsState, attribute);
       setData(res.data.sentimentsState);
-      changeLoadingStatus(true)  
-
+      changeLoadingStatus(true);
     });
   }, [changeLoadingStatus]);
 
   const handleChange = (event) => {
     setAttribute(event.target.value);
-    console.log("HEY", event.target.value);
     if (event.target.value === "anger") {
       setColorRange(COLOR_RANGE_ANGER);
+    } else if (event.target.value === "happiness") {
+      setColorRange(COLOR_RANGE_HAPPINESS);
+    } else if (event.target.value === "neutral") {
+      setColorRange(COLOR_RANGE_NEUTRAL);
     } else if (event.target.value === "sadness") {
       setColorRange(COLOR_RANGE_SADNESS);
-    } else if (event.target.value === "joy") {
-      setColorRange(COLOR_RANGE_JOY);
-    } else if (event.target.value === "fear") {
-      setColorRange(COLOR_RANGE_FEAR);
-    } else if (event.target.value === "disgust") {
-      setColorRange(COLOR_RANGE_DISGUST);
+    } else if (event.target.value === "worry") {
+      setColorRange(COLOR_RANGE_WORRY);
     }
   };
 
@@ -251,9 +222,11 @@ const Map = ({changeLoadingStatus}) => {
         <Geographies geography={INDIA_TOPO_JSON}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              //console.log(geo.id);
-              const current = data.find((s) => s.key === geo.id);
-              // console.log(current,attribute)
+              const current = data.find(
+                (s) => s.state === geo.properties.state
+              );
+
+              console.log(current, attribute);
               return (
                 <Geography
                   key={geo.rsmKey}
@@ -285,10 +258,10 @@ const Map = ({changeLoadingStatus}) => {
           onChange={handleChange}
         >
           <MenuItem value={"anger"}>Anger</MenuItem>
+          <MenuItem value={"happiness"}>Happiness</MenuItem>
+          <MenuItem value={"neutral"}>Neutral</MenuItem>
           <MenuItem value={"sadness"}>Sadness</MenuItem>
-          <MenuItem value={"joy"}>Joy</MenuItem>
-          <MenuItem value={"fear"}>Fear</MenuItem>
-          <MenuItem value={"disgust"}>Disgust</MenuItem>
+          <MenuItem value={"worry"}>Worry</MenuItem>
         </Select>
       </FormControl>
     </div>

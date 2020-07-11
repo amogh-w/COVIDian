@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  nginx:
+    build: ./nginx
+    restart: always
+    depends_on:
+      - covidian_client
+      - covidian_server
+    ports:
+      - "3050:80"
+
+  covidian_client:
+    tty: true
+    build:
+      context: ./client
+      dockerfile: Dev.Dockerfile
+    restart: always
+    depends_on:
+      - covidian_server
+      - covidian_predict
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+
+  covidian_server:
+    build: ./server
+    environment:
+      - covidian_server_internal_mongo_url=${covidian_server_internal_mongo_url}
+
+  covidian_predict:
+    build: ./data_science/predict

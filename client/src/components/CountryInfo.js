@@ -5,18 +5,11 @@ import Divider from "@material-ui/core/Divider";
 import DataCharts from "./DataCharts";
 import Tweets from "./Tweets";
 import Map from "./Map";
-import Loader from './spinnerScreen'
+import Loader from "./spinnerScreen";
 
 const CountryInfo = () => {
-  const [isMapLoaded,setMapLoadingStatus] = React.useState(false)
-  const [isTweetLoaded,setTweetLoadingStatus] = React.useState(false)
-
-  
-  // useEffect(()=>{
-  //   console.log(isMapLoaded,isTweetLoaded)
-  // },[isMapLoaded,isTweetLoaded])
-
-  
+  const [isMapLoaded, setMapLoadingStatus] = React.useState(false);
+  const [isTweetLoaded, setTweetLoadingStatus] = React.useState(false);
 
   return (
     <div>

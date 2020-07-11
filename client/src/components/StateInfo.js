@@ -5,14 +5,14 @@ import Tweets from "./Tweets";
 import State from "./State";
 import { Radar } from "react-chartjs-2";
 import { createApolloFetch } from "apollo-fetch";
-import Loader from './spinnerScreen'
-const StateInfo = (props) => {
-  const sadnessList = React.useRef([]);
-  const joyList = React.useRef([]);
-  const fearList = React.useRef([]);
-  const disgustList = React.useRef([]);
-  const angerList = React.useRef([]);
+import Loader from "./spinnerScreen";
 
+const StateInfo = (props) => {
+  const angerList = React.useRef([]);
+  const happinessList = React.useRef([]);
+  const neutralList = React.useRef([]);
+  const sadnessList = React.useRef([]);
+  const worryList = React.useRef([]);
   const [dataList, setDataList] = React.useState([]);
 
   React.useEffect(() => {
@@ -21,41 +21,49 @@ const StateInfo = (props) => {
     });
 
     fetch({
-      query: `{ sentiments(state: "${props.match.params.name}") { tweet link state city sadness joy fear disgust anger }}`,
+      query: `{
+        sentiments(state: "${props.match.params.name}") {
+        id
+        date_time
+        tweet
+        link
+        state
+        city
+        anger
+        happiness
+        neutral
+        sadness
+        worry
+        }
+       }`,
     })
       .then((res) => {
         res.data.sentiments.map((sentiment) => {
-          sadnessList.current.push(sentiment.sadness);
-          joyList.current.push(sentiment.joy);
-          fearList.current.push(sentiment.fear);
-          disgustList.current.push(sentiment.disgust);
           angerList.current.push(sentiment.anger);
+          happinessList.current.push(sentiment.happiness);
+          neutralList.current.push(sentiment.neutral);
+          sadnessList.current.push(sentiment.sadness);
+          worryList.current.push(sentiment.worry);
           return null;
         });
       })
       .then(() => {
         let tempDataList = [];
-        let sum = sadnessList.current.reduce((a, b) => a + b, 0);
-        let avg = sum / sadnessList.current.length || 0;
-        // setDataList(...dataList, avg);
+        let sum = angerList.current.reduce((a, b) => a + b, 0);
+        let avg = sum / angerList.current.length || 0;
         tempDataList.push(avg.toFixed(2) * 100);
-        sum = joyList.current.reduce((a, b) => a + b, 0);
-        avg = sum / joyList.current.length || 0;
-        // setDataList(...dataList, avg);
+        sum = happinessList.current.reduce((a, b) => a + b, 0);
+        avg = sum / happinessList.current.length || 0;
         tempDataList.push(avg.toFixed(2) * 100);
-        sum = fearList.current.reduce((a, b) => a + b, 0);
-        avg = sum / fearList.current.length || 0;
-        // setDataList(...dataList, avg);
+        sum = neutralList.current.reduce((a, b) => a + b, 0);
+        avg = sum / neutralList.current.length || 0;
         tempDataList.push(avg.toFixed(2) * 100);
-        sum = disgustList.current.reduce((a, b) => a + b, 0);
-        avg = sum / disgustList.current.length || 0;
-        // setDataList(...dataList, avg);
+        sum = sadnessList.current.reduce((a, b) => a + b, 0);
+        avg = sum / sadnessList.current.length || 0;
         tempDataList.push(avg.toFixed(2) * 100);
-        sum = angerList.current.reduce((a, b) => a + b, 0);
-        avg = sum / angerList.current.length || 0;
-        // setDataList(...dataList, avg);
+        sum = worryList.current.reduce((a, b) => a + b, 0);
+        avg = sum / worryList.current.length || 0;
         tempDataList.push(avg.toFixed(2) * 100);
-
         setDataList(tempDataList);
       });
   }, [props.match.params.name]);
@@ -67,7 +75,7 @@ const StateInfo = (props) => {
   // console.log(props.match.params.name);
 
   const dataToChart = {
-    labels: ["sadness", "joy", "fear", "digust", "anger"],
+    labels: ["anger", "happiness", "neutral", "sadness", "worry"],
     datasets: [
       {
         label: props.match.params.name,
