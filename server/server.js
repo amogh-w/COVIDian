@@ -10,11 +10,6 @@ const schema = require("./schema/schema");
 
 app.use(cors());
 
-app.get("/data/:entity", (req, res) => {
-  const entity = req.params.entity;
-  const data = require(`./data/${entity}.json`);
-  res.json(data);
-});
 
 app.listen(process.env.covidian_server_internal_port || 4000, () => {
   console.log(

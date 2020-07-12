@@ -30,6 +30,18 @@ const SentimentType = new GraphQLObjectType({
   }),
 });
 
+const latestSentiments = new GraphQLObjectType({
+  name:"latestSentiments",
+  fields: ()=>({
+    date:{ type: GraphQLString },
+    anger: { type: GraphQLFloat },
+    happiness: { type: GraphQLFloat },
+    neutral: { type: GraphQLFloat },
+    sadness: { type: GraphQLFloat },
+    worry: { type: GraphQLFloat },
+  })
+})
+
 const SentimentStateType = new GraphQLObjectType({
   name: "SentimentState",
   fields: () => ({
@@ -94,24 +106,23 @@ const RootQuery = new GraphQLObjectType({
       },
     },
     latestSentiments: {
-      type: GraphQLList(SentimentType),
+      type: GraphQLList(latestSentiments),
       resolve(parent, args) {
         const date = new Date();
         date.setDate(date.getDate() - 10);
-        console.log(date);
+        // console.log(date);
 
         let dateArray = [];
 
-        const lol = Sentiment.find({
+        return Sentiment.find({
           date_time: {
             $gte: date,
             $lt: new Date(),
           },
         }).then((res) => {
-          console.log(res);
           res.forEach((dateObj) => {
             const index = dateArray.findIndex(
-              (data) => data.date == dateObj.date_time
+              (data) => data.date == dateObj.date_time.toISOString().substring(0, 10)
             );
             if (index == -1) {
               dateArray.push({
@@ -138,9 +149,10 @@ const RootQuery = new GraphQLObjectType({
             dateArrayEle.sadness /= res.length;
             dateArrayEle.worry /= res.length;
           });
-
           return dateArray;
+
         });
+
       },
     },
     sentimentsState: {
