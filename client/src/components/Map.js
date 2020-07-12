@@ -224,22 +224,11 @@ const Map = ({ changeLoadingStatus }) => {
         <Geographies geography={INDIA_TOPO_JSON}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              // try {
-              //   console.log(
-              //     "lol",
-              //     data[0].state.toLowerCase(),
-              //     geo.properties.name.toLowerCase()
-              //   );
-              // } catch {
-              //   console.log("xD");
-              // }
-
               try {
                 const current = data.find(
                   (s) =>
                     s.state.toLowerCase() === geo.properties.name.toLowerCase()
                 );
-                // console.log(current, attribute);
                 return (
                   <Geography
                     key={geo.rsmKey}
@@ -259,6 +248,8 @@ const Map = ({ changeLoadingStatus }) => {
                   />
                 );
               } catch {}
+
+              return 0;
             })
           }
         </Geographies>
