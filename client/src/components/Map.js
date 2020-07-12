@@ -167,6 +167,7 @@ const Map = ({ changeLoadingStatus }) => {
         }
        }`,
     }).then((res) => {
+      console.log(res.data);
       setData(res.data.sentimentsState);
       changeLoadingStatus(true);
     });
@@ -209,6 +210,7 @@ const Map = ({ changeLoadingStatus }) => {
   }, []);
 
   const classes = useStyles();
+
   return (
     <div>
       <ReactTooltip>{tooltipContent}</ReactTooltip>
@@ -222,29 +224,43 @@ const Map = ({ changeLoadingStatus }) => {
         <Geographies geography={INDIA_TOPO_JSON}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              const current = data.find(
-                (s) => s.state === geo.properties.state
-              );
+              // try {
+              //   console.log(
+              //     "lol",
+              //     data[0].state.toLowerCase(),
+              //     geo.properties.name.toLowerCase()
+              //   );
+              // } catch {
+              //   console.log("xD");
+              // }
 
-              console.log(current, attribute);
-              return (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  fill={
-                    current ? colorScale(current[attribute]) : DEFAULT_COLOR
-                  }
-                  style={geographyStyle}
-                  onMouseEnter={onMouseEnter(geo, current)}
-                  onMouseLeave={onMouseLeave}
-                  onClick={() => {
-                    console.log(geo.properties.name);
-                    history.push({
-                      pathname: `/state/${geo.properties.name}`,
-                    });
-                  }}
-                />
-              );
+              try {
+                const current = data.find(
+                  (s) =>
+                    s.state.toLowerCase() === geo.properties.name.toLowerCase()
+                );
+                console.log(current, attribute);
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    fill={
+                      current ? colorScale(current[attribute]) : DEFAULT_COLOR
+                    }
+                    style={geographyStyle}
+                    onMouseEnter={onMouseEnter(geo, current)}
+                    onMouseLeave={onMouseLeave}
+                    onClick={() => {
+                      console.log(geo.properties.name);
+                      history.push({
+                        pathname: `/state/${geo.properties.name}`,
+                      });
+                    }}
+                  />
+                );
+              } catch {
+                console.log("ekdum bekar code");
+              }
             })
           }
         </Geographies>
