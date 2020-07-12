@@ -35,7 +35,7 @@ const StateInfo = (props) => {
         sadness
         worry
         }
-       }`,
+      }`,
     })
       .then((res) => {
         res.data.sentiments.map((sentiment) => {

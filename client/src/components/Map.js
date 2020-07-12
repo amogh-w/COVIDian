@@ -239,7 +239,7 @@ const Map = ({ changeLoadingStatus }) => {
                   (s) =>
                     s.state.toLowerCase() === geo.properties.name.toLowerCase()
                 );
-                console.log(current, attribute);
+                // console.log(current, attribute);
                 return (
                   <Geography
                     key={geo.rsmKey}
