@@ -4,47 +4,52 @@ import { Radar } from "react-chartjs-2";
 import useTheme from "@material-ui/core/styles/useTheme";
 import { createApolloFetch } from "apollo-fetch";
 
-
-
 const DataCharts = ({ type }) => {
-  const [keyArr,setKeyArr] = React.useState([])
-  const [valueArr,setValueArr] = React.useState([])
-  const [datasets,setDataset] = React.useState([])
+  const [keyArr, setKeyArr] = React.useState([]);
+  const [valueArr, setValueArr] = React.useState([]);
+  const [datasets, setDataset] = React.useState([]);
 
-  const pieData = React.useMemo(()=>(
-    {
+  const pieData = React.useMemo(
+    () => ({
       labels: keyArr,
       datasets: [
         {
           data: valueArr,
-          backgroundColor: ["#173F5F", "#F6D55C", "#20639B", "#3CAEA3", "#ED553B"],
+          backgroundColor: [
+            "#ed553b",
+            "#f6d55c",
+            "#3caea3",
+            "#173f5f",
+            "#20639b",
+          ],
           hoverBackgroundColor: [
-            "#173F5F",
-            "#F6D55C",
-            "#20639B",
-            "#3CAEA3",
-            "#ED553B",
+            "#ed553b",
+            "#f6d55c",
+            "#3caea3",
+            "#173f5f",
+            "#20639b",
           ],
         },
       ],
-    }
-  ),[valueArr,keyArr])
+    }),
+    [valueArr, keyArr]
+  );
 
-  const radarData = React.useMemo(()=>(
-    {
+  const radarData = React.useMemo(
+    () => ({
       labels: keyArr,
-      datasets
-    }
-  ),[keyArr,datasets])
+      datasets,
+    }),
+    [keyArr, datasets]
+  );
 
-  React.useEffect(()=>{
-  const fetch = createApolloFetch({
-    uri: `/graphql`,
-  });
-  (async ()=>{
-
-    const countryDataArr = fetch({
-      query: `{
+  React.useEffect(() => {
+    const fetch = createApolloFetch({
+      uri: `/graphql`,
+    });
+    (async () => {
+      const countryDataArr = fetch({
+        query: `{
             sentimentsCountry(country: "India") {
             id
             country
@@ -55,9 +60,9 @@ const DataCharts = ({ type }) => {
             worry
             }
         }`,
-    })
-    const mumbaiData = fetch({
-      query: `{
+      });
+      const mumbaiData = fetch({
+        query: `{
           sentimentsCity(city: "Mumbai") {
           id
           state
@@ -69,9 +74,9 @@ const DataCharts = ({ type }) => {
           worry
           }
         }`,
-    })
-    const delhiData = fetch({
-      query: `{
+      });
+      const delhiData = fetch({
+        query: `{
           sentimentsCity(city: "Delhi") {
           id
           state
@@ -83,9 +88,9 @@ const DataCharts = ({ type }) => {
           worry
           }
         }`,
-    })
-    const hyderabadData = fetch({
-      query: `{
+      });
+      const hyderabadData = fetch({
+        query: `{
           sentimentsCity(city: "Hyderabad") {
           id
           state
@@ -97,9 +102,9 @@ const DataCharts = ({ type }) => {
           worry
           }
         }`,
-    })
-    const chennaiData = fetch({
-      query: `{
+      });
+      const chennaiData = fetch({
+        query: `{
           sentimentsCity(city: "Chennai") {
           id
           state
@@ -111,9 +116,9 @@ const DataCharts = ({ type }) => {
           worry
           }
         }`,
-    })
-    const kolkataData = fetch({
-      query: `{
+      });
+      const kolkataData = fetch({
+        query: `{
           sentimentsCity(city: "Kolkata") {
           id
           state
@@ -125,50 +130,61 @@ const DataCharts = ({ type }) => {
           worry
           }
         }`,
-    })
-    const allData = await Promise.all([countryDataArr,mumbaiData,delhiData,kolkataData,hyderabadData,chennaiData])
-    const data = allData.shift()
-    let dataSetArr = []
-    let colorObj = {
-      mumbai:"rgba(179,181,198,",
-      delhi:"rgba(255,99,132,",
-      hyderabad:"rgba(50, 210, 61,",
-      chennai:"rgba(5, 143, 255,",
-      kolkata:"rgba(255, 5, 247,"
-    }
+      });
+      const allData = await Promise.all([
+        countryDataArr,
+        mumbaiData,
+        delhiData,
+        kolkataData,
+        hyderabadData,
+        chennaiData,
+      ]);
+      const data = allData.shift();
+      let dataSetArr = [];
+      let colorObj = {
+        mumbai: "rgba(179,181,198,",
+        delhi: "rgba(255,99,132,",
+        hyderabad: "rgba(50, 210, 61,",
+        chennai: "rgba(5, 143, 255,",
+        kolkata: "rgba(255, 5, 247,",
+      };
 
-    allData.forEach(cityData=>{
-      let data = cityData.data.sentimentsCity[0]
-      let city = data.city
-      delete data['city']
-      delete data['id']
-      delete data['state']
-      let primaryColor = colorObj[city.toLowerCase()] 
-      let tempValueArr = Object.values(data)
-      tempValueArr = tempValueArr.map(data=>parseInt((data*100).toFixed(4)))  
-      let obj = {
-        label:city,
-        backgroundColor: primaryColor + "0.2)",
-        borderColor: primaryColor + "1)",
-        pointBackgroundColor: primaryColor + "1)",
-        pointBorderColor: "#fff",
-        pointHoverBackgroundColor: "#fff",
-        pointHoverBorderColor: primaryColor + "1)",
-        data:tempValueArr
-      }
-      dataSetArr.push(obj)
-    })
-    // console.log(dataSetArr)
-    let countryData = data.data.sentimentsCountry[0]
-    delete countryData['country']
-    delete countryData['id']
-    setKeyArr(Object.keys(countryData))
-    let tempValueArr = Object.values(countryData)
-    tempValueArr = tempValueArr.map(data=>parseInt((data*100).toFixed(4)))
-    setValueArr(tempValueArr)
-    setDataset(dataSetArr)
-  })()
-  },[])
+      allData.forEach((cityData) => {
+        let data = cityData.data.sentimentsCity[0];
+        let city = data.city;
+        delete data["city"];
+        delete data["id"];
+        delete data["state"];
+        let primaryColor = colorObj[city.toLowerCase()];
+        let tempValueArr = Object.values(data);
+        tempValueArr = tempValueArr.map((data) =>
+          parseInt((data * 100).toFixed(4))
+        );
+        let obj = {
+          label: city,
+          backgroundColor: primaryColor + "0.2)",
+          borderColor: primaryColor + "1)",
+          pointBackgroundColor: primaryColor + "1)",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: primaryColor + "1)",
+          data: tempValueArr,
+        };
+        dataSetArr.push(obj);
+      });
+      // console.log(dataSetArr)
+      let countryData = data.data.sentimentsCountry[0];
+      delete countryData["country"];
+      delete countryData["id"];
+      setKeyArr(Object.keys(countryData));
+      let tempValueArr = Object.values(countryData);
+      tempValueArr = tempValueArr.map((data) =>
+        parseInt((data * 100).toFixed(4))
+      );
+      setValueArr(tempValueArr);
+      setDataset(dataSetArr);
+    })();
+  }, []);
 
   const theme = useTheme();
   const [themeType, setTheme] = React.useState(theme.palette.type);
