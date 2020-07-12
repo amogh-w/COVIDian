@@ -12,7 +12,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import TablePagination from "@material-ui/core/TablePagination";
-import {makeStyles,lighten} from "@material-ui/core/styles";
+import { makeStyles, lighten } from "@material-ui/core/styles";
 import { createApolloFetch } from "apollo-fetch";
 
 function descendingComparator(a, b, orderBy) {
@@ -60,23 +60,15 @@ const headCells = [
     disablePadding: true,
     label: "City",
   },
-  { id: "sadness", numeric: true, disablePadding: false, label: "Sadness" },
-  { id: "joy", numeric: true, disablePadding: false, label: "Joy" },
-  { id: "fear", numeric: true, disablePadding: false, label: "Fear" },
-  { id: "digust", numeric: true, disablePadding: false, label: "Digust" },
   { id: "anger", numeric: true, disablePadding: false, label: "Anger" },
+  { id: "happiness", numeric: true, disablePadding: false, label: "Happiness" },
+  { id: "neutral", numeric: true, disablePadding: false, label: "Neutral" },
+  { id: "sadness", numeric: true, disablePadding: false, label: "Sadness" },
+  { id: "worry", numeric: true, disablePadding: false, label: "Worry" },
 ];
 
 function EnhancedTableHead(props) {
-  const {
-    classes,
-    // onSelectAllClick,
-    order,
-    orderBy,
-    // numSelected,
-    // rowCount,
-    onRequestSort,
-  } = props;
+  const { classes, order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -84,14 +76,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell>
-          {/* <Checkbox 
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all desserts" }}
-          />*/}
-        </TableCell>
+        <TableCell></TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
@@ -170,13 +155,11 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">{/* <Delete /> */}</IconButton>
+          <IconButton aria-label="delete"></IconButton>
         </Tooltip>
       ) : (
         <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            {/* <FilterList /> */}
-          </IconButton>
+          <IconButton aria-label="filter list"></IconButton>
         </Tooltip>
       )}
     </Toolbar>
@@ -207,12 +190,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Tweets = ({ selectedState,changeLoadingStatus }) => {
+const Tweets = ({ selectedState, changeLoadingStatus }) => {
   const classes = useStyles();
   const [data, setData] = React.useState([]);
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
-  // const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -222,35 +204,6 @@ const Tweets = ({ selectedState,changeLoadingStatus }) => {
     setOrderBy(property);
   };
 
-  // const handleSelectAllClick = (event) => {
-  //   if (event.target.checked) {
-  //     const newSelecteds = data.map((n) => n.name);
-  //     setSelected(newSelecteds);
-  //     return;
-  //   }
-  //   setSelected([]);
-  // };
-
-  // const handleClick = (event, name) => {
-  //   const selectedIndex = selected.indexOf(name);
-  //   let newSelected = [];
-
-  //   if (selectedIndex === -1) {
-  //     newSelected = newSelected.concat(selected, name);
-  //   } else if (selectedIndex === 0) {
-  //     newSelected = newSelected.concat(selected.slice(1));
-  //   } else if (selectedIndex === selected.length - 1) {
-  //     newSelected = newSelected.concat(selected.slice(0, -1));
-  //   } else if (selectedIndex > 0) {
-  //     newSelected = newSelected.concat(
-  //       selected.slice(0, selectedIndex),
-  //       selected.slice(selectedIndex + 1)
-  //     );
-  //   }
-
-  //   setSelected(newSelected);
-  // };
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -259,8 +212,6 @@ const Tweets = ({ selectedState,changeLoadingStatus }) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-
-  // const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
@@ -272,23 +223,47 @@ const Tweets = ({ selectedState,changeLoadingStatus }) => {
 
     if (selectedState) {
       fetch({
-        query: `{ sentiments(state: "${selectedState}") { tweet link state city sadness joy fear disgust anger }}`,
+        query: `{
+          sentiments(state: "${selectedState}") {
+          id
+          date_time
+          tweet
+          link
+          state
+          city
+          anger
+          happiness
+          neutral
+          sadness
+          worry
+          }
+         }`,
       }).then((res) => {
-        // console.log(res.data);
         setData(res.data.sentiments);
       });
     } else {
       fetch({
-        query:
-          "{ sentiments { tweet link state city sadness joy fear disgust anger }}",
+        query: `{
+          sentiments {
+          id
+          date_time
+          tweet
+          link
+          state
+          city
+          anger
+          happiness
+          neutral
+          sadness
+          worry
+          }
+         }`,
       }).then((res) => {
-        // console.log(res.data);
-        
         setData(res.data.sentiments);
-        changeLoadingStatus(true)  
+        changeLoadingStatus(true);
       });
     }
-  }, [selectedState,changeLoadingStatus]);
+  }, [selectedState, changeLoadingStatus]);
 
   return (
     <div>
@@ -303,36 +278,19 @@ const Tweets = ({ selectedState,changeLoadingStatus }) => {
           >
             <EnhancedTableHead
               classes={classes}
-              // numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              // onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              // rowCount={data.length}
             />
             <TableBody>
               {stableSort(data, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  // const isItemSelected = isSelected(row.name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    <TableRow
-                      hover
-                      // onClick={(event) => handleClick(event, row.name)}
-                      role="checkbox"
-                      // aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={labelId}
-                      // selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        {/*   <Checkbox
-                            checked={isItemSelected}
-                            inputProps={{ "aria-labelledby": labelId }}
-                          />*/}
-                      </TableCell>
+                    <TableRow hover role="checkbox" tabIndex={-1} key={labelId}>
+                      <TableCell padding="checkbox"></TableCell>
                       <TableCell
                         component="th"
                         id={labelId}
@@ -344,15 +302,19 @@ const Tweets = ({ selectedState,changeLoadingStatus }) => {
                       <TableCell align="right">{row.state}</TableCell>
                       <TableCell align="right">{row.city}</TableCell>
                       <TableCell align="right">
+                        {row.anger.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row.happiness.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="right">
+                        {row.neutral.toFixed(2)}
+                      </TableCell>
+                      <TableCell align="right">
                         {row.sadness.toFixed(2)}
                       </TableCell>
-                      <TableCell align="right">{row.joy.toFixed(2)}</TableCell>
-                      <TableCell align="right">{row.fear.toFixed(2)}</TableCell>
                       <TableCell align="right">
-                        {row.disgust.toFixed(2)}
-                      </TableCell>
-                      <TableCell align="right">
-                        {row.anger.toFixed(2)}
+                        {row.worry.toFixed(2)}
                       </TableCell>
                     </TableRow>
                   );

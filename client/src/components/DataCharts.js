@@ -1,97 +1,236 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Radar } from "react-chartjs-2";
-import useTheme from '@material-ui/core/styles/useTheme';
-const data = {
-  labels: ["sadness", "joy", "fear", "digust", "anger"],
-  datasets: [
-    {
-      data: [0.21, 0.28, 0.07, 0.18, 0.15],
-      backgroundColor: ["#173F5F", "#F6D55C", "#20639B", "#3CAEA3", "#ED553B"],
-      hoverBackgroundColor: [
-        "#173F5F",
-        "#F6D55C",
-        "#20639B",
-        "#3CAEA3",
-        "#ED553B",
-      ],
-    },
-  ],
-};
-
-const data2 = {
-  labels: ["sadness", "joy", "fear", "digust", "anger"],
-  datasets: [
-    {
-      label: "Mumbai",
-      backgroundColor: "rgba(179,181,198,0.2)",
-      borderColor: "rgba(179,181,198,1)",
-      pointBackgroundColor: "rgba(179,181,198,1)",
-      pointBorderColor: "#fff",
-      pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(179,181,198,1)",
-      data: [23, 28, 7, 18, 16],
-    },
-    {
-      label: "Delhi",
-      backgroundColor: "rgba(255,99,132,0.2)",
-      borderColor: "rgba(255,99,132,1)",
-      pointBackgroundColor: "rgba(255,99,132,1)",
-      pointBorderColor: "#fff",
-      pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(255,99,132,1)",
-      data: [26, 28, 9, 19, 15],
-    },
-    {
-      label: "Hyderabad",
-      backgroundColor: "rgba(50, 210, 61,0.2)",
-      borderColor: "rgba(50, 210, 61,1)",
-      pointBackgroundColor: "rgba(50, 210, 61,1)",
-      pointBorderColor: "#fff",
-      pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(50, 210, 61,1)",
-      data: [18, 25, 7, 26, 16],
-    },
-    {
-      label: "Chennai",
-      backgroundColor: "rgba(5, 143, 255,0.2)",
-      borderColor: "rgba(5, 143, 255,1)",
-      pointBackgroundColor: "rgba(5, 143, 255,1)",
-      pointBorderColor: "#fff",
-      pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(5, 143, 255,1)",
-      data: [29, 21, 10, 15, 16],
-    },
-    {
-      label: "Kolkata",
-      backgroundColor: "rgba(255, 5, 247,0.2)",
-      borderColor: "rgba(255, 5, 247,1)",
-      pointBackgroundColor: "rgba(255, 5, 247,1)",
-      pointBorderColor: "#fff",
-      pointHoverBackgroundColor: "#fff",
-      pointHoverBorderColor: "rgba(255, 5, 247,1)",
-      data: [22, 24, 10, 20, 16],
-    },
-  ],
-};
-// const options=
+import useTheme from "@material-ui/core/styles/useTheme";
+import { createApolloFetch } from "apollo-fetch";
 
 const DataCharts = ({ type }) => {
-  const theme = useTheme()
-  const [themeType,setTheme] = React.useState(theme.palette.type)
-  React.useEffect(()=>{
-    setTheme(theme.palette.type)
-  },[theme.palette.type])
+  const [keyArr, setKeyArr] = React.useState([]);
+  const [valueArr, setValueArr] = React.useState([]);
+  const [datasets, setDataset] = React.useState([]);
+
+  const pieData = React.useMemo(
+    () => ({
+      labels: keyArr,
+      datasets: [
+        {
+          data: valueArr,
+          backgroundColor: [
+            "#ed553b",
+            "#f6d55c",
+            "#3caea3",
+            "#173f5f",
+            "#20639b",
+          ],
+          hoverBackgroundColor: [
+            "#ed553b",
+            "#f6d55c",
+            "#3caea3",
+            "#173f5f",
+            "#20639b",
+          ],
+        },
+      ],
+    }),
+    [valueArr, keyArr]
+  );
+
+  const radarData = React.useMemo(
+    () => ({
+      labels: keyArr,
+      datasets,
+    }),
+    [keyArr, datasets]
+  );
+
+  React.useEffect(() => {
+    const fetch = createApolloFetch({
+      uri: `/graphql`,
+    });
+    (async () => {
+      const countryDataArr = fetch({
+        query: `{
+            sentimentsCountry(country: "India") {
+            id
+            country
+            anger
+            happiness
+            neutral
+            sadness
+            worry
+            }
+        }`,
+      });
+      const mumbaiData = fetch({
+        query: `{
+          sentimentsCity(city: "Mumbai") {
+          id
+          state
+          city
+          anger
+          happiness
+          neutral
+          sadness
+          worry
+          }
+        }`,
+      });
+      const delhiData = fetch({
+        query: `{
+          sentimentsCity(city: "Delhi") {
+          id
+          state
+          city
+          anger
+          happiness
+          neutral
+          sadness
+          worry
+          }
+        }`,
+      });
+      const hyderabadData = fetch({
+        query: `{
+          sentimentsCity(city: "Hyderabad") {
+          id
+          state
+          city
+          anger
+          happiness
+          neutral
+          sadness
+          worry
+          }
+        }`,
+      });
+      const chennaiData = fetch({
+        query: `{
+          sentimentsCity(city: "Chennai") {
+          id
+          state
+          city
+          anger
+          happiness
+          neutral
+          sadness
+          worry
+          }
+        }`,
+      });
+      const kolkataData = fetch({
+        query: `{
+          sentimentsCity(city: "Kolkata") {
+          id
+          state
+          city
+          anger
+          happiness
+          neutral
+          sadness
+          worry
+          }
+        }`,
+      });
+      const allData = await Promise.all([
+        countryDataArr,
+        mumbaiData,
+        delhiData,
+        kolkataData,
+        hyderabadData,
+        chennaiData,
+      ]);
+      const data = allData.shift();
+      let dataSetArr = [];
+      let colorObj = {
+        mumbai: "rgba(179,181,198,",
+        delhi: "rgba(255,99,132,",
+        hyderabad: "rgba(50, 210, 61,",
+        chennai: "rgba(5, 143, 255,",
+        kolkata: "rgba(255, 5, 247,",
+      };
+
+      allData.forEach((cityData) => {
+        let data = cityData.data.sentimentsCity[0];
+        let city = data.city;
+        delete data["city"];
+        delete data["id"];
+        delete data["state"];
+        let primaryColor = colorObj[city.toLowerCase()];
+        let tempValueArr = Object.values(data);
+        tempValueArr = tempValueArr.map((data) =>
+          parseInt((data * 100).toFixed(4))
+        );
+        let obj = {
+          label: city,
+          backgroundColor: primaryColor + "0.2)",
+          borderColor: primaryColor + "1)",
+          pointBackgroundColor: primaryColor + "1)",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: primaryColor + "1)",
+          data: tempValueArr,
+        };
+        dataSetArr.push(obj);
+      });
+      // console.log(dataSetArr)
+      let countryData = data.data.sentimentsCountry[0];
+      delete countryData["country"];
+      delete countryData["id"];
+      setKeyArr(Object.keys(countryData));
+      let tempValueArr = Object.values(countryData);
+      tempValueArr = tempValueArr.map((data) =>
+        parseInt((data * 100).toFixed(4))
+      );
+      setValueArr(tempValueArr);
+      setDataset(dataSetArr);
+    })();
+  }, []);
+
+  const theme = useTheme();
+  const [themeType, setTheme] = React.useState(theme.palette.type);
+  React.useEffect(() => {
+    setTheme(theme.palette.type);
+  }, [theme.palette.type]);
   if (type === "doughnut") {
     return (
       <div>
-        <Doughnut data={data} options={{legend:{labels:{fontColor:themeType==='dark'?"rgb(255,255,255)":"rgb(0,0,0)"}}}} />
+        <Doughnut
+          data={pieData}
+          options={{
+            legend: {
+              labels: {
+                fontColor:
+                  themeType === "dark" ? "rgb(255,255,255)" : "rgb(0,0,0)",
+              },
+              
+            },
+            title: {
+              display: true,
+              text: 'Sentiment Distribution'
+            }
+          }}
+        />
       </div>
     );
   } else if (type === "radar") {
     return (
       <div>
-        <Radar  data={data2} options={{legend:{labels:{fontColor:themeType==='dark'?"rgb(255,255,255)":"rgb(0,0,0)"}}}} />
+        <Radar
+          data={radarData}
+          options={{
+            legend: {
+              labels: {
+                fontColor:
+                  themeType === "dark" ? "rgb(255,255,255)" : "rgb(0,0,0)",
+              },
+              
+            },
+            title: {
+              display: true,
+              text: 'Top 5 Hotspots'
+            }
+          }}
+        />
       </div>
     );
   }

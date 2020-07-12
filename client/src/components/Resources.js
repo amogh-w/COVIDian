@@ -276,11 +276,8 @@ const Resources = () => {
   return (
     <div className={styles.container}>
       <Loader loading={!Object.keys(data).length && !country.length} />
-      {/* <img className={styles.image} src={coronaImage} alt="COVID-19" /> */}
       <br />
-      {/* <text> */}
       <Typography>Global and Country Wise Cases of Corona Virus</Typography>
-      {/* </text> */}
       <br />
       <Typography>
         <i>(Select a Country from below)</i>

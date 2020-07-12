@@ -53,6 +53,26 @@ const COLOR_RANGE_ANGER = [
   "#be3d26",
 ];
 
+const COLOR_RANGE_HAPPINESS = [
+  "#fae8a4",
+  "#f9e18c",
+  "#f7db74",
+  "#f6d55c",
+  "#f5cf44",
+  "#f3c92c",
+  "#f2c214",
+];
+
+const COLOR_RANGE_NEUTRAL = [
+  "#6bccc2",
+  "#58c5bb",
+  "#45bfb3",
+  "#3caea3",
+  "#359b91",
+  "#2f887f",
+  "#28756e",
+];
+
 const COLOR_RANGE_SADNESS = [
   "#26689d",
   "#215a88",
@@ -63,17 +83,7 @@ const COLOR_RANGE_SADNESS = [
   "#081621",
 ];
 
-const COLOR_RANGE_JOY = [
-  "#fae8a4",
-  "#f9e18c",
-  "#f7db74",
-  "#f6d55c",
-  "#f5cf44",
-  "#f3c92c",
-  "#f2c214",
-];
-
-const COLOR_RANGE_FEAR = [
+const COLOR_RANGE_WORRY = [
   "#338bd5",
   "#297ec5",
   "#2471b0",
@@ -81,16 +91,6 @@ const COLOR_RANGE_FEAR = [
   "#1c5686",
   "#174871",
   "#133b5c",
-];
-
-const COLOR_RANGE_DISGUST = [
-  "#6bccc2",
-  "#58c5bb",
-  "#45bfb3",
-  "#3caea3",
-  "#359b91",
-  "#2f887f",
-  "#28756e",
 ];
 
 const DEFAULT_COLOR = "#CDCDCD";
@@ -109,7 +109,6 @@ const geographyStyle = {
   },
 };
 
-// will generate random heatmap data on every call
 const getHeatMapData = () => {
   return [];
 };
@@ -126,7 +125,6 @@ const useStyles = makeStyles((theme) => ({
 
 const State = ({ selectedState }) => {
   let geoURL;
-  // let zoomMap = 1;
   let centerMap = [80, 22];
   let scaleMap = 400;
   if (selectedState === "Andaman & Nicobar Island") {
@@ -153,7 +151,7 @@ const State = ({ selectedState }) => {
     geoURL = chhattisgarh;
     scaleMap = 2000;
     centerMap = [82, 21];
-  } else if (selectedState === "NCT of Delhi") {
+  } else if (selectedState === "Delhi") {
     geoURL = delhi;
     scaleMap = 20000;
     centerMap = [77.1, 28.6];
@@ -173,7 +171,7 @@ const State = ({ selectedState }) => {
     geoURL = himachalpradesh;
     scaleMap = 4000;
     centerMap = [77.4, 31.8];
-  } else if (selectedState === "Jammu & Kashmir") {
+  } else if (selectedState === "Jammu and Kashmir") {
     geoURL = jammukashmir;
     scaleMap = 2000;
     centerMap = [76.3, 34.5];
@@ -261,7 +259,7 @@ const State = ({ selectedState }) => {
 
   const PROJECTION_CONFIG = {
     scale: scaleMap,
-    center: centerMap, // always in [East Latitude, North Longitude]
+    center: centerMap,
   };
 
   const [tooltipContent, setTooltipContent] = React.useState("");
@@ -275,8 +273,18 @@ const State = ({ selectedState }) => {
     });
 
     fetch({
-      query:
-        "{  sentimentsCity {    city    sadness    joy    fear    disgust    anger  }}",
+      query: `{
+        sentimentsCity {
+        id
+        state
+        city
+        anger
+        happiness
+        neutral
+        sadness
+        worry
+        }
+       }`,
     }).then((res) => {
       // console.log(res.data.sentimentsState, attribute);
       setData(res.data.sentimentsCity);
@@ -288,14 +296,14 @@ const State = ({ selectedState }) => {
     console.log("HEY", event.target.value);
     if (event.target.value === "anger") {
       setColorRange(COLOR_RANGE_ANGER);
+    } else if (event.target.value === "happiness") {
+      setColorRange(COLOR_RANGE_HAPPINESS);
+    } else if (event.target.value === "neutral") {
+      setColorRange(COLOR_RANGE_NEUTRAL);
     } else if (event.target.value === "sadness") {
       setColorRange(COLOR_RANGE_SADNESS);
-    } else if (event.target.value === "joy") {
-      setColorRange(COLOR_RANGE_JOY);
-    } else if (event.target.value === "fear") {
-      setColorRange(COLOR_RANGE_FEAR);
-    } else if (event.target.value === "disgust") {
-      setColorRange(COLOR_RANGE_DISGUST);
+    } else if (event.target.value === "worry") {
+      setColorRange(COLOR_RANGE_WORRY);
     }
   };
 
@@ -341,9 +349,6 @@ const State = ({ selectedState }) => {
         <Geographies geography={geoURL}>
           {({ geographies }) =>
             geographies.map((geo) => {
-              //console.log(geo.id);
-              console.log(geo);
-
               const current = data.find(
                 (s) =>
                   s.city.toLowerCase() === geo.properties.district.toLowerCase()
@@ -360,12 +365,6 @@ const State = ({ selectedState }) => {
                   style={geographyStyle}
                   onMouseEnter={onMouseEnter(geo, current)}
                   onMouseLeave={onMouseLeave}
-                  // onClick={() => {
-                  //   console.log(geo.properties.name);
-                  //   history.push({
-                  //     pathname: `/state/${geo.properties.name}`,
-                  //   });
-                  // }}
                 />
               );
             })
@@ -381,10 +380,10 @@ const State = ({ selectedState }) => {
           onChange={handleChange}
         >
           <MenuItem value={"anger"}>Anger</MenuItem>
+          <MenuItem value={"happiness"}>Happiness</MenuItem>
+          <MenuItem value={"neutral"}>Neutral</MenuItem>
           <MenuItem value={"sadness"}>Sadness</MenuItem>
-          <MenuItem value={"joy"}>Joy</MenuItem>
-          <MenuItem value={"fear"}>Fear</MenuItem>
-          <MenuItem value={"disgust"}>Disgust</MenuItem>
+          <MenuItem value={"worry"}>Worry</MenuItem>
         </Select>
       </FormControl>
     </div>

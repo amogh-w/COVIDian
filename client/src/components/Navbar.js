@@ -1,9 +1,9 @@
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar"
-import Typography from "@material-ui/core/Typography"
-import Hidden from "@material-ui/core/Hidden"
-import Button from "@material-ui/core/Button"
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Hidden from "@material-ui/core/Hidden";
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -22,14 +22,12 @@ import SearchIcon from "@material-ui/icons/Search";
 import DescriptionIcon from "@material-ui/icons/Description";
 import InfoIcon from "@material-ui/icons/Info";
 import List from "@material-ui/core/List";
-import Switch from "@material-ui/core/Switch";
 import logo from "../media/logo.png";
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
 
 const Navbar = ({ darkState, handleThemeChange }) => {
   const [open, setOpen] = React.useState(false);
-  // const [darkState, setDarkState] = useState(false);
   const [width, setWidth] = React.useState(window.innerWidth);
   const [drawerWidth, setDrawerWidth] = React.useState(240);
   const useStyles = makeStyles((theme) => ({
@@ -85,7 +83,6 @@ const Navbar = ({ darkState, handleThemeChange }) => {
       alignItems: "center",
       justifyContent: "flex-end",
       padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
       ...theme.mixins.toolbar,
     },
     content: {
@@ -107,11 +104,6 @@ const Navbar = ({ darkState, handleThemeChange }) => {
     setDrawerWidth(240);
   }, [drawerWidth]);
 
-
-
-  // const handleThemeChange = () => {
-  //   setDarkState(!darkState);
-  // };
   const theme = useTheme();
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -122,7 +114,7 @@ const Navbar = ({ darkState, handleThemeChange }) => {
   };
 
   if (width >= 960 && width <= 1400) {
-    console.log(width)
+    console.log(width);
     return (
       <>
         <AppBar
@@ -138,7 +130,6 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               onClick={handleDrawerOpen}
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
-            // handleThemeChange={handleThemeChange}
             >
               <MenuIcon />
             </IconButton>
@@ -155,7 +146,11 @@ const Navbar = ({ darkState, handleThemeChange }) => {
                 alt="logo"
               />
             </Typography>{" "}
-            <Button color="primary" variant="contained" onClick={handleThemeChange}>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handleThemeChange}
+            >
               {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
             </Button>
           </Toolbar>
@@ -174,8 +169,8 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
-                  <ChevronLeftIcon />
-                )}
+                <ChevronLeftIcon />
+              )}
             </IconButton>
           </div>
           <Divider />
@@ -213,11 +208,6 @@ const Navbar = ({ darkState, handleThemeChange }) => {
 
   return (
     <>
-      {/* {
-      width>=960 && width<=1280
-      ?
-      :
-    } */}
       <Hidden mdDown>
         <AppBar
           position="fixed"
@@ -234,7 +224,6 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               className={clsx(classes.menuButton, {
                 [classes.hide]: open,
               })}
-            // handleThemeChange={handleThemeChange}
             >
               <MenuIcon />
             </IconButton>
@@ -252,7 +241,11 @@ const Navbar = ({ darkState, handleThemeChange }) => {
             >
               COVIDian #IndiaFightsCorona
             </Typography>
-            <Button color="primary" variant="contained" onClick={handleThemeChange}>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handleThemeChange}
+            >
               {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
             </Button>
           </Toolbar>
@@ -275,8 +268,8 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
-                  <ChevronLeftIcon />
-                )}
+                <ChevronLeftIcon />
+              )}
             </IconButton>
           </div>
           <Divider />
@@ -324,7 +317,6 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               onClick={handleDrawerOpen}
               edge="start"
               className={clsx(classes.menuButton, open && classes.hide)}
-            // handleThemeChange={handleThemeChange}
             >
               <MenuIcon />
             </IconButton>
@@ -341,7 +333,11 @@ const Navbar = ({ darkState, handleThemeChange }) => {
                 alt="logo"
               />
             </Typography>{" "}
-            <Button color="primary" variant="contained" onClick={handleThemeChange}>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={handleThemeChange}
+            >
               {!darkState ? <Brightness2Icon /> : <Brightness5Icon />}
             </Button>
           </Toolbar>
@@ -360,8 +356,8 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
               ) : (
-                  <ChevronLeftIcon />
-                )}
+                <ChevronLeftIcon />
+              )}
             </IconButton>
           </div>
           <Divider />

@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
-
 import GitHubIcon from "@material-ui/icons/GitHub";
 import useTheme from "@material-ui/core/styles/useTheme";
 import banner from "../media/banner.png";
@@ -109,7 +108,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
-                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
+                      href="#"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">
@@ -132,7 +131,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
-                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
+                      href="#"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">Rahul Lamge</Typography>
@@ -150,7 +149,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
-                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
+                      href="#"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">
@@ -173,7 +172,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
-                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
+                      href="#"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">Ram Pandey</Typography>
@@ -201,7 +200,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
-                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
+                      href="#"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">
@@ -221,7 +220,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
-                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
+                      href="#"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">Rahul Lamge</Typography>
@@ -239,7 +238,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
-                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
+                      href="#"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">
@@ -259,7 +258,7 @@ const About = () => {
                         textDecoration: "none",
                         color: themeState === "dark" ? "#fff" : "#000000",
                       }}
-                      href="https://www.youtube.com/watch?v=cq2iTHoLrt0"
+                      href="#"
                     >
                       <GitHubIcon />
                       <Typography variant="subtitle2">Ram Pandey</Typography>

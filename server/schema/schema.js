@@ -2,6 +2,7 @@ const graphql = require("graphql");
 const Sentiment = require("../models/sentiment");
 const SentimentState = require("../models/sentimentState");
 const SentimentCity = require("../models/sentimentCity");
+const SentimentCountry = require("../models/sentimentCountry");
 const GraphQLDateTime = require("graphql-type-datetime");
 
 const {
@@ -21,11 +22,23 @@ const SentimentType = new GraphQLObjectType({
     link: { type: GraphQLString },
     state: { type: GraphQLString },
     city: { type: GraphQLString },
-    sadness: { type: GraphQLFloat },
-    joy: { type: GraphQLFloat },
-    fear: { type: GraphQLFloat },
-    disgust: { type: GraphQLFloat },
     anger: { type: GraphQLFloat },
+    happiness: { type: GraphQLFloat },
+    neutral: { type: GraphQLFloat },
+    sadness: { type: GraphQLFloat },
+    worry: { type: GraphQLFloat },
+  }),
+});
+
+const latestSentiments = new GraphQLObjectType({
+  name: "latestSentiments",
+  fields: () => ({
+    date: { type: GraphQLString },
+    anger: { type: GraphQLFloat },
+    happiness: { type: GraphQLFloat },
+    neutral: { type: GraphQLFloat },
+    sadness: { type: GraphQLFloat },
+    worry: { type: GraphQLFloat },
   }),
 });
 
@@ -33,13 +46,12 @@ const SentimentStateType = new GraphQLObjectType({
   name: "SentimentState",
   fields: () => ({
     id: { type: GraphQLID },
-    key: { type: GraphQLString },
     state: { type: GraphQLString },
-    sadness: { type: GraphQLFloat },
-    joy: { type: GraphQLFloat },
-    fear: { type: GraphQLFloat },
-    disgust: { type: GraphQLFloat },
     anger: { type: GraphQLFloat },
+    happiness: { type: GraphQLFloat },
+    neutral: { type: GraphQLFloat },
+    sadness: { type: GraphQLFloat },
+    worry: { type: GraphQLFloat },
   }),
 });
 
@@ -49,11 +61,24 @@ const SentimentCityType = new GraphQLObjectType({
     id: { type: GraphQLID },
     state: { type: GraphQLString },
     city: { type: GraphQLString },
-    sadness: { type: GraphQLFloat },
-    joy: { type: GraphQLFloat },
-    fear: { type: GraphQLFloat },
-    disgust: { type: GraphQLFloat },
     anger: { type: GraphQLFloat },
+    happiness: { type: GraphQLFloat },
+    neutral: { type: GraphQLFloat },
+    sadness: { type: GraphQLFloat },
+    worry: { type: GraphQLFloat },
+  }),
+});
+
+const SentimentCountryType = new GraphQLObjectType({
+  name: "SentimentCountry",
+  fields: () => ({
+    id: { type: GraphQLID },
+    country: { type: GraphQLString },
+    anger: { type: GraphQLFloat },
+    happiness: { type: GraphQLFloat },
+    neutral: { type: GraphQLFloat },
+    sadness: { type: GraphQLFloat },
+    worry: { type: GraphQLFloat },
   }),
 });
 
@@ -80,16 +105,69 @@ const RootQuery = new GraphQLObjectType({
         }
       },
     },
+    latestSentiments: {
+      type: GraphQLList(latestSentiments),
+      resolve(parent, args) {
+        const date = new Date();
+        date.setDate(date.getDate() - 10);
+        // console.log(date);
+
+        let dateArray = [];
+
+        return Sentiment.find({
+          date_time: {
+            $gte: date,
+            $lt: new Date(),
+          },
+        })
+          .sort({ date_time: 1 })
+          .then((res) => {
+            res.forEach((dateObj) => {
+              const index = dateArray.findIndex(
+                (data) =>
+                  data.date == dateObj.date_time.toISOString().substring(0, 10)
+              );
+              if (index == -1) {
+                dateArray.push({
+                  date: dateObj.date_time.toISOString().substring(0, 10),
+                  anger: dateObj.anger,
+                  happiness: dateObj.happiness,
+                  neutral: dateObj.neutral,
+                  sadness: dateObj.sadness,
+                  worry: dateObj.worry,
+                  count: 1,
+                });
+              } else {
+                dateArray[index].anger += dateObj.anger;
+                dateArray[index].happiness += dateObj.happiness;
+                dateArray[index].neutral += dateObj.neutral;
+                dateArray[index].sadness += dateObj.sadness;
+                dateArray[index].worry += dateObj.worry;
+                dateArray[index].count += 1;
+              }
+            });
+
+            dateArray.forEach((dateArrayEle) => {
+              dateArrayEle.anger /= dateArrayEle.count;
+              dateArrayEle.happiness /= dateArrayEle.count;
+              dateArrayEle.neutral /= dateArrayEle.count;
+              dateArrayEle.sadness /= dateArrayEle.count;
+              dateArrayEle.worry /= dateArrayEle.count;
+              delete dateArrayEle.count;
+            });
+
+            return dateArray;
+          });
+      },
+    },
     sentimentsState: {
       type: GraphQLList(SentimentStateType),
-      args: { state: { type: GraphQLString }, city: { type: GraphQLString } },
+      args: { state: { type: GraphQLString } },
       resolve(parent, args) {
         if (Object.keys(args).length === 0 && args.constructor === Object) {
           return SentimentState.find({});
         } else if ("state" in args) {
           return SentimentState.find({ state: args.state });
-        } else if ("city" in args) {
-          return SentimentState.find({ city: args.city });
         }
       },
     },
@@ -103,6 +181,17 @@ const RootQuery = new GraphQLObjectType({
           return SentimentCity.find({ state: args.state });
         } else if ("city" in args) {
           return SentimentCity.find({ city: args.city });
+        }
+      },
+    },
+    sentimentsCountry: {
+      type: GraphQLList(SentimentCountryType),
+      args: { country: { type: GraphQLString } },
+      resolve(parent, args) {
+        if (Object.keys(args).length === 0 && args.constructor === Object) {
+          return SentimentCountry.find({});
+        } else if ("country" in args) {
+          return SentimentCountry.find({ country: args.country });
         }
       },
     },

@@ -6,11 +6,11 @@ const sentimentCitySchema = new Schema(
   {
     state: String,
     city: String,
-    sadness: Number,
-    joy: Number,
-    fear: Number,
-    disgust: Number,
     anger: Number,
+    happiness: Number,
+    neutral: Number,
+    sadness: Number,
+    worry: Number,
   },
   { collection: "sentiments_city" }
 );
