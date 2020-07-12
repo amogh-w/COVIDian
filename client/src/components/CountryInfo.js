@@ -12,45 +12,80 @@ import { createApolloFetch } from "apollo-fetch";
 const CountryInfo = () => {
   const [isMapLoaded, setMapLoadingStatus] = React.useState(false);
   const [isTweetLoaded, setTweetLoadingStatus] = React.useState(false);
-  const [lineData,setLineData] = React.useState([])
+  const [lineData, setLineData] = React.useState([]);
 
-  const lineGraphData = React.useMemo(()=>({
-    labels:lineData[0],
-    datasets:lineData[1]
-  }),[lineData])
+  const lineGraphData = React.useMemo(
+    () => ({
+      labels: lineData[0],
+      datasets: lineData[1],
+    }),
+    [lineData]
+  );
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     const fetch = createApolloFetch({
       uri: `/graphql`,
     });
-    (async ()=>{
-      const data =await fetch({
-        query:`{ latestSentiments { date anger happiness neutral sadness worry } }`
-      })
-      console.log(data)
-      const dateArr = []
+    (async () => {
+      const data = await fetch({
+        query: `{ latestSentiments { date anger happiness neutral sadness worry } }`,
+      });
+      console.log(data);
+      const dateArr = [];
 
       const sentimentArr = [
-        {label:'Anger',data:[],fill:false,borderColor:"rgba(179,181,198,0.2)",backgroundColor:"rgba(179,181,198,1)"},
-        {label:'Happiness',data:[],fill:false,borderColor:"rgba(255,99,132,0.2)",backgroundColor:"rgba(255,99,132,1)"},
-        {label:'Neutral',data:[],fill:false,borderColor:"rgba(50, 210, 61,0.2)",backgroundColor:"rgba(50, 210, 61,1)"},
-        {label:'Sadness',data:[],fill:false,borderColor:"rgba(5, 143, 255,0.2)",backgroundColor:"rgba(5, 143, 255,1)"},
-        {label:'Worry',data:[],fill:false,borderColor:"rgba(255, 5, 247,0.2)",backgroundColor:"rgba(255, 5, 247,1)"}
-      ]
+        {
+          label: "Anger",
+          data: [],
+          fill: false,
+          borderColor: "rgba(237, 85, 59, 0.2)",
+          backgroundColor: "rgba(237, 85, 59, 1)",
+        },
+        {
+          label: "Happiness",
+          data: [],
+          fill: false,
+          borderColor: "rgba(246, 213, 92, 0.2)",
+          backgroundColor: "rgba(246, 213, 92, 1)",
+        },
+        {
+          label: "Neutral",
+          data: [],
+          fill: false,
+          borderColor: "rgba(60, 174, 163, 0.2)",
+          backgroundColor: "rgba(60, 174, 163, 1)",
+        },
+        {
+          label: "Sadness",
+          data: [],
+          fill: false,
+          borderColor: "rgba(23, 63, 95, 0.2)",
+          backgroundColor: "rgba(23, 63, 95, 1)",
+        },
+        {
+          label: "Worry",
+          data: [],
+          fill: false,
+          borderColor: "rgba(32, 99, 155, 0.2)",
+          backgroundColor: "rgba(32, 99, 155, 1)",
+        },
+      ];
 
-      data.data.latestSentiments.forEach(dateObj=>{
-        dateArr.push(dateObj.date)
-        sentimentArr[0].data.push(dateObj.anger)
-        sentimentArr[1].data.push(dateObj.happiness)
-        sentimentArr[2].data.push(dateObj.neutral)
-        sentimentArr[3].data.push(dateObj.sadness)
-        sentimentArr[4].data.push(dateObj.worry)
-      })
+      data.data.latestSentiments.forEach((dateObj) => {
+        dateArr.push(dateObj.date);
+        sentimentArr[0].data.push((dateObj.anger * 100).toFixed());
+        sentimentArr[1].data.push((dateObj.happiness * 100).toFixed());
+        sentimentArr[2].data.push((dateObj.neutral * 100).toFixed());
+        sentimentArr[3].data.push((dateObj.sadness * 100).toFixed());
+        sentimentArr[4].data.push((dateObj.worry * 100).toFixed());
+      });
 
-      setLineData(dateArr,sentimentArr)
-    })()
-  },[])
-  
+      setLineData([dateArr, sentimentArr]);
+    })();
+  }, []);
+
+  console.log(lineGraphData);
+
   return (
     <div>
       <Loader loading={!isMapLoaded && !isTweetLoaded} />

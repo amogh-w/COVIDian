@@ -9,9 +9,9 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import FormControl from "@material-ui/core/FormControl";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
+import IndiaMap from "../topojsons/india.topo.json";
 
-const INDIA_TOPO_JSON =
-  "https://raw.githubusercontent.com/varunon9/india-choropleth-javascript/master/src/india.topo.json";
+const INDIA_TOPO_JSON = IndiaMap;
 
 const PROJECTION_CONFIG = {
   scale: 1600,
@@ -258,9 +258,7 @@ const Map = ({ changeLoadingStatus }) => {
                     }}
                   />
                 );
-              } catch {
-                console.log("ekdum bekar code");
-              }
+              } catch {}
             })
           }
         </Geographies>

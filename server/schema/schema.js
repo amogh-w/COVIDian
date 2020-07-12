@@ -31,16 +31,16 @@ const SentimentType = new GraphQLObjectType({
 });
 
 const latestSentiments = new GraphQLObjectType({
-  name:"latestSentiments",
-  fields: ()=>({
-    date:{ type: GraphQLString },
+  name: "latestSentiments",
+  fields: () => ({
+    date: { type: GraphQLString },
     anger: { type: GraphQLFloat },
     happiness: { type: GraphQLFloat },
     neutral: { type: GraphQLFloat },
     sadness: { type: GraphQLFloat },
     worry: { type: GraphQLFloat },
-  })
-})
+  }),
+});
 
 const SentimentStateType = new GraphQLObjectType({
   name: "SentimentState",
@@ -119,40 +119,45 @@ const RootQuery = new GraphQLObjectType({
             $gte: date,
             $lt: new Date(),
           },
-        }).then((res) => {
-          res.forEach((dateObj) => {
-            const index = dateArray.findIndex(
-              (data) => data.date == dateObj.date_time.toISOString().substring(0, 10)
-            );
-            if (index == -1) {
-              dateArray.push({
-                date: dateObj.date_time.toISOString().substring(0, 10),
-                anger: dateObj.anger,
-                happiness: dateObj.happiness,
-                neutral: dateObj.neutral,
-                sadness: dateObj.sadness,
-                worry: dateObj.worry,
-              });
-            } else {
-              dateArray[index].anger += dateObj.anger;
-              dateArray[index].happiness += dateObj.happiness;
-              dateArray[index].neutral += dateObj.neutral;
-              dateArray[index].sadness += dateObj.sadness;
-              dateArray[index].worry += dateObj.worry;
-            }
+        })
+          .sort({ date_time: 1 })
+          .then((res) => {
+            res.forEach((dateObj) => {
+              const index = dateArray.findIndex(
+                (data) =>
+                  data.date == dateObj.date_time.toISOString().substring(0, 10)
+              );
+              if (index == -1) {
+                dateArray.push({
+                  date: dateObj.date_time.toISOString().substring(0, 10),
+                  anger: dateObj.anger,
+                  happiness: dateObj.happiness,
+                  neutral: dateObj.neutral,
+                  sadness: dateObj.sadness,
+                  worry: dateObj.worry,
+                  count: 1,
+                });
+              } else {
+                dateArray[index].anger += dateObj.anger;
+                dateArray[index].happiness += dateObj.happiness;
+                dateArray[index].neutral += dateObj.neutral;
+                dateArray[index].sadness += dateObj.sadness;
+                dateArray[index].worry += dateObj.worry;
+                dateArray[index].count += 1;
+              }
+            });
+
+            dateArray.forEach((dateArrayEle) => {
+              dateArrayEle.anger /= dateArrayEle.count;
+              dateArrayEle.happiness /= dateArrayEle.count;
+              dateArrayEle.neutral /= dateArrayEle.count;
+              dateArrayEle.sadness /= dateArrayEle.count;
+              dateArrayEle.worry /= dateArrayEle.count;
+              delete dateArrayEle.count;
+            });
+
+            return dateArray;
           });
-
-          dateArray.forEach((dateArrayEle) => {
-            dateArrayEle.anger /= res.length;
-            dateArrayEle.happiness /= res.length;
-            dateArrayEle.neutral /= res.length;
-            dateArrayEle.sadness /= res.length;
-            dateArrayEle.worry /= res.length;
-          });
-          return dateArray;
-
-        });
-
       },
     },
     sentimentsState: {
