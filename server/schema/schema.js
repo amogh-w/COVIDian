@@ -99,11 +99,47 @@ const RootQuery = new GraphQLObjectType({
         const date = new Date();
         date.setDate(date.getDate() - 10);
         console.log(date);
-        return Sentiment.find({
+
+        let dateArray = [];
+
+        const lol = Sentiment.find({
           date_time: {
             $gte: date,
             $lt: new Date(),
           },
+        }).then((res) => {
+          console.log(res);
+          res.forEach((dateObj) => {
+            const index = dateArray.findIndex(
+              (data) => data.date == dateObj.date_time
+            );
+            if (index == -1) {
+              dateArray.push({
+                date: dateObj.date_time.toISOString().substring(0, 10),
+                anger: dateObj.anger,
+                happiness: dateObj.happiness,
+                neutral: dateObj.neutral,
+                sadness: dateObj.sadness,
+                worry: dateObj.worry,
+              });
+            } else {
+              dateArray[index].anger += dateObj.anger;
+              dateArray[index].happiness += dateObj.happiness;
+              dateArray[index].neutral += dateObj.neutral;
+              dateArray[index].sadness += dateObj.sadness;
+              dateArray[index].worry += dateObj.worry;
+            }
+          });
+
+          dateArray.forEach((dateArrayEle) => {
+            dateArrayEle.anger /= res.length;
+            dateArrayEle.happiness /= res.length;
+            dateArrayEle.neutral /= res.length;
+            dateArrayEle.sadness /= res.length;
+            dateArrayEle.worry /= res.length;
+          });
+
+          return dateArray;
         });
       },
     },
