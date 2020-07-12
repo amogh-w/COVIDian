@@ -7,29 +7,13 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import numpy as np
 
-# import uvicorn
-
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_headers=["*"], allow_methods=["*"],
 )
 
-# print(os.getcwd())
-# print(os.listdir("/app"))
-
-# model = pickle.load(open("/app/models/lstm/model_amogh.pickle", "rb",))
-model = load_model(
-    "/Users/amogh/Documents/Study/twitter/data_science/predict/models/lstm/model.h5"
-)
-# model = load_model("/app/models/lstm/model.h5")
-# tokenizer = pickle.load(open("/app/models/lstm/tokenizer.pickle", "rb"))
-tokenizer = pickle.load(
-    open(
-        "/Users/amogh/Documents/Study/twitter/data_science/predict/models/lstm/tokenizer.pickle",
-        "rb",
-    )
-)
-# tokenizer = pickle.load(open("/app/models/lstm/tokenizer.pickle", "rb",))
+model = load_model("/app/models/lstm/model_v6.h5")
+tokenizer = pickle.load(open("/app/models/lstm/tokenizer_v6.pickle", "rb"))
 
 
 class Data(BaseModel):
@@ -45,6 +29,6 @@ def predict(data: Data):
     input_string = []
     input_string.append(data_dict["tweet"])
     sequences = tokenizer.texts_to_sequences(input_string)
-    X_processed = pad_sequences(sequences, padding="post", maxlen=48)
+    X_processed = pad_sequences(sequences, padding="post", maxlen=30)
     score = model.predict(X_processed)
     return {"prediction": score_list[np.argmax(score)]}
