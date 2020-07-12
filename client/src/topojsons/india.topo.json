@@ -281,7 +281,7 @@
         {
           "type": "Polygon",
           "id": "DL",
-          "properties": { "name": "NCT of Delhi" },
+          "properties": { "name": "Delhi" },
           "arcs": [[-88, -132]]
         }
       ]

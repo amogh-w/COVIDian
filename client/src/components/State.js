@@ -151,7 +151,7 @@ const State = ({ selectedState }) => {
     geoURL = chhattisgarh;
     scaleMap = 2000;
     centerMap = [82, 21];
-  } else if (selectedState === "NCT of Delhi") {
+  } else if (selectedState === "Delhi") {
     geoURL = delhi;
     scaleMap = 20000;
     centerMap = [77.1, 28.6];
@@ -171,7 +171,7 @@ const State = ({ selectedState }) => {
     geoURL = himachalpradesh;
     scaleMap = 4000;
     centerMap = [77.4, 31.8];
-  } else if (selectedState === "Jammu & Kashmir") {
+  } else if (selectedState === "Jammu and Kashmir") {
     geoURL = jammukashmir;
     scaleMap = 2000;
     centerMap = [76.3, 34.5];

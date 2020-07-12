@@ -93,7 +93,7 @@ const CountryInfo = () => {
         <Grid item xs={12} sm={6}>
           <Paper style={{ padding: "10px" }}>
             <DataCharts type="doughnut" />
-            <Divider style={{ margin: "35px 0px" }} />
+            <Divider style={{ marginTop: "35px", marginBottom: "10px" }} />
             <DataCharts type="radar" />
           </Paper>
         </Grid>
@@ -104,7 +104,10 @@ const CountryInfo = () => {
         </Grid>
       </Grid>
       <Paper style={{ marginTop: "10px", padding: "10px" }}>
-        <Line options={{title:{display:true,text:"Sentiment Timeline"}}} data={lineGraphData} />
+        <Line
+          options={{ title: { display: true, text: "Sentiment Timeline" } }}
+          data={lineGraphData}
+        />
       </Paper>
       <Paper style={{ marginTop: "10px", padding: "10px" }}>
         <Tweets changeLoadingStatus={setTweetLoadingStatus} />
