@@ -93,6 +93,20 @@ const RootQuery = new GraphQLObjectType({
         }
       },
     },
+    latestSentiments: {
+      type: GraphQLList(SentimentType),
+      resolve(parent, args) {
+        const date = new Date();
+        date.setDate(date.getDate() - 10);
+        console.log(date);
+        return Sentiment.find({
+          date_time: {
+            $gte: date,
+            $lt: new Date(),
+          },
+        });
+      },
+    },
     sentimentsState: {
       type: GraphQLList(SentimentStateType),
       args: { state: { type: GraphQLString } },
