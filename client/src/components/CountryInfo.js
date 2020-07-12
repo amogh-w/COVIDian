@@ -104,7 +104,7 @@ const CountryInfo = () => {
         </Grid>
       </Grid>
       <Paper style={{ marginTop: "10px", padding: "10px" }}>
-        <Line data={lineGraphData} />
+        <Line options={{title:{display:true,text:"Sentiment Timeline"}}} data={lineGraphData} />
       </Paper>
       <Paper style={{ marginTop: "10px", padding: "10px" }}>
         <Tweets changeLoadingStatus={setTweetLoadingStatus} />

@@ -202,7 +202,12 @@ const DataCharts = ({ type }) => {
                 fontColor:
                   themeType === "dark" ? "rgb(255,255,255)" : "rgb(0,0,0)",
               },
+              
             },
+            title: {
+              display: true,
+              text: 'Sentiment Distribution'
+            }
           }}
         />
       </div>
@@ -218,7 +223,12 @@ const DataCharts = ({ type }) => {
                 fontColor:
                   themeType === "dark" ? "rgb(255,255,255)" : "rgb(0,0,0)",
               },
+              
             },
+            title: {
+              display: true,
+              text: 'Top 5 Hotspots'
+            }
           }}
         />
       </div>
