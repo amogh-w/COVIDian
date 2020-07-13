@@ -7,6 +7,10 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import numpy as np
 
+maxLen = 30
+padding = 'post'
+truncating = 'post'
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware, allow_origins=["*"], allow_headers=["*"], allow_methods=["*"],
@@ -20,7 +24,7 @@ class Data(BaseModel):
     tweet: str
 
 
-score_list = ["anger", "happiness", "neutral", "sadness", "worry"]
+score_list = ["Anger", "Happiness", "Neutral", "Sadness", "Worry"]
 
 
 @app.post("/predict")
@@ -31,4 +35,5 @@ def predict(data: Data):
     sequences = tokenizer.texts_to_sequences(input_string)
     X_processed = pad_sequences(sequences, padding="post", maxlen=30)
     score = model.predict(X_processed)
-    return {"prediction": score_list[np.argmax(score)]}
+    maximum = max(score[0])*100
+    return {"prediction": str(score_list[np.argmax(score)] + ' ' + format(maximum, '.2f') + '%')}
