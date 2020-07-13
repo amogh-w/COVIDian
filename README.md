@@ -1,6 +1,12 @@
 <div  align="center">
     <img src="/client/src/media/logo.png?raw=true" width="50px">
+
+<hr>
+
+[![amogh-w](https://circleci.com/gh/amogh-w/COVIDian.svg?style=shield)](https://circleci.com/gh/amogh-w/COVIDian)
+
 </div>
+
 <h3 align="center"> COVIDian - An COVID Tweet Sentiment Visualizer and Analyser Application </h3>
   <p align="center">
     A React Application
