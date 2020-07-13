@@ -17,6 +17,12 @@
 
 ![](/client/src/media/banner.png?raw=true "Merged")
 
+<div align="center">
+
+[Working Video of the Project](https://drive.google.com/file/d/1EVTKsxU0-cQSoa3hG32U82_RKG1d0lfl/view?usp=sharing)
+
+</div>
+
 ## Table of Contents
 
 - [About The Project](#about-the-project)
