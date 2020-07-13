@@ -8,4 +8,5 @@ jobs:
       # Maybe you need to add some config file specific to circle…
       # - run: cp .circleci/.some-parameter-file .some-parameter-file
       - run: docker-compose -f docker-compose.dev.yml up -d
+      - run: pip install unittest2 requests
       - run: python tests.py
