@@ -27,7 +27,7 @@ app.post("/chat", async (req, res) => {
   const statesArr = result.parameters.fields.state.listValue.values;
   const need = result.parameters.fields.need.listValue.values;
   const casesData = [];
-  if (need[0] === "cases") {
+  if (need[0].stringValue === "cases") {
     const [, countryData] = await Nfetch(
       "https://covid-19india-api.herokuapp.com/all"
     ).then((data) => data.json());
@@ -44,7 +44,7 @@ app.post("/chat", async (req, res) => {
     return res.send({ data: casesData });
   }
 
-  let query = "";
+  // let query = ""
   // if (need==='emotion')
 
   // const emotionData = await fetch({
@@ -81,7 +81,7 @@ app.use(
   })
 );
 
-mongoose.connect(`${process.env.covidian_server_internal_mongo_url}`, {
+mongoose.connect(`${process.env.mongo_url}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
