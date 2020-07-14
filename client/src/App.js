@@ -16,7 +16,7 @@ const StateInfo = React.lazy(() => import(/* webpackChunkName: "StateInfo" */ '.
 const LiveTweet = React.lazy(() => import(/* webpackChunkName: "LiveTweet" */ './components/LiveTweet'))
 const Resources = React.lazy(() => import(/* webpackChunkName: "Resources" */ './components/Resources'))
 const About = React.lazy(() => import(/* webpackChunkName: "About" */ './components/About'))
-
+const ChatBot = React.lazy(()=>import('./components/Chatbot'))
 
 const App = () => {
   const [darkState, setDarkState] = React.useState(window.localStorage.getItem('darkMode') === 'true' ? true : false);
@@ -67,6 +67,7 @@ const App = () => {
               <Route path="/analyzer" component={LiveTweet} />
               <Route path="/resources" component={Resources} />
               <Route path="/about" component={About} />
+              <Route path="/chatbot" component={ChatBot} />
             </div>
           </Container>
         </ThemeProvider>

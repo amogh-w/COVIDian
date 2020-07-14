@@ -25,6 +25,7 @@ import List from "@material-ui/core/List";
 import logo from "../media/logo.png";
 import Brightness5Icon from "@material-ui/icons/Brightness5";
 import Brightness2Icon from "@material-ui/icons/Brightness2";
+import ChatIcon from '@material-ui/icons/Chat';
 
 const Navbar = ({ darkState, handleThemeChange }) => {
   const [open, setOpen] = React.useState(false);
@@ -199,6 +200,12 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               </ListItemIcon>
               <ListItemText>About</ListItemText>
             </ListItem>
+            <ListItem button component={Link} to="/chatbot">
+              <ListItemIcon>
+                <ChatIcon />
+              </ListItemIcon>
+              <ListItemText>Chatbot</ListItemText>
+            </ListItem>
           </List>
           <Divider />
         </Drawer>
@@ -298,6 +305,12 @@ const Navbar = ({ darkState, handleThemeChange }) => {
               </ListItemIcon>
               <ListItemText>About</ListItemText>
             </ListItem>
+            <ListItem button component={Link} to="/chatbot">
+              <ListItemIcon>
+                <ChatIcon />
+              </ListItemIcon>
+              <ListItemText>Chatbot</ListItemText>
+            </ListItem>
           </List>
           <Divider />
         </Drawer>
@@ -385,6 +398,12 @@ const Navbar = ({ darkState, handleThemeChange }) => {
                 <InfoIcon />
               </ListItemIcon>
               <ListItemText>About</ListItemText>
+            </ListItem>
+            <ListItem button component={Link} to="/chatbot">
+              <ListItemIcon>
+                <ChatIcon />
+              </ListItemIcon>
+              <ListItemText>Chatbot</ListItemText>
             </ListItem>
           </List>
           <Divider />
