@@ -19,18 +19,32 @@
 
 <div align="center">
 
-[Working Video of the Project](https://drive.google.com/file/d/1EVTKsxU0-cQSoa3hG32U82_RKG1d0lfl/view?usp=sharing)
+[Working Video of the Project](https://drive.google.com/file/d/17-qquI2mjYX6xW0koSNeETowm-l-jzAs/view)
+
+</div>
+<div align="center">
+
+[Working Website](http://ec2-18-206-241-236.compute-1.amazonaws.com:3050/)
 
 </div>
 
 ## Table of Contents
 
+- [For IBM Hack 2020 Judges](#presentation-for-judges)
 - [About The Project](#about-the-project)
 - [Dashboard](#dashboard)
   - [Resources](#resources)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
 - [Team Members](#team-members)
+
+## Presentation for Judges
+
+- [Click here to view working Website](http://ec2-18-206-241-236.compute-1.amazonaws.com:3050/)
+- [Presentation](/presentation/IBM_1800_Presentation.pdf)
+- [Project Code](https://github.com/SmartPracticeschool/SBSPS-Challenge-1800-Sentiment-Analysis-of-COVID-19-Tweets-Visualization-Dashboard)
+- [Video Demonstration](https://drive.google.com/file/d/17-qquI2mjYX6xW0koSNeETowm-l-jzAs/view)
+- [Final Report](/presentation/IBM_1800_Report.pdf)
 
 ## About The Project:
 
@@ -40,13 +54,14 @@ COVIDian offers different ways of visualizing as well as analyzing tweets.
 - National-level statistics are available on the main dashboard.
   - Cumulative data on emotions are displayed in the doughnut chart, and city hotspots are displayed in the radar chart.
   - To remove a city/emotion from the chart, _simply click on it_!
-  - Over 3000 tweets (and counting) and their emotion values are displayed on the main dashboard.
+  - Over 6000 tweets (and counting) and their emotion values are displayed on the main dashboard.
 - **Map of India** visualizes the emotion distribution, emotion wise! Just change the emotion to view the distribution.
 - Users can view state-wise information as well! Click on the state and see the results. Map of state, radar chart for emotions and, state-specific tweets will be shown. _District/City-wise distribution is in beta phase and will be out soon_
 - **Tweet Analyzer** is where the real magic is at, all you have to do is put a tweet and our model will predict its emotions! To make our lives easy we have embedded twitter as well, just type the twitter handle and we fetch the tweet for you.
 - To keep in touch with reality and severity of COVID-19, **Resources** tab offers you _COVID-19 tracker_. Daily updates on infected, recovered and deaths related to coronavirus can be seen here.
+- **COVIDianBot** will use AI technology to understand what you are typing and will reply with the correct answer to your query.You can ask the bot the number of cases or the results of sentiment analysis.
 
-## Dashboard Page
+## Dashboard
 
 Presenting an all-in-one dashboard to visualize emotions to **coronavirus pandemic** and **government decisions** related to it,based on Twitter data.
 
@@ -70,6 +85,16 @@ Enter a twitter username to get a list of the users tweets. You can perform live
 Latest updates on tweets and COVID statistics can be found here.
 
 ![4](/media/5.png?raw=true "Resources")
+
+## COVIDianBot
+
+The bot will use AI technology to understand what you are typing and will reply with the correct answer to your query.
+
+You can ask the bot the number of cases or the results of sentiment analysis. The bot will use AI technology to understand what you are typing and will reply with the correct answer to your query.
+
+For now we have restricted it to States of India.
+
+![5](/media/7.png?raw=true "Bot")
 
 ### Resources:
 
@@ -100,6 +125,12 @@ Latest updates on tweets and COVID statistics can be found here.
 - [Uvicorn](https://www.uvicorn.org/) - Uvicorn is a lightning-fast ASGI server, built on uvloop and httptools.
 
 ## Getting Started:
+
+### Finished Product
+
+[Working Website](http://ec2-18-206-241-236.compute-1.amazonaws.com:3050/)
+
+### Development
 
 1. Clone the repo
 2. Populate the sample.env and save to .env file in the same folder as _docker-compose.yml_

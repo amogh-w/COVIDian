@@ -18,6 +18,7 @@ services:
     restart: always
     depends_on:
       - covidian_server
+      # - covidian_predict
     volumes:
       - /app/node_modules
       - ./client:/app
@@ -26,6 +27,5 @@ services:
     build: ./server
     environment:
       - covidian_server_internal_mongo_url=${covidian_server_internal_mongo_url}
-
   # covidian_predict:
   #   build: ./data_science/predict
