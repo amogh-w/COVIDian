@@ -37,6 +37,60 @@ const About = () => {
               which will be sorted through and displayed as per geographic
               regions.
             </Typography>
+            <Typography variant="h5">About the Project:</Typography>
+            <Typography variant="body2">
+              COVIDian offers different ways of visualizing as well as analyzing
+              tweets.
+              <ul>
+                <li>COVIDian is now available in dark mode!</li>
+                <li>
+                  National-level statistics are available on the main dashboard
+                  <ul>
+                    <li>
+                      Cumulative data on emotions are displayed in the doughnut
+                      chart, and city hotspots are displayed in the radar chart.
+                    </li>
+                    <li>
+                      To remove a city/emotion from the chart, simply click on
+                      it!
+                    </li>
+                    <li>
+                      Over 6000 tweets (and counting) and their emotion values
+                      are displayed on the main dashboard.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Map of India visualizes the emotion distribution, emotion
+                  wise! Just change the emotion to view the distribution.
+                </li>
+                <li>
+                  Users can view state-wise information as well! Click on the
+                  state and see the results. Map of state, radar chart for
+                  emotions and, state-specific tweets will be shown.
+                  District/City-wise distribution is in beta phase and will be
+                  out soon.
+                </li>
+                <li>
+                  Tweet Analyzer is where the real magic is at, all you have to
+                  do is put a tweet and our model will predict its emotions! To
+                  make our lives easy we have embedded twitter as well, just
+                  type the twitter handle and we fetch the tweet for you.
+                </li>
+                <li>
+                  To keep in touch with reality and severity of COVID-19,
+                  Resources tab offers you COVID-19 tracker. Daily updates on
+                  infected, recovered and deaths related to coronavirus can be
+                  seen here.
+                </li>
+                <li>
+                  COVIDianBot will use AI technology to understand what you are
+                  typing and will reply with the correct answer to your
+                  query.You can ask the bot the number of cases or the results
+                  of sentiment analysis.
+                </li>
+              </ul>
+            </Typography>
             <Typography variant="h5">Novelty/Uniqueness:</Typography>
             <Typography variant="body2">
               <ul>
@@ -79,6 +133,9 @@ const About = () => {
               <ul>
                 <li>MongoDB with GraphQL server</li>
                 <li>IBM Watson Studio for faster ML model serving</li>
+                <li>Docker</li>
+                <li>FastAPI</li>
+                <li>Uvicorn</li>
               </ul>
               <Typography>
                 <Box fontWeight="fontWeightBold">Machine Learning</Box>
