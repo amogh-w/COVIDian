@@ -44,7 +44,7 @@
 - [Presentation](/presentation/IBM_1800_Presentation.pdf)
 - [Project Code](https://github.com/SmartPracticeschool/SBSPS-Challenge-1800-Sentiment-Analysis-of-COVID-19-Tweets-Visualization-Dashboard)
 - [Video Demonstration](https://drive.google.com/file/d/17-qquI2mjYX6xW0koSNeETowm-l-jzAs/view)
-- [Final Report](/presentation/IBM_1800_Report.docx)
+- [Final Report](/presentation/IBM_1800_Report.pdf)
 
 ## About The Project:
 
