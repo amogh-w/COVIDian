@@ -25,12 +25,17 @@
 
 ## Table of Contents
 
+- [For IBM Hack 2020 Judges](#presentation-for-judges)
 - [About The Project](#about-the-project)
 - [Dashboard](#dashboard)
   - [Resources](#resources)
 - [Getting Started](#getting-started)
 - [Contributing](#contributing)
 - [Team Members](#team-members)
+
+## Presentation for Judges
+
+![Presentation](/presentation/IBM_1800_Presentation.pdf)
 
 ## About The Project:
 
@@ -46,7 +51,7 @@ COVIDian offers different ways of visualizing as well as analyzing tweets.
 - **Tweet Analyzer** is where the real magic is at, all you have to do is put a tweet and our model will predict its emotions! To make our lives easy we have embedded twitter as well, just type the twitter handle and we fetch the tweet for you.
 - To keep in touch with reality and severity of COVID-19, **Resources** tab offers you _COVID-19 tracker_. Daily updates on infected, recovered and deaths related to coronavirus can be seen here.
 
-## Dashboard Page
+## Dashboard
 
 Presenting an all-in-one dashboard to visualize emotions to **coronavirus pandemic** and **government decisions** related to it,based on Twitter data.
 
