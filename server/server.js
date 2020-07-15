@@ -45,6 +45,29 @@ app.post('/chat', async (req, res) => {
     // const requiredData = countryData.state_data.find(stateData=>stateData.state.toLowerCase()===state.toLowerCase())
     return res.send({ query })
   }
+  if(need[0].stringValue==='sentiments'){
+  await asyncForEach(statesArr,async(data)=>{
+    const emotionData = await fetch({
+      query: `{
+        sentimentsState(state: "${data.stringValue}") {
+          anger
+          happiness
+          neutral
+          sadness
+          worry
+        }
+      }`,
+    })
+    query+=`${data.stringValue} stats -\n`
+    const keys = Object.keys(emotionData.data.sentimentsState[0])
+    const values = Object.values(emotionData.data.sentimentsState[0])
+    keys.forEach((emo,index)=>{
+      query+=`${(values[index]*100).toFixed(2)}% of people feel ${emo}\n`
+    })
+  })
+  return res.send({query})
+  }
+
   let emotionsQuery = ""
   await asyncForEach(statesArr, async (data) => {
     // asyncForEach(need, async (item) => {
