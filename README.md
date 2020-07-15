@@ -24,7 +24,7 @@
 </div>
 <div align="center">
 
-[Working Website](http://ec2-18-206-241-236.compute-1.amazonaws.com:3050/)
+# [Working Website](http://ec2-3-208-26-84.compute-1.amazonaws.com:3050/)
 
 </div>
 
@@ -40,7 +40,7 @@
 
 ## Presentation for Judges
 
-- [Click here to view working Website](http://ec2-18-206-241-236.compute-1.amazonaws.com:3050/)
+- [Working Website](http://ec2-3-208-26-84.compute-1.amazonaws.com:3050/)
 - [Presentation](/presentation/IBM_1800_Presentation.pdf)
 - [Project Code](https://github.com/SmartPracticeschool/SBSPS-Challenge-1800-Sentiment-Analysis-of-COVID-19-Tweets-Visualization-Dashboard)
 - [Video Demonstration](https://drive.google.com/file/d/17-qquI2mjYX6xW0koSNeETowm-l-jzAs/view)
