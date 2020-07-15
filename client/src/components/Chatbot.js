@@ -76,6 +76,7 @@ const useStyles = makeStyles({
     top: 110,
     bottom: 90,
     width: "80vw",
+    overflowY: "scroll",
     position: "fixed",
   },
 });
