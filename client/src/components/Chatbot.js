@@ -75,14 +75,15 @@ const useStyles = makeStyles({
   chatCont: {
     top: 110,
     bottom: 90,
-    width: "65vw",
+    width: "80vw",
     position: "fixed",
   },
 });
 
 const ChatBot = () => {
   const WelcomMessage = `Welcome to COVIDian. Feel free to 
-    ask the number of cases or the sentiment in a specific state.`;
+    ask the number of cases or the sentiment in a specific state. 
+    You can ask me 'Tell me the cases in Maharashtra' or 'Tell me the sentiments in Gujarat' or 'Anger in Rajasthan'`;
   const [chatHistory, setChatHistory] = useState([
     { type: "bot", message: WelcomMessage },
   ]);
