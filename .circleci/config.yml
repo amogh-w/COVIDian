@@ -1,0 +1,12 @@
+version: 2 # CircleCI version
+jobs:
+  build:
+    machine: true # Use a Linux VM instead of docker environment
+    working_directory: ~/repo # Default working directory, where your project will be cloned
+    steps:
+      - checkout
+      # Maybe you need to add some config file specific to circle…
+      # - run: cp .circleci/.some-parameter-file .some-parameter-file
+      - run: docker-compose -f docker-compose.dev.yml up -d
+      - run: pip install unittest2 requests
+      - run: python tests.py
