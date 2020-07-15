@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         bottom: 0,
         width: "100%",
         height: "81px",
-        backgroundColor: "#f2f2f2",
+        // backgroundColor: "#f2f2f2",
     },
     textField: {
         position: 'fixed',
@@ -109,12 +109,6 @@ const ChatBot = () => {
     const chatEndRef = React.createRef()
     const [loading, setLoading] = useState(false)
 
-    const scrollDown = () => {
-        if (loading === false) {
-            var elem = document.getElementById('scrolldiv');
-            elem.scrollTop = elem.scrollHeight;
-        }
-    }
     const scrollToBottom = () => {
         if (loading === false) {
             var elem = document.getElementById('scrolldiv');
@@ -142,10 +136,10 @@ const ChatBot = () => {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({ msg: currentmsg })
-        });
+        }).then(res=>res.json());
 
 
-        setChatHistory([...chatHistory, { type: "user", message: currentmsg }, { type: "bot", message: data.reply }]);
+        setChatHistory([...chatHistory, { type: "user", message: currentmsg }, { type: "bot", message: data.query }]);
         // await setDisabled(false)
         scrollToBottom();
         inputRef.current.focus()
