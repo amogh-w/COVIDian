@@ -13,7 +13,7 @@
     "graphql": "^15.1.0",
     "graphql-type-datetime": "^0.2.4",
     "mongoose": "^5.9.19",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "nodemon": "^2.0.4",
     "uuid": "^8.2.0"
   }
